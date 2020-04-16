@@ -1,18 +1,42 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <el-header>
+      <el-menu router :default-active="$route.path" class="el-menu-demo" mode="horizontal">
+        <el-menu-item index="/about">Home</el-menu-item>
+        <el-submenu index="/about">
+          <template slot="title">Workspace</template>
+          <el-menu-item index="2-1">item one</el-menu-item>
+          <el-menu-item index="2-2">item two</el-menu-item>
+          <el-menu-item index="2-3">item three</el-menu-item>
+          <el-submenu index="2-4">
+            <template slot="title">item four</template>
+            <el-menu-item index="2-4-1">item one</el-menu-item>
+            <el-menu-item index="2-4-2">item two</el-menu-item>
+            <el-menu-item index="2-4-3">item three</el-menu-item>
+          </el-submenu>
+        </el-submenu>
+        <el-menu-item index="/create">Create</el-menu-item>
+        <el-menu-item index="/about"><a href="https://www.ele.me" target="_blank">Orders</a></el-menu-item>
+        <el-menu-item index="/about" class="text-right">Login</el-menu-item>
+      </el-menu>
+    </el-header>
+    <el-main class="main">
+      <router-view></router-view>
+    </el-main>
   </div>
 </template>
-
-<script>
+<style scoped>
+  .el-main {
+    padding: 20px 0 0;
+  }
+</style>
+<script lang="ts">
 // @ is an alias to /src
+import { Component, Vue } from 'vue-property-decorator';
 import HelloWorld from '@/components/HelloWorld.vue'
 
-export default {
-  name: 'Home',
-  components: {
-    HelloWorld
-  }
+@Component
+export default class Home extends Vue {
+  private activeIndex: string = '1';
 }
 </script>

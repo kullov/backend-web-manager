@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../views/Home.vue'
+import About from '../views/About.vue'
+import Create from '../views/Create.vue'
 
 Vue.use(VueRouter)
 
@@ -8,7 +10,19 @@ Vue.use(VueRouter)
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    children: [
+      {
+        path: 'about',
+        name: 'About',
+        component: About
+      },
+      {
+        path: 'create',
+        name: 'Create',
+        component: Create
+      },
+    ],
   },
   {
     path: '/about',

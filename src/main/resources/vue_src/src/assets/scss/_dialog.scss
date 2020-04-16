@@ -1,0 +1,387 @@
+// begin Căn giữa dialog
+.modal {
+  display: flex !important;
+  align-items: center !important;
+}
+
+// end
+// fix dialog
+.modal-dialog {
+  max-height: calc(100vh - 50px);
+}
+
+.modal-body {
+  max-height: calc(100vh - 50px - 63px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+// end
+.modal-content {
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 3px;
+  border-radius: 2px;
+  border: none;
+}
+
+.modal-backdrop {
+  opacity: 0.5;
+}
+
+//MS0202
+.dialog-ms0202 {
+  width: 500px;
+  max-width: 500px;
+}
+
+.dialog-mv0301 {
+  width: 700px;
+  max-width: 700px;
+}
+
+//MS0302
+.dialog-ms0302 {
+  width: 500px;
+  max-width: 500px;
+}
+
+//MS0402
+.dialog-ms0402 {
+  width: 1000px;
+  max-width: 1000px;
+}
+
+//Business master
+//MB0602
+.dialog-mb0602 {
+  width: 702px;
+  max-width: 702px;
+}
+
+//dialog-find-customers
+.dialog-find-customers {
+  width: 700px;
+  max-width: 700px;
+}
+
+//dialog-find-shipper
+.dialog-find-shipper {
+  width: 700px;
+  max-width: 700px;
+}
+
+// dialog-input-customer
+.dialog-input-customer {
+  width: 500px;
+  max-width: 500px;
+}
+
+.dialog-find-cust-group {
+  width: 840px;
+  max-width: 840px;
+}
+
+.dialog-input-cust-group {
+  width: 450px;
+  max-width: 450px;
+}
+
+//MB0702
+.dialog-0702 {
+  width: 850px;
+  max-width: 850px;
+  height: 540px;
+  margin-top: 5px;
+}
+
+.dialog-0702-find-head {
+  width: 900px;
+  max-width: 1280px;
+}
+
+//MB0802
+.dialog-0802 {
+  width: 850px;
+  max-width: 850px;
+  height: 540px;
+  margin-top: 5px;
+}
+
+.dialog-0802-find-head {
+  width: 900px;
+  max-width: 1280px;
+}
+
+//MV0102
+.dialog-mv0102 {
+  width: 700px;
+  max-width: 700px;
+}
+
+//MB0202
+.dialog-mb0202 {
+  width: 500px;
+  max-width: 500px;
+}
+
+//MB0103
+.dialog-mb0103 {
+  width: 840px;
+  max-width: 840px;
+}
+
+//MB0104
+.dialog-mb0104 {
+  width: 450px;
+  max-width: 450px;
+}
+
+//VM0701-HeadAll
+.dialog-vm0701-headall {
+  width: 1000px;
+  max-width: 1000px;
+}
+
+//MB0403
+.dialog-mb0403 {
+  width: 600px;
+  max-width: 600px;
+}
+
+//MB0502
+.dialog-mb0502 {
+  width: 600px;
+  max-width: 600px;
+}
+
+// AM0102
+.dialog-am0102 {
+  width: 1250px;
+  max-width: 1280px;
+}
+
+@media screen and (max-width: 1280px) {
+  .dialog-am0102 {
+    width: 1250px;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+}
+
+.dialog-am0103 {
+  width: 1280px;
+  max-width: 1400px;
+}
+
+.dialog-am010331 {
+  width: 1092px;
+  max-width: 1240px;
+}
+
+@media screen and (max-width: 1280px) {
+  .dialog-am010331 {
+    width: 1120px;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+}
+
+.dialog-am0103-no32 {
+  width: 900px;
+  max-width: 1280px;
+}
+
+//VM0901
+.dialog-vm0901 {
+  width: 551px;
+  max-width: 551px;
+}
+
+//VM0901 input area
+.dialog-vm0901-input-area {
+  width: 360px;
+  max-width: 360px;
+}
+
+// vm1201
+.dialog-vm1201 {
+  width: 700px;
+  max-width: 700px;
+  margin: 0 auto !important;
+}
+
+// dialog-search-tire-type
+.dialog-search-tire-type {
+  width: 500px;
+  max-width: 500px;
+}
+
+//VM0801-HeadAll
+.dialog-vm0801-headall {
+  width: 900px;
+  max-width: 900px;
+}
+
+//VM0102
+.dialog-vm0102 {
+  width: 1270px;
+  max-width: 1270px;
+  margin: 0 auto !important;
+}
+
+// BP0102
+.dialog-bp0102 {
+  width: 1006px;
+  max-width: 1006px;
+}
+
+// VM0102 driver history list
+.dialog-vm0102-driver-history {
+  width: 720px;
+  max-width: 720px;
+}
+
+.dialog-vm0102-input-driver-history {
+  width: 550px;
+  max-width: 1280px;
+}
+
+//VM0701-HeadAll
+.dialog-vm0701-chassisall {
+  width: 1000px;
+  max-width: 1000px;
+}
+
+// VM0801-ChassisAll
+.dialog-vm0801-chassisall {
+  width: 900px;
+  max-width: 900px;
+}
+
+// MB0402
+.dialog-mb0402 {
+  width: 465px;
+  max-width: 465px;
+}
+
+
+//VM0402
+.dialog-vm0402 {
+  width: 1270px;
+  max-width: 1270px;
+  height: auto;
+  margin: 0 auto !important;
+}
+
+//VM1001
+.dialog-sdvm1001 {
+  width: 800px;
+  max-width: 800px;
+  height: auto;
+}
+
+//VM1001Dialog1
+.dialog-vm1001-1 {
+  width: 650px;
+  max-width: 650px;
+  height: auto;
+}
+
+.dialog-findmaker {
+  width: 600px;
+  max-width: 600px;
+  height: auto;
+}
+
+// End
+
+//VM1101
+.dialog-vm1101 {
+  width: 1000px;
+  max-width: 1000px;
+  height: 500px;
+}
+
+// End
+
+//MV0302-find-repair-company
+.dialog-mv0302-find-repair-company {
+  width: 500px;
+  max-width: 600px;
+}
+
+//AN0202
+.dialog-an0202 {
+  width: 1027px;
+  max-width: 1027px;
+}
+
+// End
+
+// DL0703
+.dialog-dl0703 {
+  width: 600px;
+  max-width: 600px;
+  height: 300px;
+}
+
+// END
+// AN0303
+.dialog-an0303 {
+  width: 1000px;
+  max-width: 1000px;
+}
+
+// AN0302
+.dialog-an0302 {
+  width: 900px;
+  max-width: 900px;
+}
+
+//VM1101 Head
+.dialog-vm1101-head {
+  width: 1000px;
+  max-width: 1000px;
+  height: 500px;
+}
+
+// End
+
+.dialog-bp0501 {
+  width: 950px;
+  max-width: 950px;
+  // height: 500px;
+}
+
+//DL0404
+.dialog-dl0404 {
+  width: 600px;
+  max-width: 600px;
+}
+
+.dialog-an0102 {
+  width: 1000px;
+  max-width: 1000px;
+}
+
+//VM0402
+.dialog-dl0401 {
+  width: 1250px;
+  max-width: 1250px;
+  height: auto;
+}
+
+.dialog-an0102 {
+  width: 980px;
+  max-width: 980px;
+}
+
+.dialog-find_maker {
+  width: 600px;
+  max-width: 700px;
+}
+
+.dialog-findmaker-mv0202 {
+  width: 440px;
+  max-width: 450px;
+  height: 450px;
+}
