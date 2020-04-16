@@ -5,7 +5,8 @@
 </template>
 
 <style lang="scss">
-@import url("//unpkg.com/element-ui@2.12.0/lib/theme-chalk/index.css");
+  @import "@/assets/scss/_variables.scss";
+  @import "assets/scss/style";
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

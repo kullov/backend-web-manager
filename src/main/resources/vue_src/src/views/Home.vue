@@ -17,7 +17,7 @@
         </el-submenu>
         <el-menu-item index="/create">Create</el-menu-item>
         <el-menu-item index="/about"><a href="https://www.ele.me" target="_blank">Orders</a></el-menu-item>
-        <el-menu-item index="/about" class="text-right">Login</el-menu-item>
+        <el-menu-item index="/register" class="text-right">Login</el-menu-item>
       </el-menu>
     </el-header>
     <el-main class="main">
@@ -27,7 +27,7 @@
 </template>
 <style scoped>
   .el-main {
-    padding: 20px 0 0;
+    padding: 0 !important;
   }
 </style>
 <script lang="ts">

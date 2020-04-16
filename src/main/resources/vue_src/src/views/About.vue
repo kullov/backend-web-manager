@@ -80,6 +80,7 @@
         <p><vue-fontawesome icon="envelope-o" size="1" color="teal"></vue-fontawesome>  ttnga912@gmail.com</p>
       </el-col>
     </el-row>
+    <!-- <el-backtop target=".page-component__scroll .el-scrollbar__wrap"></el-backtop> -->
   </div>
 </template>
 <style scoped>
