@@ -1,0 +1,39 @@
+.el-input__inner {
+  padding: 0 10px;
+  background-color: #ffffff;
+  background-image: none;
+  border-radius: 2px;
+  border: 1px solid darkgray;
+  box-sizing: border-box;
+  color: #606266;
+  display: inline-block;
+  font-size: inherit;
+  outline: none;
+  font-size: $font-size;
+  transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition-property: border-color;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition-delay: 0s;
+  &:focus {
+    outline: none;
+    border-color: $color-primary;
+  }
+}
+.el-button {
+  color: white;
+  font-size: 14px;
+  background-color: $color-primary;
+  &:hover,
+  &:focus {
+    color: $color-primary;
+    background-color: white;
+  }
+  &.is-active {
+    color: $color-primary;
+    background-color: white;
+    .el-button {
+      color: $color-primary;
+    }
+  }
+}

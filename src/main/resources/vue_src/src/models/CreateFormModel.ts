@@ -1,12 +1,12 @@
 export class CreateFormModel {
   public name: string = '';
-  public region: string = '';
-  public date1: string = '';
-  public date2: string = '';
-  public delivery: boolean = false;
-  public type: any = [];
-  public resource: string = '';
-  public desc: string = '';
+  public amount: string = '';
+  public position: string = '';
+  public status: string = '';
+  public time: string = '';
+  public type: string = '';
+  public description: string = '';
+  public address: string = 'Bac Tu Liem Ha Noi';
 
   constructor(init?: Partial<CreateFormModel>) {
     Object.assign(this, init);

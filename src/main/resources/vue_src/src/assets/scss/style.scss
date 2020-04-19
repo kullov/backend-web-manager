@@ -1,18 +1,17 @@
 // Import styles
-@import '~bootstrap';
+// @import '~bootstrap';
 // @import '~bootstrap-vue';
 /* Element UI themes */
-$--color-primary: #009dff;
-/* icon font path, required */
-$--font-path: "~element-ui/lib/theme-chalk/fonts";
-@import "~element-ui/packages/theme-chalk/src/index";
+$--color-primary: teal;
+// /* icon font path, required */
+// $--font-path: "~element-ui/lib/theme-chalk/fonts";
 
 // // Import dialog width
 // @import "dialog";
 // // Import atomic style
 // @import "atomic";
 // // If you want to add something do it here
-// @import "custom";
+@import "custom";
 
 // // Element UI custom
 // @import "element-ui";

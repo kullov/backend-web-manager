@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../views/Home.vue'
 import About from '../views/About.vue'
-import Create from '../views/Create.vue'
+import Create from '../views/src-1002/Create.vue'
 import Register from '../views/login/Register.vue'
 
 Vue.use(VueRouter)

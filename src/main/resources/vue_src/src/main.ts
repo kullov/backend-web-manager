@@ -16,6 +16,7 @@ Vue.component('VueFontawesome', require('vue-fontawesome-icon/VueFontawesome.vue
 //@ts-ignore
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
+import 'vue-material/dist/theme/default.css'
 Vue.use(VueMaterial)
 
 Vue.config.productionTip = false

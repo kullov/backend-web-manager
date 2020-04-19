@@ -17,7 +17,7 @@
         </el-submenu>
         <el-menu-item index="/create">Create</el-menu-item>
         <el-menu-item index="/about"><a href="https://www.ele.me" target="_blank">Orders</a></el-menu-item>
-        <el-menu-item index="/register" class="text-right">Login</el-menu-item>
+        <el-menu-item index="/register" style="position:absolute;right:0px">Login</el-menu-item>
       </el-menu>
     </el-header>
     <el-main class="main">
@@ -25,10 +25,30 @@
     </el-main>
   </div>
 </template>
-<style scoped>
-  .el-main {
-    padding: 0 !important;
+<style scoped lang="scss">
+.el-header {
+  background-color: black;
+  
+}
+.el-menu.el-menu--horizontal {
+  background-color: black;
+  text-transform: uppercase;
+  .el-menu-item {
+    color: white;
   }
+  .el-menu-item:hover {
+    color: teal;
+  }
+}
+.el-menu--horizontal>.el-menu-item.is-active {
+  color: teal;
+  font-weight: bold;
+  background-color: white;
+  border-bottom: 1px solid teal;
+}
+.el-main {
+  padding: 0 !important;
+}
 </style>
 <script lang="ts">
 // @ is an alias to /src
