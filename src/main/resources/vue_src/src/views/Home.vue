@@ -15,7 +15,7 @@
             <el-menu-item index="2-4-3">item three</el-menu-item>
           </el-submenu>
         </el-submenu>
-        <el-menu-item index="/create">Create</el-menu-item>
+        <el-menu-item index="/main">Create</el-menu-item>
         <el-menu-item index="/about"><a href="https://www.ele.me" target="_blank">Orders</a></el-menu-item>
         <el-menu-item index="/register" style="position:absolute;right:0px">Login</el-menu-item>
       </el-menu>
