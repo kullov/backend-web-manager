@@ -19,33 +19,28 @@ Vue.use(VueRouter)
         name: 'routes.about',
         component: About
       },
+      // {
+      //   path: 'main',
+      //   name: 'routes.main',
+      //   component: MainLayout,
+      //   // children: [
+      //   //   {
+      //   //     path: 'create',
+      //   //     name: 'routes.create',
+      //   //     component: Create
+      //   //   },
+      //   // ]
+      // },
       {
-        path: 'main',
-        name: 'routes.main',
-        component: MainLayout,
-        children: [
-          {
-            path: 'create',
-            name: 'routes.create',
-            component: Create
-          },
-          {
-            path: 'posts000000000000',
-            name: 'routes.posts',
-            component: Create
-          },
-          {
-            path: 'favorites',
-            name: 'routes.favorites',
-            component: Create
-          },
-        ]
+        path: 'create',
+        name: 'routes.create',
+        component: Create
       },
     ],
   },
   {
     path: '/register',
-    name: 'Register',
+    name: 'routes.register',
     component: Register
   }
 ]

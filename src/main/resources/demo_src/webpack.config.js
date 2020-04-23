@@ -1,15 +1,6 @@
+// webpack.config.js
+
 module.exports = {
-  "configureWebpack": {
-    "devServer": {
-      "clientLogLevel": "info",
-      "watchOptions": {
-        "poll": true
-      }
-    }
-  },
-  "transpileDependencies": [
-    "vuetify"
-  ],
   rules: [
     {
       test: /\.s(c|a)ss$/,
