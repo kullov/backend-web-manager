@@ -3,21 +3,15 @@
     <el-header>
       <el-menu router :default-active="$route.path" class="el-menu-demo" mode="horizontal">
         <el-menu-item index="/about">Home</el-menu-item>
-        <el-submenu index="/about">
-          <template slot="title">Workspace</template>
-          <el-menu-item index="2-1">item one</el-menu-item>
-          <el-menu-item index="2-2">item two</el-menu-item>
-          <el-menu-item index="2-3">item three</el-menu-item>
-          <el-submenu index="2-4">
-            <template slot="title">item four</template>
-            <el-menu-item index="2-4-1">item one</el-menu-item>
-            <el-menu-item index="2-4-2">item two</el-menu-item>
-            <el-menu-item index="2-4-3">item three</el-menu-item>
-          </el-submenu>
+        <el-menu-item index="/main-layout">Create</el-menu-item>
+        <el-menu-item index="/create">Create</el-menu-item>
+        <el-menu-item index="/login">Login</el-menu-item>
+        <el-submenu index="/login" style="position:absolute;right:0px">
+          <template slot="title">Login</template>
+          <el-menu-item index="/login">Student</el-menu-item>
+          <el-menu-item index="/login">Company</el-menu-item>
+          <el-menu-item index="/login">Teacher</el-menu-item>
         </el-submenu>
-        <el-menu-item index="/main">Create</el-menu-item>
-        <el-menu-item index="/about"><a href="https://www.ele.me" target="_blank">Orders</a></el-menu-item>
-        <el-menu-item index="/register" style="position:absolute;right:0px">Login</el-menu-item>
       </el-menu>
     </el-header>
     <el-main class="main">

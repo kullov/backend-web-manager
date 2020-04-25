@@ -11,43 +11,50 @@ Vue.use(VueRouter)
   const routes: Array<RouteConfig> = [
   {
     path: '/',
-    name: 'routes.home',
+    name: 'Home',
     component: Home,
     children: [
       {
         path: 'about',
-        name: 'routes.about',
+        name: 'About',
         component: About
       },
       {
-        path: 'main',
-        name: 'routes.main',
+        path: 'login',
+        name: 'Register',
+        component: Register
+      },
+      {
+        path: 'create',
+        name: 'Create',
+        component: Create
+      },
+      {
+        path: 'main-layout',
+        name: 'Main',
         component: MainLayout,
         children: [
           {
             path: 'create',
-            name: 'routes.create',
+            name: 'Create',
             component: Create
           },
           {
-            path: 'posts000000000000',
-            name: 'routes.posts',
+            path: 'posts',
+            name: 'Posts',
             component: Create
           },
           {
             path: 'favorites',
-            name: 'routes.favorites',
+            name: 'Favorites',
             component: Create
           },
-        ]
+        ],
       },
+      
+      
     ],
   },
-  {
-    path: '/register',
-    name: 'Register',
-    component: Register
-  }
 ]
 
 const router = new VueRouter({

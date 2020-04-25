@@ -1,42 +1,18 @@
 <template>
-  <v-app>
-    <v-content>
-      <v-menu offset-y>
-        <v-btn
-          slot="activator"
-          color="primary"
-          dark
-        >
-          Dropdown
-        </v-btn>
-        <v-list>
-          <v-list-tile>
-            <v-list-tile-title>Choice 1</v-list-tile-title>
-          </v-list-tile>
-          <v-list-tile>
-            <v-list-tile-title>Choice 1</v-list-tile-title>
-          </v-list-tile>
-        </v-list>
-      </v-menu>
-      
-      <v-btn color="secondary">Click me!</v-btn>
-    </v-content>
-  </v-app>
+  <div id="app">
+    <router-view/>
+  </div>
 </template>
 
-<script lang="ts">
-import Vue from 'vue';
-import About from './views/About.vue';
+<style lang="scss">
+@import "assets/scss/style";
+@import url("//unpkg.com/element-ui@2.12.0/lib/theme-chalk/index.css");
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
 
-export default Vue.extend({
-  name: 'App',
-
-  components: {
-    About,
-  },
-
-  data: () => ({
-    //
-  }),
-});
-</script>
+</style>
