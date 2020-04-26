@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 import Create from '../views/src-1002/Create.vue'
 import Register from '../views/login/Register.vue'
+import MainLayout from '../views/src-1002/MainLayout.vue'
 
 Vue.use(VueRouter)
 
@@ -19,17 +20,41 @@ Vue.use(VueRouter)
         component: About
       },
       {
+        path: 'login',
+        name: 'Register',
+        component: Register
+      },
+      {
         path: 'create',
         name: 'Create',
         component: Create
       },
+      {
+        path: 'main-layout',
+        name: 'Main',
+        component: MainLayout,
+        children: [
+          {
+            path: 'create',
+            name: 'Create',
+            component: Create
+          },
+          {
+            path: 'posts',
+            name: 'Posts',
+            component: Create
+          },
+          {
+            path: 'favorites',
+            name: 'Favorites',
+            component: Create
+          },
+        ],
+      },
+      
+      
     ],
   },
-  {
-    path: '/register',
-    name: 'Register',
-    component: Register
-  }
 ]
 
 const router = new VueRouter({

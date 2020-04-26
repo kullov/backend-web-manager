@@ -1,0 +1,11 @@
+<div class="animated fadeIn page-container">
+  <el-tabs tab-position="left" :value="selectedTab" class="sub-tabs">
+    <el-tab-pane
+      v-for="(tab, index) in tabs"
+      :key="index"
+      :label="tab.label"
+      :name="tab.name">
+      <component :ref="tab.name" v-if="selectedTab" :is="tab.content"/>
+    </el-tab-pane>
+  </el-tabs>
+</div>
