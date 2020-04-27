@@ -8,18 +8,16 @@
   
   .el-tabs__content {
     flex: 1;
-    padding: 1rem;
-    box-shadow: 0 0 13px 0 rgba(82, 63, 105, 0.3);
-    background-color: white;
+    background-color: #f1f1f1;
     .el-tab-pane {
       height: 100%;
       display: flex;
       flex-direction: column;
       flex-grow: 1;
+      padding-top: 20px;
     }
   }
   .el-tabs__item {
-    padding: 0.5rem 1rem !important;
     font-size: 14px;
     &.is-active {
       background-color: teal;
@@ -34,4 +32,11 @@
   .el-tabs__nav-prev {
     line-height: 54px;
   }
+}
+.main-btn {
+  width: 8rem;
+  text-align: center;
+}
+.primary-btn {
+  background-color: #f4a125;
 }

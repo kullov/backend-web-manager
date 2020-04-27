@@ -6,6 +6,7 @@ export class CreateFormModel {
   public time: string = '';
   public type: string = '';
   public description: string = '';
+  public required: string = '';
   public address: string = 'Bac Tu Liem Ha Noi';
 
   constructor(init?: Partial<CreateFormModel>) {
