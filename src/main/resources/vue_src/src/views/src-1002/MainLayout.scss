@@ -1,0 +1,17 @@
+::v-deep {
+  .sub-tabs.el-tabs.el-tabs--left {
+    top: -207px;
+    z-index: 5;
+    position: relative;
+  }
+  .el-tabs--left .el-tabs__header.is-left {
+    top: 200px;
+    width: 290px;
+  }
+}
+.header-block {
+  padding-top: 10px;
+  // width: 300px;
+  text-align: center !important;
+  z-index:3
+}
