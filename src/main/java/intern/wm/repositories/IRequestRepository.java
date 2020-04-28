@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import intern.wm.entities.Request;
+import intern.wm.domain.Request;
 
 @Repository	
 public interface IRequestRepository extends JpaRepository<Request, Long> {

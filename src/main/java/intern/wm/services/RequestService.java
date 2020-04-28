@@ -1,86 +1,52 @@
 package intern.wm.services;
 
-import java.util.Date;
-import java.util.List;
+import intern.wm.services.dto.RequestDTO;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Pageable;
 
-import intern.wm.entities.Request;
-import intern.wm.repositories.IRequestRepository;
+import java.util.Optional;
 
-@Service
-public class RequestService implements IRequestService {
+/**
+ * Service Interface for managing {@link com.mycompany.myapp.domain.Request}.
+ */
+public interface RequestService {
 
-	@PersistenceContext	
-	private EntityManager entityManager;
+    /**
+     * Save a request.
+     *
+     * @param requestDTO the entity to save.
+     * @return the persisted entity.
+     */
+    RequestDTO save(RequestDTO requestDTO);
 
-	@Autowired
-	private IRequestRepository requestRepository;
-	
-	@Override
-	public Page<Request> getAllRequests(int page, int limit) {
-		// Lấy ra 5 user đầu tiên
-        // PageRequest.of(0,5) tương đương với lấy ra page đầu tiên, và mỗi page sẽ có 5 phần tử
-		Page<Request> pageList = requestRepository.findAll(PageRequest.of(page, limit));
-		return pageList;
-	}
+    /**
+     * Get all the requests.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    Page<RequestDTO> findAll(Pageable pageable);
 
-	@Override
-	public Request getRequestById(long id) {
-		Request rq = requestRepository.findById(id).get();
-		return rq;
-	}
+    /**
+     * Get all the requests with eager load of many-to-many relationships.
+     *
+     * @return the list of entities.
+     */
+    Page<RequestDTO> findAllWithEagerRelationships(Pageable pageable);
 
-	@Override
-	public Page<Request> findByPosition(String position, int page, int limit) {
-		Page<Request> requests = requestRepository.findByPosition(position, PageRequest.of(page, limit));
-		return requests;
-	}
+    /**
+     * Get the "id" request.
+     *
+     * @param id the id of the entity.
+     * @return the entity.
+     */
+    Optional<RequestDTO> findOne(Long id);
 
-	@Override
-	public Page<Request> findByDateCreated(Date date, int page, int limit) {
-		Page<Request> requests = requestRepository.findByDateCreated(date, PageRequest.of(page, limit));
-		return requests;
-	}
-
-	@Override
-	public boolean addRequest(Request request) {
-		List<Request> list = requestRepository.findAllByPosition(request.getPosition());
-		if (list.size() > 0) {
-			return false;
-		} else {
-			requestRepository.save(request);
-			return true;
-		}
-	}
-
-	@Override
-	public void updateRequest(Request request) {
-		requestRepository.save(request);
-	}
-
-	@Override
-	public void deleteRequest(long id) {
-		requestRepository.delete(getRequestById(id));
-	}
-
-	@Override
-	public Page<Request> findByAllParams(String position, Date dateCreated, String status, int amount, int page,
-			int limit) {
-		Page<Request> list = requestRepository.findByAllParams(position, dateCreated, status, amount, PageRequest.of(page, limit));
-		return list;
-	}
-
-//	@Override
-//	public List<Request> findAllByPosition(String position) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-
+    /**
+     * Delete the "id" request.
+     *
+     * @param id the id of the entity.
+     */
+    void delete(Long id);
 }
