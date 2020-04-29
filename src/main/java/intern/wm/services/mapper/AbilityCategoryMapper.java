@@ -1,10 +1,11 @@
 package intern.wm.services.mapper;
 
 
-import com.mycompany.myapp.domain.*;
-import intern.wm.services.dto.AbilityCategoryDTO;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-import org.mapstruct.*;
+import intern.wm.domain.AbilityCategory;
+import intern.wm.services.dto.AbilityCategoryDTO;
 
 /**
  * Mapper for the entity {@link AbilityCategory} and its DTO {@link AbilityCategoryDTO}.

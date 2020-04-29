@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Service Interface for managing {@link com.mycompany.myapp.domain.Teacher}.
+ * Service Interface for managing {@link intern.wm.domain.Teacher}.
  */
 public interface TeacherService {
 

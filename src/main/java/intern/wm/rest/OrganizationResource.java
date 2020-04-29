@@ -1,21 +1,25 @@
 package intern.wm.rest;
 
-import intern.wm.services.OrganizationService;
-import intern.wm.rest.errors.BadRequestAlertException;
-import intern.wm.services.dto.OrganizationDTO;
-
-import io.github.jhipster.web.util.HeaderUtil;
-import io.github.jhipster.web.util.ResponseUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import intern.wm.services.OrganizationService;
+import intern.wm.services.dto.OrganizationDTO;
 
 /**
  * REST controller for managing {@link intern.wm.domain.Organization}.
@@ -47,12 +51,8 @@ public class OrganizationResource {
     @PostMapping("/organizations")
     public ResponseEntity<OrganizationDTO> createOrganization(@RequestBody OrganizationDTO organizationDTO) throws URISyntaxException {
         log.debug("REST request to save Organization : {}", organizationDTO);
-        if (organizationDTO.getId() != null) {
-            throw new BadRequestAlertException("A new organization cannot already have an ID", ENTITY_NAME, "idexists");
-        }
         OrganizationDTO result = organizationService.save(organizationDTO);
         return ResponseEntity.created(new URI("/api/organizations/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
 
@@ -68,12 +68,8 @@ public class OrganizationResource {
     @PutMapping("/organizations")
     public ResponseEntity<OrganizationDTO> updateOrganization(@RequestBody OrganizationDTO organizationDTO) throws URISyntaxException {
         log.debug("REST request to update Organization : {}", organizationDTO);
-        if (organizationDTO.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
         OrganizationDTO result = organizationService.save(organizationDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, organizationDTO.getId().toString()))
             .body(result);
     }
 
@@ -98,7 +94,7 @@ public class OrganizationResource {
     public ResponseEntity<OrganizationDTO> getOrganization(@PathVariable Long id) {
         log.debug("REST request to get Organization : {}", id);
         Optional<OrganizationDTO> organizationDTO = organizationService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(organizationDTO);
+        return ResponseEntity.of(organizationDTO);
     }
 
     /**
@@ -111,6 +107,6 @@ public class OrganizationResource {
     public ResponseEntity<Void> deleteOrganization(@PathVariable Long id) {
         log.debug("REST request to delete Organization : {}", id);
         organizationService.delete(id);
-        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString())).build();
+        return ResponseEntity.noContent().build();
     }
 }

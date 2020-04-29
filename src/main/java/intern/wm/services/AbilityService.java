@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Service Interface for managing {@link com.mycompany.myapp.domain.Ability}.
+ * Service Interface for managing {@link intern.wm.domain.Ability}.
  */
 public interface AbilityService {
 

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Service Interface for managing {@link com.mycompany.myapp.domain.AbilityCategory}.
+ * Service Interface for managing {@link intern.wm.domain.AbilityCategory}.
  */
 public interface AbilityCategoryService {
 

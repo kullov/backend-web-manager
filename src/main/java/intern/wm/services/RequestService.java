@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.Optional;
 
 /**
- * Service Interface for managing {@link com.mycompany.myapp.domain.Request}.
+ * Service Interface for managing {@link intern.wm.domain.Request}.
  */
 public interface RequestService {
 

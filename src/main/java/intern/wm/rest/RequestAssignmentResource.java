@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import intern.wm.services.dto.RequestAssignmentDTO;
-import intern.wm.services.mapper.RequestAssignmentService;
+import intern.wm.services.RequestAssignmentService;
 
 /**
  * REST controller for managing {@link intern.wm.domain.RequestAssignment}.
@@ -56,7 +56,6 @@ public class RequestAssignmentResource {
        
         RequestAssignmentDTO result = requestAssignmentService.save(requestAssignmentDTO);
         return ResponseEntity.created(new URI("/api/request-assignments/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
 
@@ -72,12 +71,8 @@ public class RequestAssignmentResource {
     @PutMapping("/request-assignments")
     public ResponseEntity<RequestAssignmentDTO> updateRequestAssignment(@RequestBody RequestAssignmentDTO requestAssignmentDTO) throws URISyntaxException {
         log.debug("REST request to update RequestAssignment : {}", requestAssignmentDTO);
-        if (requestAssignmentDTO.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
         RequestAssignmentDTO result = requestAssignmentService.save(requestAssignmentDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, requestAssignmentDTO.getId().toString()))
             .body(result);
     }
 
@@ -102,7 +97,7 @@ public class RequestAssignmentResource {
     public ResponseEntity<RequestAssignmentDTO> getRequestAssignment(@PathVariable Long id) {
         log.debug("REST request to get RequestAssignment : {}", id);
         Optional<RequestAssignmentDTO> requestAssignmentDTO = requestAssignmentService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(requestAssignmentDTO);
+        return ResponseEntity.of(requestAssignmentDTO);
     }
 
     /**
@@ -115,6 +110,6 @@ public class RequestAssignmentResource {
     public ResponseEntity<Void> deleteRequestAssignment(@PathVariable Long id) {
         log.debug("REST request to delete RequestAssignment : {}", id);
         requestAssignmentService.delete(id);
-        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString())).build();
+        return ResponseEntity.noContent().build();
     }
 }

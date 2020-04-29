@@ -1,7 +1,7 @@
 package intern.wm.services.mapper;
 
 
-import com.mycompany.myapp.domain.*;
+import intern.wm.domain.*;
 import intern.wm.services.dto.OrganizationDTO;
 
 import org.mapstruct.*;

@@ -1,21 +1,26 @@
 package intern.wm.rest;
 
-import intern.wm.services.InternService;
-import intern.wm.rest.errors.BadRequestAlertException;
-import intern.wm.services.dto.InternDTO;
-
-import io.github.jhipster.web.util.HeaderUtil;
-import io.github.jhipster.web.util.ResponseUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import intern.wm.services.InternService;
+import intern.wm.services.dto.InternDTO;
 
 /**
  * REST controller for managing {@link intern.wm.domain.Intern}.
@@ -47,12 +52,8 @@ public class InternResource {
     @PostMapping("/interns")
     public ResponseEntity<InternDTO> createIntern(@RequestBody InternDTO internDTO) throws URISyntaxException {
         log.debug("REST request to save Intern : {}", internDTO);
-        if (internDTO.getId() != null) {
-            throw new BadRequestAlertException("A new intern cannot already have an ID", ENTITY_NAME, "idexists");
-        }
         InternDTO result = internService.save(internDTO);
         return ResponseEntity.created(new URI("/api/interns/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
 
@@ -68,12 +69,8 @@ public class InternResource {
     @PutMapping("/interns")
     public ResponseEntity<InternDTO> updateIntern(@RequestBody InternDTO internDTO) throws URISyntaxException {
         log.debug("REST request to update Intern : {}", internDTO);
-        if (internDTO.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
         InternDTO result = internService.save(internDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, internDTO.getId().toString()))
             .body(result);
     }
 
@@ -99,7 +96,7 @@ public class InternResource {
     public ResponseEntity<InternDTO> getIntern(@PathVariable Long id) {
         log.debug("REST request to get Intern : {}", id);
         Optional<InternDTO> internDTO = internService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(internDTO);
+        return ResponseEntity.of(internDTO);
     }
 
     /**
@@ -112,6 +109,6 @@ public class InternResource {
     public ResponseEntity<Void> deleteIntern(@PathVariable Long id) {
         log.debug("REST request to delete Intern : {}", id);
         internService.delete(id);
-        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString())).build();
+        return ResponseEntity.noContent().build();
     }
 }

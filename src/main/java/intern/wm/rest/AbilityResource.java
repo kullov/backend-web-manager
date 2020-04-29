@@ -1,11 +1,8 @@
 package intern.wm.rest;
 
 import intern.wm.services.AbilityService;
-import intern.wm.rest.errors.BadRequestAlertException;
 import intern.wm.services.dto.AbilityDTO;
 
-import io.github.jhipster.web.util.HeaderUtil;
-import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -47,12 +44,8 @@ public class AbilityResource {
     @PostMapping("/abilities")
     public ResponseEntity<AbilityDTO> createAbility(@RequestBody AbilityDTO abilityDTO) throws URISyntaxException {
         log.debug("REST request to save Ability : {}", abilityDTO);
-        if (abilityDTO.getId() != null) {
-            throw new BadRequestAlertException("A new ability cannot already have an ID", ENTITY_NAME, "idexists");
-        }
         AbilityDTO result = abilityService.save(abilityDTO);
         return ResponseEntity.created(new URI("/api/abilities/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
 
@@ -68,12 +61,8 @@ public class AbilityResource {
     @PutMapping("/abilities")
     public ResponseEntity<AbilityDTO> updateAbility(@RequestBody AbilityDTO abilityDTO) throws URISyntaxException {
         log.debug("REST request to update Ability : {}", abilityDTO);
-        if (abilityDTO.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
         AbilityDTO result = abilityService.save(abilityDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, abilityDTO.getId().toString()))
             .body(result);
     }
 
@@ -98,7 +87,7 @@ public class AbilityResource {
     public ResponseEntity<AbilityDTO> getAbility(@PathVariable Long id) {
         log.debug("REST request to get Ability : {}", id);
         Optional<AbilityDTO> abilityDTO = abilityService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(abilityDTO);
+        return ResponseEntity.of(abilityDTO);
     }
 
     /**
@@ -111,6 +100,6 @@ public class AbilityResource {
     public ResponseEntity<Void> deleteAbility(@PathVariable Long id) {
         log.debug("REST request to delete Ability : {}", id);
         abilityService.delete(id);
-        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString())).build();
+        return ResponseEntity.noContent().build();
     }
 }

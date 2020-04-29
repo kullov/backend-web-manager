@@ -1,21 +1,25 @@
 package intern.wm.rest;
 
-import intern.wm.services.RegisterRequestService;
-import intern.wm.rest.errors.BadRequestAlertException;
-import intern.wm.services.dto.RegisterRequestDTO;
-
-import io.github.jhipster.web.util.HeaderUtil;
-import io.github.jhipster.web.util.ResponseUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import intern.wm.services.RegisterRequestService;
+import intern.wm.services.dto.RegisterRequestDTO;
 
 /**
  * REST controller for managing {@link intern.wm.domain.RegisterRequest}.
@@ -47,12 +51,8 @@ public class RegisterRequestResource {
     @PostMapping("/register-requests")
     public ResponseEntity<RegisterRequestDTO> createRegisterRequest(@RequestBody RegisterRequestDTO registerRequestDTO) throws URISyntaxException {
         log.debug("REST request to save RegisterRequest : {}", registerRequestDTO);
-        if (registerRequestDTO.getId() != null) {
-            throw new BadRequestAlertException("A new registerRequest cannot already have an ID", ENTITY_NAME, "idexists");
-        }
         RegisterRequestDTO result = registerRequestService.save(registerRequestDTO);
         return ResponseEntity.created(new URI("/api/register-requests/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
 
@@ -68,12 +68,8 @@ public class RegisterRequestResource {
     @PutMapping("/register-requests")
     public ResponseEntity<RegisterRequestDTO> updateRegisterRequest(@RequestBody RegisterRequestDTO registerRequestDTO) throws URISyntaxException {
         log.debug("REST request to update RegisterRequest : {}", registerRequestDTO);
-        if (registerRequestDTO.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
         RegisterRequestDTO result = registerRequestService.save(registerRequestDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, registerRequestDTO.getId().toString()))
             .body(result);
     }
 
@@ -98,7 +94,7 @@ public class RegisterRequestResource {
     public ResponseEntity<RegisterRequestDTO> getRegisterRequest(@PathVariable Long id) {
         log.debug("REST request to get RegisterRequest : {}", id);
         Optional<RegisterRequestDTO> registerRequestDTO = registerRequestService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(registerRequestDTO);
+        return ResponseEntity.of(registerRequestDTO);
     }
 
     /**
@@ -111,6 +107,6 @@ public class RegisterRequestResource {
     public ResponseEntity<Void> deleteRegisterRequest(@PathVariable Long id) {
         log.debug("REST request to delete RegisterRequest : {}", id);
         registerRequestService.delete(id);
-        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString())).build();
+        return ResponseEntity.noContent().build();
     }
 }

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Service Interface for managing {@link com.mycompany.myapp.domain.Intern}.
+ * Service Interface for managing {@link intern.wm.domain.Intern}.
  */
 public interface InternService {
 
