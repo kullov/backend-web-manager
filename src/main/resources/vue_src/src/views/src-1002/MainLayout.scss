@@ -11,7 +11,9 @@
 }
 .header-block {
   padding-top: 10px;
-  // width: 300px;
   text-align: center !important;
   z-index:3
+}
+.sub-tabs .el-tabs__content .el-tab-pane {
+  min-height: 910px;
 }

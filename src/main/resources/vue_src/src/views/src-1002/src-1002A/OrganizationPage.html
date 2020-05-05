@@ -1,7 +1,7 @@
 <!-- !PAGE CONTENT! -->
 <div class="w3-main">
   <el-row>
-    <h1>KHÔNG GIAN</h1>
+    <h1 class="p-4 title"><b>Không gian</b></h1>
     <br>
     <el-carousel :interval="4000" type="card" height="420px">
       <el-carousel-item>
@@ -18,10 +18,25 @@
       </el-carousel-item>
     </el-carousel>
   </el-row>
-  <el-row id="list-require" style="padding-top:1px;">
-    <h3 class="w3-container"><b>Danh sách phiếu yêu cầu</b></h3>
-    <!-- Second Photo Grid-->
-    
+  <el-row class="text-center" id="list-require" style="padding-top:1px;" :gutter="20">
+    <h1 class="p-4 title"><b>Danh sách phiếu yêu cầu</b></h1>
+    <el-col :span="8" v-for="item in listRequests" v-bind:key="item.id" class="pb-4">
+      <img src="https://www.ourlincolnpark.com/wp-content/uploads/2014/07/I-wish-it-were-that-easy.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
+      <div class="w3-container w3-white" style="height:270px;">
+        <h3 class="w3-center"><i>Vị trí: </i><b>{{ item.position }}</b></h3>
+        <h4><i class="fa fa-diamond fa-fw mr-2"></i>Công ty: {{ item.name }}</h4>
+        <p><i class="fa fa-fw fa-male"></i> Chúng tôi cần: <b>{{ item.amount }}</b> người</p>
+        <p><i class="fa fa-fw fa-check-square"></i> Số lượng đã đăng ký: <b>{{ item.assignment }}</b></p>
+        <p><i class="fa fa-map-pin fa-fw"></i> Địa điểm làm việc: {{ item.address }}</p>
+        <p><i class="fa fa-fw fa-check"></i> Trạng thái: {{ item.status === 2 ? "Het hieu luc" : "Con hieu luc" }}</p>
+      </div>
+    </el-col>
+    <!-- <el-col :span="8">
+
+    </el-col>
+    <el-col :span="8">
+
+    </el-col> -->
     <div class="w3-center w3-padding-32 w3-row-padding">
       <div class="w3-bar">
         <a href="#" class="w3-bar-item w3-button w3-hover-black">«</a>
@@ -35,9 +50,7 @@
   </el-row>
   <!-- Assignment -->
   <div class="w3-container" id="assignment">
-    <hr>
-    <br>
-    <h3><b>Bảng phân công</b></h3>
+    <h1 class="p-4 title"><b>Bảng phân công</b></h1>
     <table class="w3-table w3-striped w3-bordered w3-centered w3-hoverable w3-margin-bottom">
       <tr>
         <th name="organization_request_id">Mã phiếu yêu cầu</th>
@@ -54,9 +67,7 @@
   </div>
   <!-- Contact Section -->
   <div id="contact" class="w3-container w3-padding-large w3-grey">
-    <br>
-    <br>
-    <h3><b>Contact Me</b></h3>
+    <h1 class="p-4 title"><b>Contact Me</b></h1>
     <div class="w3-row-padding w3-center w3-padding-24" style="margin:0 -16px">
       <div class="w3-third w3-dark-grey">
         <p><i class="fa fa-envelope w3-xxlarge w3-text-light-grey"></i></p>

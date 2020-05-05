@@ -5,8 +5,6 @@ import About from '../views/About.vue'
 import Create from '../views/src-1002/src-1002C/Create.vue'
 import Register from '../views/login/Register.vue'
 import MainLayout from '../views/src-1002/MainLayout.vue'
-import Ability from '../views/ability/Ability.vue'
-import Requests from '../views/request/Requests.vue'
 
 Vue.use(VueRouter)
 
@@ -32,19 +30,26 @@ Vue.use(VueRouter)
         component: Create
       },
       {
-        path: 'abilities',
-        name: 'Abilities',
-        component: Ability
-      },
-      {
-        path: 'requests',
-        name: 'Requests',
-        component: Requests
-      },
-      {
         path: 'main-layout',
         name: 'Main',
         component: MainLayout,
+        children: [
+          {
+            path: 'create',
+            name: 'Create',
+            component: Create
+          },
+          {
+            path: 'posts',
+            name: 'Posts',
+            component: Create
+          },
+          {
+            path: 'favorites',
+            name: 'Favorites',
+            component: Create
+          },
+        ],
       },
       
       

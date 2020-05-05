@@ -18,27 +18,11 @@ const Create: AsyncComponent = () =>
     delay: 0,
     timeout: undefined
   } as any);
-const ability: AsyncComponent = () =>
-  ({
-    component: import("../ability/Ability.vue"),
-    error: undefined,
-    delay: 0,
-    timeout: undefined
-  } as any);
-const Requests: AsyncComponent = () =>
-  ({
-    component: import("../request/Requests.vue"),
-    error: undefined,
-    delay: 0,
-    timeout: undefined
-  } as any);
   
 @Component({
   components: {
     Create,
     OrganizationPage,
-    ability,
-    Requests,
   }
 })
 export default class MainLayout extends Vue {
@@ -54,16 +38,6 @@ export default class MainLayout extends Vue {
       name: "tab2",
       label: "Create",
       content: "Create"
-    },
-    {
-      name: "tab3",
-      label: "Ability",
-      content: "ability"
-    },
-    {
-      name: "tab4",
-      label: "Requests",
-      content: "Requests"
     },
   ];
 }

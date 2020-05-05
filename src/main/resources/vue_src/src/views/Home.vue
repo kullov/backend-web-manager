@@ -3,8 +3,10 @@
     <el-header>
       <el-menu router :default-active="$route.path" class="el-menu-demo" mode="horizontal">
         <el-menu-item index="/about">Home</el-menu-item>
-        <el-menu-item index="/main-layout">Create</el-menu-item>
+        <el-menu-item index="/main-layout">Main</el-menu-item>
         <el-menu-item index="/create">Create</el-menu-item>
+        <el-menu-item index="/abilities">Abilities</el-menu-item>
+        <el-menu-item index="/requests">Requests</el-menu-item>
         <el-menu-item index="/login">Login</el-menu-item>
         <el-submenu index="/login" style="position:absolute;right:0px">
           <template slot="title">Login</template>
