@@ -56,16 +56,16 @@ export default class AppDataTableComponent extends Vue {
   private created() {
     if (this.columns) {
       this.privateColumns = this.columns.map((column: TableColumn) => {
-        column.headerName = this.$t(column.headerName || "").toString();
-        if (this.$t(column.headerName).toString() !== '') {
-          column.headerTooltip = this.$t(column.headerName).toString();
+        column.headerName = (column.headerName || '').toString();
+        if (column.headerName.toString() !== '') {
+          column.headerTooltip = column.headerName.toString();
         }
         
         if (column.children) {
           column.children.map((children: TableColumn) => {
-            children.headerName = this.$t(children.headerName || "").toString();
-            if (this.$t(children.headerName).toString() !== '') {
-              children.headerTooltip = this.$t(children.headerName).toString();
+            children.headerName = (children.headerName || '').toString();
+            if (children.headerName.toString() !== '') {
+              children.headerTooltip = children.headerName.toString();
             } 
           });
         }
@@ -151,16 +151,16 @@ export default class AppDataTableComponent extends Vue {
     }
     if (this.columns) {
       this.privateColumns = this.columns.map((column: TableColumn) => {
-        column.headerName = this.$t(column.headerName || "").toString();
-        if (this.$t(column.headerName).toString() !== '') {
-          column.headerTooltip = this.$t(column.headerName).toString();
+        column.headerName = (column.headerName || '').toString();
+        if (column.headerName.toString() !== '') {
+          column.headerTooltip = column.headerName.toString();
         }
         
         if (column.children) {
           column.children.map((children: TableColumn) => {
-            children.headerName = this.$t(children.headerName || "").toString();
-            if (this.$t(children.headerName).toString() !== '') {
-              children.headerTooltip = this.$t(children.headerName).toString();
+            children.headerName = (children.headerName || '').toString();
+            if (children.headerName.toString() !== '') {
+              children.headerTooltip = children.headerName.toString();
             } 
           });
         }
@@ -274,15 +274,15 @@ export default class AppDataTableComponent extends Vue {
   public loadColumn(columns: TableColumn[]) {
     if (columns) {
       this.privateColumns = columns.map((column: TableColumn) => {
-        column.headerName = this.$t(column.headerName || "").toString();
-        if (this.$t(column.headerName).toString() !== '') {
-          column.headerTooltip = this.$t(column.headerName).toString();
+        column.headerName = (column.headerName || '').toString();
+        if (column.headerName.toString() !== '') {
+          column.headerTooltip = column.headerName.toString();
         }
         if (column.children) {
           column.children.map((children: TableColumn) => {
-            children.headerName = this.$t(children.headerName || "").toString();
-            if (this.$t(children.headerName).toString() !== '') {
-              children.headerTooltip = this.$t(children.headerName).toString();
+            children.headerName = (children.headerName || '').toString();
+            if (children.headerName.toString() !== '') {
+              children.headerTooltip = children.headerName.toString();
             } 
           });
         }

@@ -2,18 +2,20 @@
 <style lang="scss" scoped src="./Requests.scss"></style>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { requestService } from '../../services/request.service';
 
 @Component
 export default class Requests extends Vue {
-  private listRequests: any[] = [
-    {'position': 'Java', 'name': 'NWS', 'amount': 5, 'assignment': 2, 'address': 'Hanoi', 'status': 1},
-    {'position': 'Java', 'name': 'NWS', 'amount': 5, 'assignment': 2, 'address': 'Hanoi', 'status': 1},
-    {'position': 'Java', 'name': 'NWS', 'amount': 5, 'assignment': 2, 'address': 'Hanoi', 'status': 1},
-    {'position': 'Java', 'name': 'NWS', 'amount': 5, 'assignment': 2, 'address': 'Hanoi', 'status': 1},
-    {'position': 'Java', 'name': 'NWS', 'amount': 5, 'assignment': 2, 'address': 'Hanoi', 'status': 1},
-    {'position': 'Java', 'name': 'NWS', 'amount': 5, 'assignment': 2, 'address': 'Hanoi', 'status': 1},
-    {'position': 'Java', 'name': 'NWS', 'amount': 5, 'assignment': 2, 'address': 'Hanoi', 'status': 1},
-    {'position': 'Java', 'name': 'NWS', 'amount': 5, 'assignment': 2, 'address': 'Hanoi', 'status': 1},
-  ];
+  private listRequests: any[] = [];
+  
+  private created() {
+    this.getAllRequests();
+  }
+
+  private getAllRequests() {
+    requestService.getAllRequests().then((res: any) => {
+      this.listRequests = res.data;
+    });
+  }
 }
 </script>

@@ -2,12 +2,12 @@
 <style lang="scss" scoped src="./Create.scss"></style>
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { CreateFormModel } from "@/models";
+import { RequestModel } from "@/models";
 
 @Component
 export default class Create extends Vue {
   private rules: any = null;
-  private createForm: CreateFormModel = new CreateFormModel();
+  private createForm: RequestModel = new RequestModel();
 
   private noError: string = "";
   private required: string = "";

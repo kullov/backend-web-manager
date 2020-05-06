@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -81,4 +82,9 @@ public class RequestServiceImpl implements RequestService {
         log.debug("Request to delete Request : {}", id);
         requestRepository.deleteById(id);
     }
+
+	@Override
+	public List<Request> findAll() {
+		return requestRepository.findAll();
+	}
 }
