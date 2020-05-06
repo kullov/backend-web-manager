@@ -1,0 +1,90 @@
+<!-- !PAGE CONTENT! -->
+<div class="w3-main">
+  <el-row>
+    <h1 class="p-4 title"><b>Không gian</b></h1>
+    <br>
+    <el-carousel :interval="4000" type="card" height="420px">
+      <el-carousel-item>
+        <img src="https://we25.vn/media/images/anh3(13).jpg" style="width:100%;height:420px;margin-bottom:-6px">
+      </el-carousel-item>
+      <el-carousel-item>
+        <img src="https://file4.batdongsan.com.vn/resize/745x510/2019/06/10/20190610085624-b7e0_wm.jpg" style="width:100%;height:420px;margin-bottom:-6px">
+      </el-carousel-item>
+      <el-carousel-item>
+        <img src="https://cogo.vn/2018_cogo_contents/images/SYL_7995.jpg" style="width:100%;height:420px;margin-bottom:-6px">
+      </el-carousel-item>
+      <el-carousel-item>
+        <img src="https://znews-photo.zadn.vn/w660/Uploaded/wyhktpu/2018_05_10/image007.jpg" style="width:100%;height:420px;margin-bottom:-6px">
+      </el-carousel-item>
+    </el-carousel>
+  </el-row>
+  <el-row class="text-center" id="list-require" style="padding-top:1px;" :gutter="20">
+    <h1 class="p-4 title"><b>Danh sách phiếu yêu cầu</b></h1>
+    <el-col :span="8" v-for="item in listRequests" v-bind:key="item.id" class="pb-4">
+      <img src="https://www.ourlincolnpark.com/wp-content/uploads/2014/07/I-wish-it-were-that-easy.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
+      <div class="w3-container w3-white" style="height:270px;">
+        <h3 class="w3-center"><i>Vị trí: </i><b>{{ item.position }}</b></h3>
+        <h4><i class="fa fa-diamond fa-fw mr-2"></i>Công ty: {{ item.name }}</h4>
+        <p><i class="fa fa-fw fa-male"></i> Chúng tôi cần: <b>{{ item.amount }}</b> người</p>
+        <p><i class="fa fa-fw fa-check-square"></i> Số lượng đã đăng ký: <b>{{ item.assignment }}</b></p>
+        <p><i class="fa fa-map-pin fa-fw"></i> Địa điểm làm việc: {{ item.address }}</p>
+        <p><i class="fa fa-fw fa-check"></i> Trạng thái: {{ item.status === 2 ? "Het hieu luc" : "Con hieu luc" }}</p>
+      </div>
+    </el-col>
+    <!-- <el-col :span="8">
+
+    </el-col>
+    <el-col :span="8">
+
+    </el-col> -->
+    <div class="w3-center w3-padding-32 w3-row-padding">
+      <div class="w3-bar">
+        <a href="#" class="w3-bar-item w3-button w3-hover-black">«</a>
+        <a href="#" class="w3-bar-item w3-black w3-button">1</a>
+        <a href="#" class="w3-bar-item w3-button w3-hover-black">2</a>
+        <a href="#" class="w3-bar-item w3-button w3-hover-black">3</a>
+        <a href="#" class="w3-bar-item w3-button w3-hover-black">4</a>
+        <a href="#" class="w3-bar-item w3-button w3-hover-black">»</a>
+      </div>
+    </div>
+  </el-row>
+  <!-- Assignment -->
+  <div class="w3-container" id="assignment">
+    <h1 class="p-4 title"><b>Bảng phân công</b></h1>
+    <table class="w3-table w3-striped w3-bordered w3-centered w3-hoverable w3-margin-bottom">
+      <tr>
+        <th name="organization_request_id">Mã phiếu yêu cầu</th>
+        <th name="student_id">Mã sinh viên</th>
+        <th name="name_student">Tên sinh viên</th>
+        <th name="start_date">Ngày bắt đầu thực tập</th>
+        <th name="end_date">Ngày kết thúc thực tập</th>
+        <th name="position">Vị trí thực tập</th>
+        <th name="status">Trạng thái</th>
+        <th name="create_date">Thời gian phân công</th>
+      </tr>
+    </table>
+    <br><br>
+  </div>
+  <!-- Contact Section -->
+  <div id="contact" class="w3-container w3-padding-large w3-grey">
+    <h1 class="p-4 title"><b>Contact Me</b></h1>
+    <div class="w3-row-padding w3-center w3-padding-24" style="margin:0 -16px">
+      <div class="w3-third w3-dark-grey">
+        <p><i class="fa fa-envelope w3-xxlarge w3-text-light-grey"></i></p>
+      </div>
+      <div class="w3-third w3-teal">
+        <p><i class="fa fa-map-marker w3-xxlarge w3-text-light-grey"></i></p>
+      </div>
+      <div class="w3-third w3-dark-grey">
+        <p><i class="fa fa-phone w3-xxlarge w3-text-light-grey"></i></p>
+      </div>
+    </div>
+    <hr class="w3-opacity">
+  </div>
+
+  <!-- Footer -->
+  
+  <div class="w3-black w3-center w3-padding-24">Powered by <a href="./" title="Origen" target="_blank" class="w3-hover-opacity">Origen</a></div>
+
+<!-- End page content -->
+</div>

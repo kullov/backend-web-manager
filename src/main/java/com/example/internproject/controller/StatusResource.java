@@ -1,0 +1,107 @@
+package com.example.internproject.controller;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
+
+import org.apache.tomcat.util.http.HeaderUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.internproject.domain.Status;
+import com.example.internproject.service.StatusService;
+
+/**
+ * REST controller for managing {@link com.example.internproject.domain.Status}.
+ */
+@RestController
+@RequestMapping("/api")
+public class StatusResource {
+
+    private final Logger log = LoggerFactory.getLogger(StatusResource.class);
+
+    private static final String ENTITY_NAME = "status";
+
+    @Autowired
+    private StatusService statusService;
+
+    /**
+     * {@code POST  /statuses} : Create a new status.
+     *
+     * @param status the status to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new status, or with status {@code 400 (Bad Request)} if the status has already an ID.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PostMapping("/statuses")
+    public ResponseEntity<Status> createStatus(@RequestBody Status status) throws URISyntaxException {
+        log.debug("REST request to save Status : {}", status);
+        Status result = statusService.save(status);
+        return ResponseEntity.created(new URI("/api/statuses/" + result.getId()))
+            .body(result);
+    }
+
+    /**
+     * {@code PUT  /statuses} : Updates an existing status.
+     *
+     * @param status the status to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated status,
+     * or with status {@code 400 (Bad Request)} if the status is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the status couldn't be updated.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PutMapping("/statuses")
+    public ResponseEntity<Status> updateStatus(@RequestBody Status status) throws URISyntaxException {
+        log.debug("REST request to update Status : {}", status);
+        Status result = statusService.save(status);
+        return ResponseEntity.ok()
+            .body(result);
+    }
+
+    /**
+     * {@code GET  /statuses} : get all the statuses.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of statuses in body.
+     */
+    @GetMapping("/statuses")
+    public List<Status> getAllStatuses() {
+        log.debug("REST request to get all Statuses");
+        return statusService.findAll();
+    }
+
+    /**
+     * {@code GET  /statuses/:id} : get the "id" status.
+     *
+     * @param id the id of the status to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the status, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/statuses/{id}")
+    public ResponseEntity<Status> getStatus(@PathVariable Long id) {
+        log.debug("REST request to get Status : {}", id);
+        Optional<Status> status = statusService.findOne(id);
+        return ResponseEntity.of(status);
+    }
+
+    /**
+     * {@code DELETE  /statuses/:id} : delete the "id" status.
+     *
+     * @param id the id of the status to delete.
+     * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
+     */
+    @DeleteMapping("/statuses/{id}")
+    public ResponseEntity<Void> deleteStatus(@PathVariable Long id) {
+        log.debug("REST request to delete Status : {}", id);
+        statusService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+}
