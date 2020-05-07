@@ -2,74 +2,121 @@
 <style lang="scss" scoped src="./Create.scss"></style>
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { CreateFormModel } from "@/models";
+import { RequestModel } from "@/models";
+import { abilityService } from '../../../services';
 
 @Component
 export default class Create extends Vue {
   private rules: any = null;
-  private createForm: CreateFormModel = new CreateFormModel();
+  private createForm: RequestModel = new RequestModel();
+  private isLoading = false;
 
   private noError: string = "";
   private required: string = "";
   private textarea: string = "";
   private hasMessages: boolean = false;
+  private isDisabledTimeWork: boolean = true;
+  private listAbilities: any = [];
+
+  private created() {
+    this.clearError();
+    this.getListAbilities();
+  }
   private mounted() {
     this.rules = {
       name: [
         {
           required: true,
           message: "Please input Activity name",
-          trigger: "submit"
+          trigger: "change"
         },
-        { min: 3, max: 5, message: "Length should be 3 to 5", trigger: "blur" }
+        { min: 3, max: 100, message: "Length should be 3 to 100", trigger: "blur" }
       ],
-      region: [
+      amount: [
         {
           required: true,
-          message: "Please select Activity zone",
+          message: "Vui Lòng nhập số lượng cần tuyển",
           trigger: "change"
         }
       ],
-      date1: [
+      position: [
         {
-          type: "date",
           required: true,
-          message: "Please pick a date",
+          message: "Vui lòng nhập vị trí cần tuyển",
           trigger: "change"
         }
       ],
-      date2: [
+      status: [
         {
-          type: "date",
           required: true,
-          message: "Please pick a time",
+          message: "Vui lòng chọn trạng thái phiếu",
           trigger: "change"
         }
       ],
       type: [
         {
-          type: "array",
           required: true,
-          message: "Please select at least one activity type",
+          message: "Vui lòng chọn hình thức làm việc",
           trigger: "change"
         }
       ],
-      resource: [
+      // time: [
+      //   {
+      //     required: true,
+      //     message: "Vui lòng chọn ca làm việc",
+      //     trigger: "submit"
+      //   }
+      // ],
+      required: [
         {
           required: true,
-          message: "Please select activity resource",
+          message: "Vui lòng chọn các kỹ năng yêu cầu",
           trigger: "change"
-        }
-      ],
-      desc: [
-        {
-          required: true,
-          message: "Please input activity form",
-          trigger: "submit"
         }
       ]
     };
   }
 
+  private getListAbilities() {
+    this.isLoading = true;
+    abilityService
+      .getAllAbilities()
+      .then((res: any) => {
+        this.listAbilities = res.data;
+      })
+      .catch(err => {
+        alert('Có lỗi!');
+      })
+      .finally(() => this.isLoading = false);
+  }
+
+  private submit() {
+    (this.$refs['ruleForm'] as any).validate((valid: boolean, errors: any) => {
+      if (valid) {
+        alert('Bạn đang tạo phiếu yêu cầu');
+        console.log(this.createForm);
+        
+      }
+    });
+  }
+
+  private isDisabledTimeWorkFunc() {
+    if (this.createForm.type === 'fulltime') {
+      this.isDisabledTimeWork = true;
+    } else {
+      this.isDisabledTimeWork = false;
+    }
+  }
+
+  private clearError() {
+    if ((this.$refs['ruleForm'] as any)) {
+      (this.$refs['ruleForm'] as any).clearValidate();
+    }
+    // for (let tooltip of Object.keys(this.tooltip)) {
+    //   if (tooltip in this.tooltip) {
+    //     this.tooltip[tooltip].clearError();
+    //   }
+    // }
+  }
 }
 </script>

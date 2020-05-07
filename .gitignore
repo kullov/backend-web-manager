@@ -1,9 +1,13 @@
 HELP.md
-target/
-!.mvn/wrapper/maven-wrapper.jar
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**
 !**/src/test/**
 
+.DS_Store
+/src/main/resources/vue_src/node_modules
+/bin/main/vue_src/node_modules
 ### STS ###
 .apt_generated
 .classpath
@@ -18,6 +22,7 @@ target/
 *.iws
 *.iml
 *.ipr
+out/
 
 ### NetBeans ###
 /nbproject/private/
@@ -25,7 +30,6 @@ target/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
 
 ### VS Code ###
 .vscode/

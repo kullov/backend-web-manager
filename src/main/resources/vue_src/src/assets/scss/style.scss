@@ -1,6 +1,5 @@
 // Sub tabs
 .sub-tabs {
-  text-align: center !important;
   .el-tabs__header {
     margin-bottom: 0;
     width: 200px;
@@ -40,3 +39,26 @@
 .primary-btn {
   background-color: #f4a125;
 }
+.title {
+  text-transform: uppercase;
+  font-family: 'Courier New', Courier, monospace !important;
+}
+.el-form-item__content {
+  text-align: left !important;
+}
+.text-left {
+  text-align: left !important;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+.right-content {
+  background-color: #f1f1f1;
+}
+
+@import "dialog";

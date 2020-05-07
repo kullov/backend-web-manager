@@ -1,0 +1,6 @@
+.el-select, .el-radio-group {
+  display: block;
+}
+::v-deep .el-form-item__error {
+  padding: 0 !important;
+}
