@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-loading="isLoading">
     <ul id="example-1">
     <li v-for="item in items" :key="item.id">
       {{ item.name }}
@@ -15,14 +15,22 @@ import { abilityService } from '@/services/ability.service';
 
 @Component
 export default class Ability extends Vue {
+  private isLoading: boolean = false;
   private items: Ability[] = [];
   private created() {
     this.getAllAbilities();
   }
   private getAllAbilities() {
-    abilityService.getAllAbilities().then((res: any) => {
-      this.items = res.data
-    });
+    this.isLoading = true;
+    abilityService
+      .getAllAbilities()
+      .then((res: any) => {
+        this.items = res.data
+      })
+      .catch(() => {
+        alert("Lỗi!");
+      })
+      .finally(() => this.isLoading = false);
   }
 
   private deleteAbility() {

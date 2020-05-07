@@ -4,7 +4,9 @@ import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 import Create from '../views/src-1002/src-1002C/Create.vue'
 import Register from '../views/login/Register.vue'
-import MainLayout from '../views/src-1002/MainLayout.vue'
+import MainOrganization from '../views/src-1002/MainLayout.vue'
+import MainTeacher from '../views/src-1003/MainLayout.vue'
+import MainIntern from '../views/src-1001/MainLayout.vue'
 import Ability from '../views/ability/Ability.vue'
 import Requests from '../views/request/Requests.vue'
 
@@ -42,9 +44,19 @@ Vue.use(VueRouter)
         component: Requests
       },
       {
-        path: 'main-layout',
-        name: 'Main',
-        component: MainLayout,
+        path: 'main-layout-organization',
+        name: 'MainOrganization',
+        component: MainOrganization,
+      },
+      {
+        path: 'main-layout-teacher',
+        name: 'MainTeacher',
+        component: MainTeacher,
+      },
+      {
+        path: 'main-layout-intern',
+        name: 'MainIntern',
+        component: MainIntern,
       },
       
       

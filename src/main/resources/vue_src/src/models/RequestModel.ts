@@ -6,7 +6,7 @@ export class RequestModel {
   public time: string = '';
   public type: string = '';
   public description: string = '';
-  public required: string = '';
+  public required: any;
   public address: string = 'Bac Tu Liem Ha Noi';
 
   constructor(init?: Partial<RequestModel>) {

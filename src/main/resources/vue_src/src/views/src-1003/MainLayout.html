@@ -1,0 +1,24 @@
+<div v-loading="isLoading" class="animated fadeIn page-container">
+  <el-row>
+    <el-col style="width: 290px;">
+      <div class="header-block">
+        <a href="#" onclick="w3_close()" class="w3-hide-large w3-right w3-jumbo w3-hover-grey" title="close menu">
+          <i class="fa fa-remove"></i>
+        </a>
+        <img src="https://www.w3schools.com/w3images/avatar_g2.jpg" style="width:100px;" class="w3-round"><br><br>
+        <h3><b>HUS</b></h3>
+        <p class="w3-text-grey"><i>Teacher</i></p>
+      </div>
+    </el-col>
+  </el-row>
+  <el-tabs tab-position="left" :value="selectedTab" class="sub-tabs">
+    <el-tab-pane
+      v-for="(tab, index) in tabs"
+      :key="index"
+      :label="tab.label"
+      :name="tab.name"
+    >
+      <component :ref="tab.name" v-if="selectedTab" :is="tab.content"/>
+    </el-tab-pane>
+  </el-tabs>
+</div>

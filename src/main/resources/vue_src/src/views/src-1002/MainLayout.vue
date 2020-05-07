@@ -18,7 +18,7 @@ const Create: AsyncComponent = () =>
     delay: 0,
     timeout: undefined
   } as any);
-const ability: AsyncComponent = () =>
+const Ability: AsyncComponent = () =>
   ({
     component: import("../ability/Ability.vue"),
     error: undefined,
@@ -37,34 +37,74 @@ const Requests: AsyncComponent = () =>
   components: {
     Create,
     OrganizationPage,
-    ability,
+    Ability,
     Requests,
   }
 })
 export default class MainLayout extends Vue {
   private isLoading: boolean = false;
-  private selectedTab: string = "tab1";
+  private isRequestComponentVisible: boolean = false;
+  private isProfileComponentVisible: boolean = false;
+  private isCreateComponentVisible: boolean = false;
+  private isAbilityComponentVisible: boolean = false;
+  
+  private selectedTab: any = "1";
   public tabs: any[] = [
     {
-      name: "tab1",
+      name: "1",
       label: "Organization Page",
       content: "OrganizationPage"
     },
     {
-      name: "tab2",
+      name: "2",
       label: "Create",
       content: "Create"
     },
     {
-      name: "tab3",
+      name: "3",
       label: "Ability",
       content: "ability"
     },
     {
-      name: "tab4",
+      name: "4",
       label: "Requests",
       content: "Requests"
     },
   ];
+
+  private created() {
+    this.isProfileComponentVisible = true;
+  }
+
+  private openTab() {
+    switch (this.selectedTab) {
+      case '1':
+        this.isCreateComponentVisible = false;
+        this.isRequestComponentVisible = false;
+        this.isAbilityComponentVisible = false;
+        this.isProfileComponentVisible = true;
+      break;
+      case '2':
+        this.isProfileComponentVisible = false;
+        this.isCreateComponentVisible = false;
+        this.isAbilityComponentVisible = false;
+        this.isRequestComponentVisible = true;
+        break;
+      case '3':
+        this.isProfileComponentVisible = false;
+        this.isRequestComponentVisible = false;
+        this.isAbilityComponentVisible = false;
+        this.isCreateComponentVisible = true;
+        break;
+      case '4':
+        this.isProfileComponentVisible = false;
+        this.isRequestComponentVisible = false;
+        this.isCreateComponentVisible = false;
+        this.isAbilityComponentVisible = true;
+        break;
+      default:
+    }
+
+  }
 }
 </script>
