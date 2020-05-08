@@ -1,0 +1,106 @@
+<div v-loading="isLoading" class="animated fadeIn page-container w3-container">
+  <div v-if="intern">
+    <h2><span>Intern</span> {{intern.firstName}}</h2>
+    <el-row :gutter="20">
+      <el-form :model="intern">
+        <el-col :span="12">
+          <el-form-item label="Code">
+            <el-input v-model="intern.code"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="First Name">
+            <el-input v-model="intern.firstName"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="Last Name">
+            <el-input v-model="intern.lastName"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="Date Of Birth">
+            <el-input v-model="intern.dateOfBirth"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="Join Date">
+            <el-input v-model="intern.joinDate"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="Class Name">
+            <el-input v-model="intern.className"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="Avatar">
+            <el-input v-model="intern.avatar"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="Password">
+            <el-input v-model="intern.password"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="Email">
+            <el-input v-model="intern.email"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="Phone">
+            <el-input v-model="intern.phone"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="Description">
+            <el-input v-model="intern.description"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="Address">
+            <el-input v-model="intern.Address"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="24">
+          <el-form-item prop="required" label="Yêu cầu thêm" class="form-group">
+            <!-- <el-select v-model="intern.internAbilities" class="w-100" multiple placeholder="">
+              <el-option 
+                v-for="abilityOption in listAbilities" 
+                :value="getSelected(intern.internAbilities, abilityOption)" 
+                :key="abilityOption.id">
+                {{abilityOption.name}}
+              </el-option>
+              
+              <el-option v-for="item in listAbilities" :key="item.id" :label="item.name" :value="item.id">
+              </el-option>
+            </el-select> -->
+            <el-checkbox-group 
+              v-model="intern.internAbilities"
+              :min="1"
+              :max="5">
+              <el-checkbox  v-for="abilityOption in listAbilities" :key="abilityOption.id" :label="abilityOption">{{abilityOption.name}}</el-checkbox>
+            </el-checkbox-group>
+              <select class="form-control" id="intern-internAbility" multiple name="internAbility" v-model="intern.internAbilities">
+                <option v-bind:value="getSelected(intern.internAbilities, abilityOption)" v-for="abilityOption in listAbilities" :key="abilityOption.id">{{abilityOption.name}}</option>
+            </select>
+          </el-form-item>
+        </el-col>
+        <!-- <el-col :span="12">
+          <el-form-item label="Organization Intern">
+            <div v-if="intern.organizationInternId">
+              <router-link :to="{name: 'OrganizationView', params: {organizationId: intern.organizationInternId}}">
+                {{intern.organizationInternId}}</router-link>
+            </div>
+          </el-form-item>
+        </el-col> -->
+      </el-form>
+    </el-row>
+    <el-button @click.prevent="previousState()"> Trở về</el-button>
+    <el-button @click="updateIntern"> Sửa</el-button>
+    <!-- <router-link v-if="intern.id" :to="{name: 'InternEdit', params: {internId: intern.id}}" tag="button"
+      class="btn btn-primary">
+    </router-link> -->
+  </div>
+</div>

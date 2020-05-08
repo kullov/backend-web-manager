@@ -1,13 +1,20 @@
+import { AbilityModel } from './AbilityModel';
+import { RegisterModel } from './RegisterModel';
+
 export class RequestModel {
-  public name: string = '';
-  public amount: string = '';
-  public position: string = '';
-  public status: string = '';
-  public time: string = '';
-  public type: string = '';
-  public description: string = '';
-  public required: any;
-  public address: string = 'Bac Tu Liem Ha Noi';
+  id?: number;
+  position?: string;
+  amount?: number;
+  dateCreated?: Date;
+  status?: number;
+  description?: string;
+  type?: string;
+  registerRequests?: RegisterModel[];
+  requestStatusName?: string;
+  requestStatusId?: number;
+  requestAbilities?: AbilityModel[];
+  organizationRequestName?: string;
+  organizationRequestId?: number;
 
   constructor(init?: Partial<RequestModel>) {
     Object.assign(this, init);

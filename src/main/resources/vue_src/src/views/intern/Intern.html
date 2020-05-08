@@ -1,0 +1,103 @@
+<div class="page-container">
+  <h2 id="page-heading">
+      <span id="intern-heading">Interns</span>
+      <router-link :to="{name: 'InternCreate'}" tag="button" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-intern">
+          <span >
+              Create a new Intern
+          </span>
+      </router-link>
+  </h2>
+  <b-alert :show="dismissCountDown"
+      dismissible
+      :variant="alertType"
+      @dismissed="dismissCountDown=0"
+      @dismiss-count-down="countDownChanged">
+      {{alertMessage}}
+  </b-alert>
+  <br/>
+  <div class="alert alert-warning" v-if="!isFetching && interns && interns.length === 0">
+      <span>No interns found</span>
+  </div>
+  <el-row class="table-responsive" v-if="interns && interns.length > 0">
+    <perfect-scrollbar>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+            <th><span>ID</span></th>
+            <th><span>Code</span></th>
+            <th><span>First Name</span></th>
+            <th><span>Last Name</span></th>
+            <th><span>Date Of Birth</span></th>
+            <th><span>Join Date</span></th>
+            <th><span>Class Name</span></th>
+            <th><span>Avatar</span></th>
+            <th><span>Password</span></th>
+            <th><span>Email</span></th>
+            <th><span>Phone</span></th>
+            <th><span>Description</span></th>
+            <th><span>Address</span></th>
+            <th><span>Intern Ability</span></th>
+            <th><span>Organization Intern</span></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="intern in interns"
+            :key="intern.id">
+            <td>
+                <router-link :to="{name: 'InternView', params: {internId: intern.id}}">{{intern.id}}</router-link>
+            </td>
+            <td>{{intern.code}}</td>
+            <td>{{intern.firstName}}</td>
+            <td>{{intern.lastName}}</td>
+            <td>{{intern.dateOfBirth | formatDate}}</td>
+            <td>{{intern.joinDate | formatDate}}</td>
+            <td>{{intern.className}}</td>
+            <td>{{intern.avatar}}</td>
+            <td>{{intern.password}}</td>
+            <td>{{intern.email}}</td>
+            <td>{{intern.phone}}</td>
+            <td>{{intern.description}}</td>
+            <td>{{intern.address}}</td>
+            <td>
+                <span v-for="(internAbility, i) in intern.internAbilities" :key="internAbility.id">{{i > 0 ? ', ' : ''}}
+                    <router-link class="form-control-static" :to="{name: 'AbilityView', params: {abilityId: internAbility.id}}">{{internAbility.name}}</router-link>
+                </span>
+            </td>
+            <td>
+                <div v-if="intern.organizationInternId">
+                    <router-link :to="{name: 'OrganizationView', params: {organizationId: intern.organizationInternId}}">{{intern.organizationInternId}}</router-link>
+                </div>
+            </td>
+            <td class="text-right">
+                <div class="btn-group">
+                    <router-link :to="{name: 'InternView', params: {internId: intern.id}}" tag="button" class="btn btn-info btn-sm details">
+                        <span class="d-none d-md-inline">View</span>
+                    </router-link>
+                    <router-link :to="{name: 'InternEdit', params: {internId: intern.id}}"  tag="button" class="btn btn-primary btn-sm edit">
+                        <span class="d-none d-md-inline">Edit</span>
+                    </router-link>
+                    <b-button v-on:click="prepareRemove(intern)"
+                           variant="danger"
+                           class="btn btn-sm"
+                           v-b-modal.removeEntity>
+                        <span class="d-none d-md-inline">Delete</span>
+                    </b-button>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+      </table>
+    </perfect-scrollbar>
+  </el-row>
+  <b-modal ref="removeEntity" id="removeEntity" >
+      <span slot="modal-title"><span id="demoApp.intern.delete.question">Confirm delete operation</span></span>
+      <div class="modal-body">
+          <p id="jhi-delete-intern-heading">Are you sure you want to delete this Intern?</p>
+      </div>
+      <div slot="modal-footer">
+          <button type="button" class="btn btn-secondary" v-on:click="closeDialog()">Cancel</button>
+          <button type="button" class="btn btn-primary" id="jhi-confirm-delete-intern" v-on:click="removeIntern()">Delete</button>
+      </div>
+  </b-modal>
+</div>

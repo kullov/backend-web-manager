@@ -9,12 +9,12 @@ class AbilityService extends Vue {
     // return Vue.axios.get<any>(ROOT_API + '/all', { params: { page: page }});
   }
 
-  public createAbility(name: string, description: string, type: string): AxiosPromise<any> {
-    return Vue.axios.post<any>(ROOT_API, {name: name, description: description, type: type});
+  public createAbility(entity: AbilityModel): AxiosPromise<AbilityModel> {
+    return Vue.axios.post<AbilityModel>(ROOT_API, entity);
   }
 
-  public updateAbility(id: any, name: string, description: string, type: string): AxiosPromise<any[]> {
-    return Vue.axios.put(ROOT_API + id, {name: name, description: description, type: type});
+  public updateAbility(entity: AbilityModel): AxiosPromise<any[]> {
+    return Vue.axios.put(ROOT_API, entity);
   }
 
   public getAbility(id: any): AxiosPromise<any[]> {

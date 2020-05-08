@@ -26,6 +26,7 @@ export default class Ability extends Vue {
       .getAllAbilities()
       .then((res: any) => {
         this.items = res.data
+        // this.$store.
       })
       .catch(() => {
         alert("Lỗi!");
