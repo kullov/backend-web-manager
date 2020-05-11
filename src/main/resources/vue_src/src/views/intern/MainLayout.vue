@@ -76,6 +76,10 @@ export default class MainLayout extends Vue {
 
   }
 
+  created() {
+    this.isProfileComponentVisible = true;
+  }
+
   private openTab() {
     switch (this.selectedTab) {
       case '1':

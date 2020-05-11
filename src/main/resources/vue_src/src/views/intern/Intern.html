@@ -1,12 +1,5 @@
 <div class="page-container">
-  <h2 id="page-heading">
-      <span id="intern-heading">Interns</span>
-      <router-link :to="{name: 'InternCreate'}" tag="button" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-intern">
-          <span >
-              Create a new Intern
-          </span>
-      </router-link>
-  </h2>
+  <h2 id="page-heading">Interns</h2>
   <b-alert :show="dismissCountDown"
       dismissible
       :variant="alertType"

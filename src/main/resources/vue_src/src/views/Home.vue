@@ -23,7 +23,10 @@
 <style scoped lang="scss">
 .el-header {
   background-color: black;
-  
+  position: sticky;
+  top: 0;
+  z-index: 5555;
+  width: 100%;
 }
 .el-menu.el-menu--horizontal {
   background-color: black;

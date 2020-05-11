@@ -1,6 +1,6 @@
 <div v-loading="isLoading" class="animated fadeIn page-container">
   <el-row>
-    <el-col :span="4" :offset="2">
+    <el-col :span="4" class="left-content">
       <div class="header-block">
         <a href="#" onclick="w3_close()" class="w3-hide-large w3-right w3-jumbo w3-hover-grey" title="close menu">
           <i class="fa fa-remove"></i>
@@ -20,10 +20,12 @@
         </el-col>
       </el-row>
     </el-col>
-    <el-col class="right-content" :span="16">
-      <InternPageDetail v-if="isProfileComponentVisible"></InternPageDetail>
-      <!-- <Create v-if="isCreateComponentVisible"></Create> -->
-      <Ability v-if="isAbilityComponentVisible"></Ability>
+    <el-col class="right-content" :span="20">
+      <perfect-scrollbar>
+        <InternPageDetail v-if="isProfileComponentVisible"></InternPageDetail>
+        <!-- <Create v-if="isCreateComponentVisible"></Create> -->
+        <Ability v-if="isAbilityComponentVisible"></Ability>
+      </perfect-scrollbar>
     </el-col>
   </el-row>
 </div>

@@ -59,10 +59,29 @@
 }
 .right-content {
   background-color: #f1f1f1;
-  height: 908px;
+  height: 100%;
+  margin-left: 317px;
+}
+
+.left-content {
+  background-color: white;
+  height: 100%;
+  position: fixed;
+  top: 60px;
+  left: 0px;
+  z-index: 5555;
 }
 
 @import "dialog";
+// .page-container {
+//   max-height: 907px;
+// }
 .page-container {
-  max-height: 907px;
+  background-color: #f1f1f1;
+}
+.el-menu-demo .el-menu-item {
+  float: left;
+  display: block;
+  text-align: center;
+  font-size: 14px;
 }
