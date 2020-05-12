@@ -1,8 +1,12 @@
 export class RegisterModel {
-  public internId: string = '';
-  public requestId: string = '';
-  public startDate: string = ''; //start_date
-  public endDate: string = ''; //end_date
+  id?: number;
+  dateCreated?: Date;
+  startDate?: Date;
+  endDate?: Date;
+  internRegisterCode?: string;
+  internRegisterId?: number;
+  requestRegisterPosition?: string;
+  requestRegisterId?: number;
 
   constructor(init?: Partial<RegisterModel>) {
     Object.assign(this, init);

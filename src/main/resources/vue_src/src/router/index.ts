@@ -6,7 +6,7 @@ import Create from '../views/src-1002/src-1002C/Create.vue'
 import Register from '../views/login/Register.vue'
 import MainOrganization from '../views/src-1002/MainLayout.vue'
 import MainTeacher from '../views/src-1003/MainLayout.vue'
-import MainIntern from '../views/src-1001/MainLayout.vue'
+import MainIntern from '../views/intern/MainLayout.vue'
 import Ability from '../views/ability/Ability.vue'
 import Requests from '../views/request/Requests.vue'
 

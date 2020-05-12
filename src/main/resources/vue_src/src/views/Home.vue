@@ -7,7 +7,6 @@
         <el-menu-item index="/main-layout-teacher">Teacher</el-menu-item>
         <el-menu-item index="/main-layout-intern">Intern</el-menu-item>
         <el-menu-item index="/requests">Requests</el-menu-item>
-        <el-menu-item index="/login">Login</el-menu-item>
         <el-submenu index="/login" style="position:absolute;right:0px">
           <template slot="title">Login</template>
           <el-menu-item index="/login">Student</el-menu-item>
@@ -24,7 +23,10 @@
 <style scoped lang="scss">
 .el-header {
   background-color: black;
-  
+  position: sticky;
+  top: 0;
+  z-index: 5555;
+  width: 100%;
 }
 .el-menu.el-menu--horizontal {
   background-color: black;

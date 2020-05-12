@@ -4,13 +4,15 @@
 import { Component, Vue } from "vue-property-decorator";
 import { AsyncComponent } from 'vue';
 
-// const OrganizationPage: AsyncComponent = () =>
-//   ({
-//     component: import("./src-1002A/OrganizationPage.vue"),
-//     error: undefined,
-//     delay: 0,
-//     timeout: undefined
-//   } as any);
+import abilityModule from '../../store/ability.module';
+
+const Interns: AsyncComponent = () =>
+  ({
+    component: import("../intern/Intern.vue"),
+    error: undefined,
+    delay: 0,
+    timeout: undefined
+  } as any);
 const Teacher: AsyncComponent = () =>
   ({
     component: import("./src-1003A/Teacher.vue"),
@@ -18,23 +20,17 @@ const Teacher: AsyncComponent = () =>
     delay: 0,
     timeout: undefined
   } as any);
-// const Create: AsyncComponent = () =>
-//   ({
-//     component: import("./src-1002C/Create.vue"),
-//     error: undefined,
-//     delay: 0,
-//     timeout: undefined
-//   } as any);
-// const ability: AsyncComponent = () =>
-//   ({
-//     component: import("../ability/Ability.vue"),
-//     error: undefined,
-//     delay: 0,
-//     timeout: undefined
-//   } as any);
-const Requests: AsyncComponent = () =>
+
+const InternPageDetail: AsyncComponent = () =>
   ({
-    component: import("../request/Requests.vue"),
+    component: import("../intern/intern-detail/InternPageDetail.vue"),
+    error: undefined,
+    delay: 0,
+    timeout: undefined
+  } as any);
+const Organizations: AsyncComponent = () =>
+  ({
+    component: import("../src-1002/list-all/Organizations.vue"),
     error: undefined,
     delay: 0,
     timeout: undefined
@@ -42,37 +38,68 @@ const Requests: AsyncComponent = () =>
   
 @Component({
   components: {
+    Interns,
+    Organizations,
     Teacher,
-    // Create,
-    // OrganizationPage,
-    // ability,
-    Requests,
+    InternPageDetail,
   }
 })
 export default class MainLayout extends Vue {
   private isLoading: boolean = false;
+  private isListInternsComponentVisible: boolean = false;
+  private isProfileComponentVisible: boolean = false;
+  private isListOrganizationComponentVisible: boolean = false;
+  
   private selectedTab: string = "tab1";
-  public tabs: any[] = [
-    {
-      name: "tab1",
-      label: "Teacher Profile",
-      content: "Teacher"
-    },
-    // {
-    //   name: "tab2",
-    //   label: "Create",
-    //   content: "Create"
-    // },
-    // {
-    //   name: "tab3",
-    //   label: "Ability",
-    //   content: "ability"
-    // },
-    {
-      name: "tab4",
-      label: "Requests",
-      content: "Requests"
-    },
-  ];
+  // private beforeCreate() {
+  //   this.$store.registerModule(
+  //     'abilityModule',
+  //     abilityModule
+  //   );
+  // }
+
+  private beforeDestroy() {
+    // this.$store.dispatch(
+    //   'abilityModule' + "/RESET_STATE"
+    // );
+    // this.$store.unregisterModule('abilityModule');
+
+  }
+
+  created() {
+    this.isProfileComponentVisible = true;
+  }
+
+  private openTab() {
+    switch (this.selectedTab) {
+      case '1':
+        this.isListInternsComponentVisible = false;
+        this.isListOrganizationComponentVisible = false;
+        this.isProfileComponentVisible = true;
+      break;
+      case '2':
+        this.isProfileComponentVisible = false;
+        this.isListOrganizationComponentVisible = false;
+        this.isListInternsComponentVisible = true;
+        break;
+      case '3':
+        this.isListInternsComponentVisible = false;
+        this.isProfileComponentVisible = false;
+        this.isListOrganizationComponentVisible = true;
+        break;
+      case '4':
+        // this.isProfileComponentVisible = false;
+        // this.isRequestComponentVisible = false;
+        // this.isCreateComponentVisible = false;
+        // this.isAbilityComponentVisible = true;
+        break;
+      default:
+    }
+
+  }
+
+//   private openRequestComponent() {
+//     this.isRequestComponentVisible = true;
+//   }
 }
 </script>

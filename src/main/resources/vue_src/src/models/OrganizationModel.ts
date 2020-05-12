@@ -1,11 +1,21 @@
+import { RequestModel } from './RequestModel';
+import { InternModel } from './InternModel';
+import { RequestAssignmentModel } from './RequestAssignmentModel';
+
 export class OrganizationModel {
-  public name: string = '';
-  public id: string = '';
-  public contact: string = '';
-  public email: string = '';
-  public description: string = '';
-  public address: string = 'Bac Tu Liem Ha Noi';
-  public password: string = '';
+  id?: number;
+  employeeCount?: number;
+  grossRevenue?: string;
+  name?: string;
+  taxNumber?: string;
+  password?: string;
+  email?: string;
+  contact?: string;
+  description?: string;
+  address?: string;
+  requests?: RequestModel[];
+  interns?: InternModel[];
+  requestAssignments?: RequestAssignmentModel[];
 
   constructor(init?: Partial<OrganizationModel>) {
     Object.assign(this, init);

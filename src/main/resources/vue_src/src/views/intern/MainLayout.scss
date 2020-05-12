@@ -10,6 +10,9 @@
   }
   .el-radio-button__inner {
     border: none !important;
+    width: 100%;
+    border: none;
+    border-radius: none !important;
   }
 }
 .header-block {
@@ -19,4 +22,7 @@
 }
 .sub-tabs .el-tabs__content .el-tab-pane {
   min-height: 910px;
+}
+.ps {
+  height: 908px;
 }
