@@ -7,7 +7,7 @@
   
   .el-tabs__content {
     flex: 1;
-    background-color: #f1f1f1;
+    background-color: white;
     .el-tab-pane {
       height: 100%;
       display: flex;
@@ -58,14 +58,9 @@
   text-align: center !important;
 }
 .right-content {
-  background-color: #f1f1f1;
   height: 100%;
-}
-
-::v-deep .left-content {
-  background-color: white;
-  // position: fixed;
-  // z-index: 555;
+  width: 80%;
+  margin-left: 20%;
 }
 
 @import "dialog";
@@ -75,7 +70,7 @@
 // Import atomic style
 @import "atomic";
 .page-container {
-  background-color: #f1f1f1;
+  background-color: white;
 }
 .el-menu-demo .el-menu-item {
   float: left;

@@ -66,6 +66,17 @@
         </el-form-item>
       </el-col>
     </el-row>
+    <el-row>
+      <el-col :span="12">
+        <el-form-item label="Trạng thái">
+          <el-select placeholder="" v-model="registerRequest.registerRequestStatus" value-key="id">
+            <el-option
+              :value="statusOption"
+              v-for="statusOption in statuses" :key="statusOption.id" :label="statusOption.name"></el-option>
+          </el-select>
+        </el-form-item>
+      </el-col>
+    </el-row>
     <el-row :gutter="20">
       <el-col class="text-center">
         <el-button @click="save" id="save-entity" class="btn btn-primary">
@@ -77,4 +88,16 @@
       </el-col>
     </el-row>
   </el-form>
+  <!-- Dialog -->
+  <!-- <b-modal
+    title="Đăng ký thực tập"
+    no-fade v-model="isRegisterRequestVisible"
+    :no-close-on-backdrop="true"
+    :hide-footer="true"
+    modal-class="detail-modal"
+    center
+    size="lg"
+    >
+    <InputRegister v-if="isRegisterRequestVisible" :requestModel="requestModel" :internId="internId" @close="finishScreen"></InputRegister>
+  </b-modal> -->
 </div>

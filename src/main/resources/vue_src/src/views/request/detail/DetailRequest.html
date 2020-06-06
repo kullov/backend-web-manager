@@ -76,31 +76,6 @@
     center
     size="lg"
     >
-    <!-- <el-form 
-      label-width="9rem"
-      :model="formRegister">
-      <el-form-item label="Nhập ngày bắt đầu">
-        <el-date-picker
-          popper-class="small-date-picker"
-          type="date"
-          class="show-date width-10-rem"
-          format="dd/MM/yyyy"
-          v-model="formRegister.startDate">
-        </el-date-picker>
-      </el-form-item>
-      <el-form-item label="Nhập ngày kết thúc">
-        <el-date-picker
-          popper-class="small-date-picker"
-          class="show-date width-10-rem"
-          format="dd/MM/yyyy"
-          type="date"
-          v-model="formRegister.endDate">
-        </el-date-picker>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="registerSubmit()">Đăng ký</el-button>
-      </el-form-item>
-    </el-form> -->
     <InputRegister v-if="isRegisterRequestVisible" :requestModel="requestModel" :internId="internId" @close="finishScreen"></InputRegister>
   </b-modal>
 </div>

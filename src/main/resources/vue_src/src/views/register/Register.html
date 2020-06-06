@@ -7,77 +7,96 @@
     <span>Không có phiếu đăng ký thực tập nào</span>
   </div>
   <div v-if="registerRequests && registerRequests.length > 0">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>
-            <span>ID</span>
-          </th>
-          <th>
-            <span>Sinh viên</span>
-          </th>
-          <th>
-            <span>Vị trí thực tập</span>
-          </th>
-          <th>
-            <span>Ngày bắt đầu</span>
-          </th>
-          <th>
-            <span>Ngày kết thúc</span>
-          </th>
-          <th>
-            <span>Ngày tạo</span>
-          </th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="registerRequest in registerRequests" :key="registerRequest.id">
-          <td>
-            <router-link :to="{name: 'routes.register.view', params: {registerRequestId: registerRequest.id}}">
-              {{registerRequest.id}}</router-link>
-          </td>
-          <td>
-            <div v-if="registerRequest.internRegister">
-              <router-link :to="{name: 'InternView', params: {internId: registerRequest.internRegister.id}}">
-                {{registerRequest.internRegister.firstName}} {{registerRequest.internRegister.lastName}}</router-link>
-            </div>
-          </td>
-          <td>
-            <div v-if="registerRequest.requestRegister">
-              <router-link :to="{name: 'routes.request.view', params: {requestId: registerRequest.requestRegister.id}}">
-                {{registerRequest.requestRegister.position}}</router-link>
-            </div>
-          </td>
-          <td>{{registerRequest.startDate}}</td>
-          <td>{{registerRequest.endDate}}</td>
-          <td>{{registerRequest.dateCreated}}</td>
-          <td class="text-right">
-            <div class="btn-group">
-              <router-link :to="{name: 'routes.register.view', params: {registerRequestId: registerRequest.id}}"
-                tag="button" class="btn btn-info btn-sm details">
-                <span class="d-none d-md-inline">Xem</span>
-              </router-link>
-              <router-link :to="{name: 'routes.register.edit', params: {registerRequestId: registerRequest.id}}"
-                tag="button" class="btn btn-primary btn-sm edit">
-                <span class="d-none d-md-inline">Sửa</span>
-              </router-link>
-              <b-button v-on:click="prepareRemove(registerRequest)" variant="danger" class="btn btn-sm"
-                v-b-modal.removeEntity>
-                <span class="d-none d-md-inline">Xóa</span>
-              </b-button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <el-table
+      stripe
+      :data="registerRequests"
+      style="width: 100%"
+      max-height="480">
+      <el-table-column
+        fixed
+        align="center"
+        prop="id"
+        label="ID"
+        width="60">
+      </el-table-column>
+      <el-table-column
+        prop="internRegister"
+        label="Sinh viên"
+        align="center"
+        width="150">
+        <template slot-scope="scope">
+          <span v-if="scope.row.internRegister">
+            {{ scope.row.internRegister.firstName }} {{ scope.row.internRegister.lastName }}
+          </span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="requestRegister"
+        label="Vị trí thực tập"
+        align="center"
+        width="150">
+        <template slot-scope="scope">
+          <span v-if="scope.row.requestRegister">
+            {{ scope.row.requestRegister.position }}
+          </span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="startDate"
+        label="Ngày bắt đầu"
+        align="center"
+        width="130">
+      </el-table-column>
+      <el-table-column
+        prop="endDate"
+        label="Ngày kết thúc"
+        align="center"
+        width="130">
+      </el-table-column>
+      <el-table-column
+        prop="dateCreated"
+        align="center"
+        label="Ngày tạo"
+        width="130">
+      </el-table-column>
+      <el-table-column
+        prop="registerRequestStatus"
+        label="Trạng thái"
+        align="center"
+        width="100">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.registerRequestStatus"
+          :type="scope.row.registerRequestStatus.id === 1 ? 'success'
+          : (scope.row.registerRequestStatus.id === 2 ? 'danger' : 'warning')
+           "
+          disable-transitions
+          >
+            {{ scope.row.registerRequestStatus.name }}
+          </el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column
+        fixed="right"
+        align="center"
+        label="Thao tác"
+        width="110">
+        <template slot-scope="scope">
+          <el-button
+            @click="openDialogEdit(scope.row)" type="warning" icon="el-icon-edit" circle>
+          </el-button>
+          <el-button @click="prepareRemove(scope.row)" type="danger"
+            v-b-modal.removeEntity icon="el-icon-delete" circle>
+          </el-button>
+        </template>
+      </el-table-column>
+    </el-table>
   </div>
   <b-modal ref="removeEntity" id="removeEntity">
     <span slot="modal-title">
       <span id="demoApp.registerRequest.delete.question">Xác nhận xóa</span>
     </span>
     <div class="modal-body">
-      <p id="jhi-delete-registerRequest-heading">Bạn chắc chắn muốn xóa phiếu đăng ký {{ instance ? instance.id : '' }} ?</p>
+      <p id="jhi-delete-registerRequest-heading">Bạn chắc chắn muốn xóa phiếu đăng ký không?</p>
     </div>
     <div slot="modal-footer">
       <el-button type="button" class="btn btn-primary" id="jhi-confirm-delete-registerRequest"
@@ -91,7 +110,8 @@
     <InputRegister
       v-if="isInputRegisterVisible"
       @close="finishScreen"
-      :id="idProp">
+      :registerModel="editModel"
+      :requestModel="editModel.requestRegister">
     </InputRegister>
   </b-modal>
 </div>

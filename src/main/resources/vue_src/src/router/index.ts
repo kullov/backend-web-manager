@@ -1,61 +1,58 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import Home from '../views/Home.vue'
-import About from '../views/About.vue'
-import InputRequest from '../views/request/input-request/InputRequest.vue'
-import Register from '../views/login/Register.vue'
-import Organization from '../views/src-1002/list-all/Organizations.vue'
-// import OrganizationUpdate from '../views/src-1002/src-1002C/'
-import OrganizationDetails from '../views/src-1002/src-1002A/OrganizationPage.vue'
+import Home from '@/views/Home.vue'
+import About from '@/views/About.vue'
+import InputRequest from '@/views/request/input-request/InputRequest.vue'
+import Organization from '@/views/src-1002/list-all/Organizations.vue'
+// import OrganizationUpdate from '@/views/src-1002/src-1002C/'
+import OrganizationDetails from '@/views/src-1002/src-1002A/OrganizationPage.vue'
 
 // // prettier-ignore
-const Interns = () => import('../views/intern/Interns.vue');
+const Register = () => import('@/views/auth/register/Register.vue');
+const Login = () => import('@/views/auth/login/Login.vue');
+
+const Interns = () => import('@/views/intern/Interns.vue');
+const InputIntern = () => import('@/views/intern/input-intern/InputIntern.vue');
 // // prettier-ignore
-// const InternUpdate = () => import('../views/intern/intern-update.vue');
+// const InternUpdate = () => import('@/views/intern/intern-update.vue');
 // // prettier-ignore
-const InternPageDetail = () => import('../views/intern/intern-detail/InternPageDetail.vue');
+const InternPageDetail = () => import('@/views/intern/intern-detail/InternPageDetail.vue');
 // // prettier-ignore
-// const Teacher = () => import('../views/teacher/teacher.vue');
+// const Teacher = () => import('@/views/teacher/teacher.vue');
 // // prettier-ignore
-// const TeacherUpdate = () => import('../views/teacher/teacher-update.vue');
+// const TeacherUpdate = () => import('@/views/teacher/teacher-update.vue');
 // // prettier-ignore
-// const TeacherDetails = () => import('../views/teacher/teacher-details.vue');
+// const TeacherDetails = () => import('@/views/teacher/teacher-details.vue');
 // // prettier-ignore
-const Ability = () => import('../views/ability/Ability.vue');
+const Ability = () => import('@/views/ability/Ability.vue');
 // // prettier-ignore
-// const AbilityUpdate = () => import('../views/ability/ability-update.vue');
+const RequestAssignment = () => import('@/views/request-assignment/RequestAssignment.vue');
 // // prettier-ignore
-// const AbilityDetails = () => import('../views/ability/ability-details.vue');
+// const AbilityDetails = () => import('@/views/ability/ability-details.vue');
 // prettier-ignore
-const RegisterRequest = () => import('../views/register/Register.vue');
+const RegisterRequest = () => import('@/views/register/Register.vue');
 // prettier-ignore
-const RegisterRequestUpdate = () => import('../views/register/input-register/InputRegister.vue');
+const RegisterRequestUpdate = () => import('@/views/register/input-register/InputRegister.vue');
 // prettier-ignore
-const RegisterRequestDetails = () => import('../views/register/Register.vue');
+const RegisterRequestDetails = () => import('@/views/register/Register.vue');
 // prettier-ignore
-const RequestAssignment = () => import('../views/request-assignment/RequestAssignment.vue');
+const Requests = () => import('@/views/request/Requests.vue');
 // prettier-ignore
-const RequestAssignmentUpdate = () => import('../views/request-assignment/input-request-assignment/RequestAssignmentUpdate.vue');
+const RequestUpdate = () => import('@/views/request/input-request/InputRequest.vue');
 // prettier-ignore
-const RequestAssignmentDetails = () => import('../views/request-assignment/detail-request-assignment/RequestAssignmentDetails.vue');
+const RequestDetails = () => import('@/views/request/detail/DetailRequest.vue');
 // prettier-ignore
-const Requests = () => import('../views/request/Requests.vue');
-// prettier-ignore
-const RequestUpdate = () => import('../views/request/input-request/InputRequest.vue');
-// prettier-ignore
-const RequestDetails = () => import('../views/request/detail/DetailRequest.vue');
-// prettier-ignore
-// const AbilityCategory = () => import('../views/ability-category/ability-category.vue');
+// const AbilityCategory = () => import('@/views/ability-category/ability-category.vue');
 // // prettier-ignore
-// const AbilityCategoryUpdate = () => import('../views/ability-category/ability-category-update.vue');
+// const AbilityCategoryUpdate = () => import('@/views/ability-category/ability-category-update.vue');
 // // prettier-ignore
-// const AbilityCategoryDetails = () => import('../views/ability-category/ability-category-details.vue');
+// const AbilityCategoryDetails = () => import('@/views/ability-category/ability-category-details.vue');
 // // prettier-ignore
-// const Status = () => import('../views/status/status.vue');
+// const Status = () => import('@/views/status/status.vue');
 // // prettier-ignore
-// const StatusUpdate = () => import('../views/status/status-update.vue');
+// const StatusUpdate = () => import('@/views/status/status-update.vue');
 // // prettier-ignore
-// const StatusDetails = () => import('../views/status/status-details.vue');
+// const StatusDetails = () => import('@/views/status/status-details.vue');
 // // jhipster-needle-add-entity-to-router-import - JHipster will import entities to the router here
 
 
@@ -93,12 +90,12 @@ const routes = [
         name: 'routes.teacher',
         // component: MainTeacher,
       },
-      // {
-      //   path: 'intern',
-      //   alias: 'intern',
-      //   name: 'routes.intern',
-      //   component: InternPageDetail,
-      // },
+      {
+        path: 'intern/edit/:internId',
+        alias: 'intern/edit',
+        name: 'routes.intern.edit',
+        component: InputIntern,
+      },
       {
         path: '/interns',
         alias: 'interns/list',
@@ -120,7 +117,7 @@ const routes = [
       // },
       {
         path: '/intern/view/:internId',
-        name: 'routes/intern',
+        name: 'routes/intern.view',
         component: InternPageDetail,
         //meta: { authorities: [Authority.USER] }
       },
@@ -182,47 +179,28 @@ const routes = [
         component: Ability,
         //meta: { authorities: [Authority.USER] }
       },
-      // {
-      //   path: '/ability/new',
-      //   name: 'AbilityCreate',
-      //   component: AbilityUpdate,
-      //   //meta: { authorities: [Authority.USER] }
-      // },
-      // {
-      //   path: '/ability/:abilityId/edit',
-      //   name: 'AbilityEdit',
-      //   component: AbilityUpdate,
-      //   //meta: { authorities: [Authority.USER] }
-      // },
-      // {
-      //   path: '/ability/:abilityId/view',
-      //   name: 'AbilityView',
-      //   component: AbilityDetails,
-      //   //meta: { authorities: [Authority.USER] }
-      // }
-      // ,
       {
-        path: 'register',
+        path: 'register-request',
         alias: 'register/list',
-        name: 'routes.register.list',
+        name: 'routes.registerRequest.list',
         component: RegisterRequest,
         //meta: { authorities: [Authority.USER] }
       },
       {
-        path: 'register/create',
-        name: 'routes.register.create',
+        path: 'register-request/create',
+        name: 'routes.registerRequest.create',
         component: RegisterRequestUpdate,
         //meta: { authorities: [Authority.USER] }
       },
       {
-        path: 'register/edit/:registerRequestId',
-        name: 'routes.register.edit',
+        path: 'register-request/edit/:registerRequestId',
+        name: 'routes.registerRequest.edit',
         component: RegisterRequestUpdate,
         //meta: { authorities: [Authority.USER] }
       },
       {
-        path: 'register/view/:registerRequestId',
-        name: 'routes.register.view',
+        path: 'register-request/view/:registerRequestId',
+        name: 'routes.registerRequest.view',
         component: RegisterRequestDetails,
         //meta: { authorities: [Authority.USER] }
       }
@@ -234,25 +212,25 @@ const routes = [
         component: RequestAssignment,
         //meta: { authorities: [Authority.USER] }
       },
-      {
-        path: 'request-assignment/create',
-        name: 'routes.requestAssignment.create',
-        component: RequestAssignmentUpdate,
-        //meta: { authorities: [Authority.USER] }
-      },
-      {
-        path: '/request-assignment/edit/:requestAssignmentId',
-        name: 'routes.requestAssignment.edit',
-        component: RequestAssignmentUpdate,
-        //meta: { authorities: [Authority.USER] }
-      },
-      {
-        path: '/request-assignment/view/:requestAssignmentId',
-        name: 'routes.requestAssignment.view',
-        component: RequestAssignmentDetails,
-        //meta: { authorities: [Authority.USER] }
-      }
-      ,
+      // {
+      //   path: 'request-assignment/create',
+      //   name: 'routes.requestAssignment.create',
+      //   component: RequestAssignmentUpdate,
+      //   //meta: { authorities: [Authority.USER] }
+      // },
+      // {
+      //   path: '/request-assignment/edit/:requestAssignmentId',
+      //   name: 'routes.requestAssignment.edit',
+      //   component: RequestAssignmentUpdate,
+      //   //meta: { authorities: [Authority.USER] }
+      // },
+      // {
+      //   path: '/request-assignment/view/:requestAssignmentId',
+      //   name: 'routes.requestAssignment.view',
+      //   component: RequestAssignmentDetails,
+      //   //meta: { authorities: [Authority.USER] }
+      // }
+      // ,
       {
         path: 'request',
         alias: 'request/list',
@@ -332,14 +310,34 @@ const routes = [
     ]
   },
   {
-    path: 'login',
-    name: 'Register',
-    component: Register
+    path: '/register',
+    name: 'routes.auth.register',
+    component: Register,
+    // meta: { requiresAuth: false },
   },
+  {
+    path: '/login',
+    name: 'routes.auth.login',
+    component: Login,
+    // meta: { requiresAuth: false },
+  }
   ];
 const router = new  VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
 });
+
+// router.beforeEach((to, from, next) => {
+//   // Check user role from local storage
+//   if (to.meta.requiresAuth) {
+//     if (authService.checkPermission(to.meta.functionName)) {
+//       next();
+//     } else {
+//       next({ name: 'routes.unauthorized' });
+//     }
+//   } else {
+//     next();
+//   }
+// });
 export default router;

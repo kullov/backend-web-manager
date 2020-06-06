@@ -10,7 +10,7 @@ export class RequestAssignmentModel {
   statusName?: string;
   statusId?: number;
   internRequestAssignment?: InternModel;
-  organizationRequestAssignment?: OrganizationModel;
+  registerRequestAssignment?: OrganizationModel;
   status?: StatusModel;
 
   constructor(init?: Partial<RequestAssignmentModel>) {

@@ -10,6 +10,8 @@ import { format, parse, parseISO } from 'date-fns';
 import { DATE_TIME_LONG_FORMAT } from '@/components/shared/date/filters';
 import { requestService } from '@/services/request.service';
 import { internService } from '@/services/intern.service';
+import { StatusModel } from '../../../models/StatusModel';
+import { statusService } from '../../../services/status.service';
 
 const validations: any = {
   registerRequest: {
@@ -25,14 +27,15 @@ const validations: any = {
   }
 })
 export default class InputRegister extends Vue {
-  @Prop() internId!: string;
+  @Prop() internId?: any;
   @Prop() requestModel!: RequestModel;
+  @Prop() registerModel?: RegisterModel;
   private listRegister: any[] = [];
   private isLoading: boolean = false;
   private removeId: any;
 
   public registerRequest: RegisterModel = new RegisterModel();
-
+  public statuses: StatusModel[] = [];
 
   public interns: InternModel[] = [];
 
@@ -56,6 +59,9 @@ export default class InputRegister extends Vue {
     if (this.requestModel) {
     this.registerRequest.requestRegister = this.requestModel;
     }
+    if (this.registerModel) {
+      this.registerRequest = this.registerModel;
+    }
   }
 
   public save(): void {
@@ -66,18 +72,19 @@ export default class InputRegister extends Vue {
         .then((param: any) => {
           this.isSaving = false;
           this.$router.go(-1);
-          const message = 'Sửa thành công phiếu đăng ký thực tập ' + param.id;
-          alert(message + 'success');
+          const message = 'Sửa thành công phiếu đăng ký thực tập ' + this.registerRequest.id;
+          alert(message);
+          this.closeDialog();
         });
     } else {
-      debugger;
       registerService
         .createRegister(this.registerRequest)
         .then((param: any) => {
           this.isSaving = false;
           this.$router.go(-1);
-          const message = 'Tạo thành công phiếu đăng ký thực tập ' + param.id;
-          alert(message + 'success');
+          const message = 'Tạo thành công phiếu đăng ký thực tập ' + this.registerRequest.id;
+          alert(message);
+          this.closeDialog();
         });
     }
   }
@@ -116,10 +123,18 @@ export default class InputRegister extends Vue {
         this.requests = res.data;
       });
 
-    internService
+    if (this.internId) {
+      internService
       .getIntern(this.internId)
       .then((res: any) => {
         this.registerRequest.internRegister = res.data;
+      });
+    }
+
+    statusService
+      .getAllStatuss()
+      .then(res => {
+        this.statuses = res.data;
       });
     // requestService
     //   .getRequest(this.requestId)
