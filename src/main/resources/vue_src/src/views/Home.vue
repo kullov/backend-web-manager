@@ -1,6 +1,6 @@
 <template>
-  <div class="home">
-    <el-header>
+  <el-container style="height: 500px">
+    <el-header style="text-align: right; font-size: 12px">
       <el-menu router :default-active="$route.path" class="el-menu-demo" mode="horizontal">
         <el-menu-item index="/about">Home</el-menu-item>
         <el-menu-item index="/main-layout-organization">Organization</el-menu-item>
@@ -15,17 +15,42 @@
         </el-submenu>
       </el-menu>
     </el-header>
-    <el-main class="main">
-      <router-view></router-view>
-    </el-main>
-  </div>
+    <el-container>
+      <el-aside style="width: 250px;" class="left-content" v-if="$route.path !== '/about'">
+        <div class="header-block">
+          <img src="https://www.w3schools.com/w3images/avatar_g2.jpg" style="width:100px;" class="w3-round"><br><br>
+          <h3><b>HUS</b></h3>
+          <p class="w3-text-grey"><i>Intern</i></p>
+        </div>
+        <el-menu router :default-active="$route.path">
+          <el-menu-item class="w3-bar-item w-100 text-left" index="/organization/view/1"><i class="fa fa-th-large fa-fw w3-margin-right"></i>PROFILE</el-menu-item>
+          <!-- <el-menu-item class="w3-bar-item w-100 text-left" index="/intern/view/1"><i class="fa fa-th-large fa-fw w3-margin-right"></i>PROFILE</el-menu-item> -->
+          <el-menu-item class="w3-bar-item w-100 text-left" index="/organization/list"><i class="fa fa-star fa-fw w3-margin-right"></i>DANH SÁCH DOANH NGHIỆP</el-menu-item>
+          <el-menu-item class="w3-bar-item w-100 text-left" index="/interns/list"><i class="fa fa-star fa-fw w3-margin-right"></i>DANH SÁCH SINH VIÊN</el-menu-item>
+          <el-menu-item class="w3-bar-item w-100 text-left" index="/register/list"><i class="fa fa-star fa-fw w3-margin-right"></i>DANH SÁCH PHIẾU ĐĂNG KÝ</el-menu-item>
+          <el-menu-item class="w3-bar-item w-100 text-left" index="/request-assignment/list"><i class="fa fa-star fa-fw w3-margin-right"></i>PHÂN CÔNG</el-menu-item>
+          <el-menu-item index="/request/create" class="w3-bar-item w3-text-teal w-100 text-left"><i class="fa fa-th-large fa-fw w3-margin-right"></i>TẠO PHIẾU TUYỂN DỤNG</el-menu-item>
+          <el-menu-item index="/request/create" class="w3-bar-item w-100 text-left"><i class="fa fa-star fa-fw w3-margin-right"></i>SỬA THÔNG TIN</el-menu-item>
+          <el-menu-item class="w3-bar-item w-100 text-left" index="/request"><i class="fa fa-envelope fa-fw w3-margin-right"></i>LIÊN HỆ</el-menu-item>
+        </el-menu>
+      </el-aside>
+      <el-main class="main right-content">
+        <router-view></router-view>
+      </el-main>
+    </el-container>
+  </el-container>
 </template>
 <style scoped lang="scss">
+.header-block {
+  padding-top: 10px;
+  text-align: center !important;
+  z-index:3
+}
 .el-header {
   background-color: black;
   position: sticky;
   top: 0;
-  z-index: 5555;
+  z-index: 5;
   width: 100%;
 }
 .el-menu.el-menu--horizontal {

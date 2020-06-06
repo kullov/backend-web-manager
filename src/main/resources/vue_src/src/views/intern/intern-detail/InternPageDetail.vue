@@ -4,7 +4,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { InternModel } from '@/models/InternModel';
 import { internService } from '@/services/intern.service';
-import { abilityService } from '../../../services';
+import { abilityService } from '@/services';
 
 @Component
 export default class InternPageDetail extends Vue{
@@ -25,11 +25,11 @@ export default class InternPageDetail extends Vue{
   }
 
   public retrieveIntern(internId: any) {
-    debugger;
     this.isLoading = true;
     internService
       .getIntern(internId)
       .then((res: any) => {
+        debugger;
         this.intern = res.data;
       })
       .catch(() => {

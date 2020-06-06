@@ -1,0 +1,87 @@
+<div class="justify-content-center">
+  <h2 class="p-3">Phân công sinh viên</h2>
+  <el-form label-width="8rem" name="editForm" :model="requestAssignment" role="form" novalidate>
+    <el-row>
+      <el-col :span="24">
+        <el-row :gutter="20">
+          <el-col :span="24">
+            <el-form-item label="ID" v-if="requestAssignment.id">
+              <el-input type="text" name="id" v-model="requestAssignment.id" readonly ></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <el-form-item label="Ngày bắt đầu">
+              <el-date-picker v-model="requestAssignment.startDate" name="startDate"
+                @change="updateInstantField('startDate', $event)" ></el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="Ngày kết thúc">
+              <el-date-picker v-model="requestAssignment.endDate" name="endDate"
+                @change="updateInstantField('endDate', $event)" ></el-date-picker>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <el-form-item label="Sinh viên">
+              <el-select placeholder="" 
+                v-model="requestAssignment.internRequestAssignment"
+                value-key="id">
+                <el-option
+                  :value="internOption"
+                  :key="index"
+                  v-for="(internOption, index) in interns" 
+                  :label="internOption.lastName">
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="Doanh nghiệp">
+              <el-select 
+                placeholder="" 
+                v-model="requestAssignment.organizationRequestAssignment"
+                value-key="id">
+                <el-option
+                  v-for="(organizationOption, index) in organizations" 
+                  :key="index"
+                  :value="organizationOption"
+                  :label="organizationOption.name">
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <el-form-item label="Trạng thái">
+              <el-select placeholder="" v-model="requestAssignment.status" value-key="id">
+                <el-option
+                  :value="statusOption"
+                  v-for="statusOption in statuses" :key="statusOption.id" :label="statusOption.name"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="Ngày tạo">
+              <el-date-picker v-model="requestAssignment.dateCreated" name="dateCreated"
+                @change="updateInstantField('dateCreated', $event)" ></el-date-picker>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col>
+            <el-button class="btn btn-secondary" @click="previousState()">Hủy
+            </el-button>
+            <el-button
+              class="btn btn-primary" @click="save">Lưu
+            </el-button>
+          </el-col>
+        </el-row>
+      </el-col>
+    </el-row>
+  </el-form>
+</div>

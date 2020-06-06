@@ -1,63 +1,80 @@
-<div v-loading="isLoading" class="animated fadeIn page-container w3-container">
-  <div class="col-8">
-    <form name="editForm" role="form" novalidate v-on:submit.prevent="save()" >
-        <h2 id="demoApp.registerRequest.home.createOrEditLabel">Create or edit a RegisterRequest</h2>
-        <div>
-            <div class="form-group" v-if="registerRequest.id">
-                <label for="id">ID</label>
-                <input type="text" class="form-control" id="id" name="id"
-                       v-model="registerRequest.id" readonly />
-            </div>
-            <div class="form-group">
-                <label class="form-control-label" for="register-request-dateCreated">Date Created</label>
-                <div class="d-flex">
-                    <input id="register-request-dateCreated" type="datetime-local" class="form-control" name="dateCreated" :class="{'valid': !$v.registerRequest.dateCreated.$invalid, 'invalid': $v.registerRequest.dateCreated.$invalid }"
-                    
-                    :value="convertDateTimeFromServer($v.registerRequest.dateCreated.$model)"
-                    @change="updateZonedDateTimeField('dateCreated', $event)"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="form-control-label" for="register-request-startDate">Start Date</label>
-                <div class="d-flex">
-                    <input id="register-request-startDate" type="datetime-local" class="form-control" name="startDate" :class="{'valid': !$v.registerRequest.startDate.$invalid, 'invalid': $v.registerRequest.startDate.$invalid }"
-                    
-                    :value="convertDateTimeFromServer($v.registerRequest.startDate.$model)"
-                    @change="updateInstantField('startDate', $event)"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="form-control-label" for="register-request-endDate">End Date</label>
-                <div class="d-flex">
-                    <input id="register-request-endDate" type="datetime-local" class="form-control" name="endDate" :class="{'valid': !$v.registerRequest.endDate.$invalid, 'invalid': $v.registerRequest.endDate.$invalid }"
-                    
-                    :value="convertDateTimeFromServer($v.registerRequest.endDate.$model)"
-                    @change="updateInstantField('endDate', $event)"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="form-control-label" for="register-request-internRegister">Intern Register</label>
-                <select class="form-control" id="register-request-internRegister" name="internRegister" v-model="registerRequest.internRegister">
-                    <option v-bind:value="null"></option>
-                    <option v-bind:value="registerRequest.internRegister && internOption.id === registerRequest.internRegister.id ? registerRequest.internRegister : internOption" v-for="internOption in interns" :key="internOption.id">{{internOption.code}}</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="form-control-label" for="register-request-requestRegister">Request Register</label>
-                <select class="form-control" id="register-request-requestRegister" name="requestRegister" v-model="registerRequest.requestRegister">
-                    <option v-bind:value="null"></option>
-                    <option v-bind:value="registerRequest.requestRegister && requestOption.id === registerRequest.requestRegister.id ? registerRequest.requestRegister : requestOption" v-for="requestOption in requests" :key="requestOption.id">{{requestOption.position}}</option>
-                </select>
-            </div>
-        </div>
-        <div>
-            <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
-                <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span>Cancel</span>
-            </button>
-            <button type="submit" id="save-entity" :disabled="$v.registerRequest.$invalid || isSaving" class="btn btn-primary">
-                <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span>Save</span>
-            </button>
-        </div>
-    </form>
-</div>
+<div v-loading="isLoading" class="animated fadeIn page-container p-4">
+  <el-form label-width="9rem" :model="registerRequest" name="editForm" role="form" novalidate>
+    <el-row :gutter="20">
+    <h2 class="text-center pb-3">Đăng ký thực tập</h2>
+      <el-col :span="12">
+        <el-form-item label="ID" v-if="registerRequest.id">
+          <el-input class="width-13-rem" type="text" id="id" name="id" v-model="registerRequest.id" readonly ></el-input>
+        </el-form-item>
+      </el-col>
+      <el-col :span="12">
+        <el-form-item label="Ngày tạo" v-if="false">
+          <el-input class="width-13-rem" type="text" id="id" name="id" v-model="registerRequest.dateCreated" readonly ></el-input>
+        </el-form-item>
+      </el-col>
+    </el-row>
+    <el-row :gutter="20">
+      <el-col :span="12">
+        <el-form-item label="Ngày bắt đầu">
+          <el-date-picker
+            class="width-13-rem" 
+            v-model="registerRequest.startDate">
+          </el-date-picker>
+        </el-form-item>
+      </el-col>
+      <el-col :span="12">
+        <el-form-item label="Ngày kết thúc">
+          <el-date-picker
+            class="width-13-rem"
+            v-model="registerRequest.endDate">
+          </el-date-picker>
+        </el-form-item>
+      </el-col>
+    </el-row>
+    <el-row :gutter="20">
+      <el-col :span="12">
+        <el-form-item label="Sinh viên đăng ký">
+          <el-select placeholder="" 
+            v-model="registerRequest.internRegister"
+            value-key="id"
+            :disabled="true">
+            <el-option
+              :value="internOption"
+              :key="index"
+              v-for="(internOption, index) in interns" 
+              :label="internOption.lastName">
+            </el-option>
+          </el-select>
+        </el-form-item>
+      </el-col>
+      <el-col :span="12">
+        <el-form-item label="Vị trí thực tập">
+          <el-select id="register-request-requestRegister" 
+            class="width-13-rem"
+            name="requestRegister"
+            placeholder=""
+            value-key="id"
+            v-model="registerRequest.requestRegister"
+            :disabled="true">
+            <el-option
+              :value="requestOption"
+              v-for="(requestOption, index) in requests" 
+              :key="index" 
+              :label="requestOption.position">
+            </el-option>
+          </el-select>
+        </el-form-item>
+      </el-col>
+    </el-row>
+    <el-row :gutter="20">
+      <el-col class="text-center">
+        <el-button @click="save" id="save-entity" class="btn btn-primary">
+          Xác nhận
+        </el-button>
+        <el-button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="closeDialog()">
+          Hủy
+        </el-button>
+      </el-col>
+    </el-row>
+  </el-form>
 </div>

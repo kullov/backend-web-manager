@@ -1,7 +1,7 @@
 import { AxiosPromise } from 'axios';
 import Vue from 'vue';
 import { RegisterModel } from '@/models/RegisterModel';
-const ROOT_API = 'http://localhost:8888/api/registers/';  // Root api
+const ROOT_API = 'http://localhost:8888/api/register-requests/';  // Root api
 class RegisterService extends Vue {
 
   public getAllRegisters(): AxiosPromise<any[]> {
@@ -9,7 +9,13 @@ class RegisterService extends Vue {
   }
 
   public createRegister(entity: RegisterModel): AxiosPromise<RegisterModel> {
-    return Vue.axios.post<RegisterModel>(ROOT_API, entity);
+    let model = {
+      endDate: entity.endDate,
+      startDate: entity.startDate,
+      internRegister: entity.internRegister,
+      requestRegister: entity.requestRegister
+    }
+    return Vue.axios.post<RegisterModel>(ROOT_API, model);
   }
 
   public updateRegister(entity: RegisterModel): AxiosPromise<RegisterModel[]> {

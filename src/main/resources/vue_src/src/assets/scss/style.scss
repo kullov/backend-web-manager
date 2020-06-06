@@ -60,24 +60,20 @@
 .right-content {
   background-color: #f1f1f1;
   height: 100%;
-  margin-left: 317px;
-  width: fit-content;
 }
 
-.left-content {
+::v-deep .left-content {
   background-color: white;
-  height: 100%;
-  position: fixed;
-  top: 60px;
-  left: 0px;
-  z-index: 5555;
-  min-width: 16.5rem;
+  // position: fixed;
+  // z-index: 555;
 }
 
 @import "dialog";
 // .page-container {
 //   max-height: 907px;
 // }
+// Import atomic style
+@import "atomic";
 .page-container {
   background-color: #f1f1f1;
 }

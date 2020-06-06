@@ -1,17 +1,15 @@
 <template src="./InputRegister.html"></template>
 <style lang="scss" scoped src="./InputRegister.scss"></style>
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
 import { registerService } from '@/services/register.service';
 import { RegisterModel } from '@/models/RegisterModel';
-import { InternModel } from '../../../models/InternModel';
-import { RequestModel } from '../../../models';
+import { InternModel } from '@/models/InternModel';
+import { RequestModel } from '@/models';
+import { format, parse, parseISO } from 'date-fns';
 import { DATE_TIME_LONG_FORMAT } from '@/components/shared/date/filters';
-import format from 'date-fns/format';
-import parse from 'date-fns/parse';
-import parseISO from 'date-fns/parseISO';
-import { requestService } from '../../../services/request.service';
-import { internService } from '../../../services/intern.service';
+import { requestService } from '@/services/request.service';
+import { internService } from '@/services/intern.service';
 
 const validations: any = {
   registerRequest: {
@@ -27,6 +25,8 @@ const validations: any = {
   }
 })
 export default class InputRegister extends Vue {
+  @Prop() internId!: string;
+  @Prop() requestModel!: RequestModel;
   private listRegister: any[] = [];
   private isLoading: boolean = false;
   private removeId: any;
@@ -48,6 +48,16 @@ export default class InputRegister extends Vue {
     });
   }
 
+  private created() {
+    if (this.$route.params.registerRequestId) {
+      this.retrieveRegisterRequest(this.$route.params.registerRequestId);
+    }
+    this.initRelationships();
+    if (this.requestModel) {
+    this.registerRequest.requestRegister = this.requestModel;
+    }
+  }
+
   public save(): void {
     this.isSaving = true;
     if (this.registerRequest.id) {
@@ -56,16 +66,17 @@ export default class InputRegister extends Vue {
         .then((param: any) => {
           this.isSaving = false;
           this.$router.go(-1);
-          const message = 'A RegisterRequest is updated with identifier ' + param.id;
+          const message = 'Sửa thành công phiếu đăng ký thực tập ' + param.id;
           alert(message + 'success');
         });
     } else {
+      debugger;
       registerService
         .createRegister(this.registerRequest)
         .then((param: any) => {
           this.isSaving = false;
           this.$router.go(-1);
-          const message = 'A RegisterRequest is created with identifier ' + param.id;
+          const message = 'Tạo thành công phiếu đăng ký thực tập ' + param.id;
           alert(message + 'success');
         });
     }
@@ -76,22 +87,6 @@ export default class InputRegister extends Vue {
       return format(date, DATE_TIME_LONG_FORMAT);
     }
     return null;
-  }
-
-  public updateInstantField(field: any, event: any) {
-    if (event.target.value) {
-      this.registerRequest[field] = parse(event.target.value, DATE_TIME_LONG_FORMAT, new Date());
-    } else {
-      this.registerRequest[field] = null;
-    }
-  }
-
-  public updateZonedDateTimeField(field: any, event: any) {
-    if (event.target.value) {
-      this.registerRequest[field] = parse(event.target.value, DATE_TIME_LONG_FORMAT, new Date());
-    } else {
-      this.registerRequest[field] = null;
-    }
   }
 
   public retrieveRegisterRequest(registerRequestId: any) {
@@ -105,8 +100,8 @@ export default class InputRegister extends Vue {
       });
   }
 
-  public previousState(): void {
-    this.$router.go(-1);
+  public closeDialog(): void {
+    this.$emit('close');
   }
 
   public initRelationships(): void {
@@ -120,6 +115,17 @@ export default class InputRegister extends Vue {
       .then((res: any) => {
         this.requests = res.data;
       });
+
+    internService
+      .getIntern(this.internId)
+      .then((res: any) => {
+        this.registerRequest.internRegister = res.data;
+      });
+    // requestService
+    //   .getRequest(this.requestId)
+    //   .then((res: any) => {
+    //     this.registerRequest.requestRegister = res.data;
+    //   });
   }
 }
 </script>

@@ -8,18 +8,11 @@ import abilityModule from '../../store/ability.module';
 
 const InternPage: AsyncComponent = () =>
   ({
-    component: import("./Intern.vue"),
+    component: import("./Interns.vue"),
     error: undefined,
     delay: 0,
     timeout: undefined
   } as any);
-// const Create: AsyncComponent = () =>
-//   ({
-//     component: import("./src-1002C/Create.vue"),
-//     error: undefined,
-//     delay: 0,
-//     timeout: undefined
-//   } as any);
 const Ability: AsyncComponent = () =>
   ({
     component: import("../ability/Ability.vue"),
@@ -46,7 +39,7 @@ const InternPageDetail: AsyncComponent = () =>
 @Component({
   components: {
     InternPage,
-    // Create,
+    // InputRequest,
     InternPageDetail,
     Ability,
     Requests,
@@ -56,12 +49,12 @@ export default class MainLayout extends Vue {
   private isLoading: boolean = false;
   private isRequestComponentVisible: boolean = false;
   private isProfileComponentVisible: boolean = false;
-  private isCreateComponentVisible: boolean = false;
+  private isInputRequestComponentVisible: boolean = false;
   private isAbilityComponentVisible: boolean = false;
   
   
   private selectedTab: string = "tab1";
-  private beforeCreate() {
+  private beforeInputRequest() {
     this.$store.registerModule(
       'abilityModule',
       abilityModule
@@ -83,14 +76,14 @@ export default class MainLayout extends Vue {
   private openTab() {
     switch (this.selectedTab) {
       case '1':
-        this.isCreateComponentVisible = false;
+        this.isInputRequestComponentVisible = false;
         this.isRequestComponentVisible = false;
         this.isAbilityComponentVisible = false;
         this.isProfileComponentVisible = true;
       break;
       case '2':
         this.isProfileComponentVisible = false;
-        this.isCreateComponentVisible = false;
+        this.isInputRequestComponentVisible = false;
         this.isAbilityComponentVisible = false;
         this.isRequestComponentVisible = true;
         break;
@@ -98,12 +91,12 @@ export default class MainLayout extends Vue {
         this.isProfileComponentVisible = false;
         this.isRequestComponentVisible = false;
         this.isAbilityComponentVisible = false;
-        this.isCreateComponentVisible = true;
+        this.isInputRequestComponentVisible = true;
         break;
       case '4':
         this.isProfileComponentVisible = false;
         this.isRequestComponentVisible = false;
-        this.isCreateComponentVisible = false;
+        this.isInputRequestComponentVisible = false;
         this.isAbilityComponentVisible = true;
         break;
       default:

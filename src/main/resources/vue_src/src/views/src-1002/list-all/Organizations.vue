@@ -2,8 +2,8 @@
 <style lang="scss" scoped src="./Organizations.scss"></style>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { organizationService } from '../../../services/organization.service';
-import { OrganizationModel } from '../../../models/OrganizationModel';
+import { organizationService } from '@/services/organization.service';
+import { OrganizationModel } from '@/models/OrganizationModel';
 
 @Component
 export default class Organizations extends Vue{

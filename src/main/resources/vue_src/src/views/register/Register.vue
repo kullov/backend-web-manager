@@ -20,7 +20,7 @@ export default class Register extends Vue {
 
   public registerRequests: RegisterModel[] = [];
 
-  public isFetching = false;
+  public isFetching: boolean = false;
 
   public mounted(): void {
     this.retrieveAllRegisterRequests();
@@ -56,7 +56,7 @@ export default class Register extends Vue {
     registerService
       .deleteRegister(this.removeId)
       .then(() => {
-        const message = 'A RegisterRequest is deleted with identifier ' + this.removeId;
+        const message = 'Đã xóa thành công phiếu đăng ký ' + this.removeId;
         this.removeId = null;
         this.retrieveAllRegisterRequests();
         this.closeDialog();

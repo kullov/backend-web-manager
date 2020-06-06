@@ -1,6 +1,8 @@
 <div v-loading="isLoading">
   <perfect-scrollbar>
     <div id="about" class="w3-container">
+      <h2 class="text-center"><strong>VỊ TRÍ: {{ requestModel.position }}</strong></h2>
+      <h5 class="text-center"><strong>Công ty: {{ requestModel.organizationRequest ? requestModel.organizationRequest.name : '' }}</strong></h5>
       <h4><strong>THÔNG TIN</strong></h4>
       <div class="w3-row w3-large">
         <div class="w3-col s6" style="padding-left: 50px;">
@@ -56,11 +58,49 @@
   <el-row>
     <el-col :span="12" class="text-left">
       Powered by 
-      <a href="./" title="Origen" target="_blank" class="w3-hover-text-green">Origen</a>
+      <a href="./" title="NgaTT" target="_blank" class="w3-hover-text-green">NgaTT</a>
     </footer>
     </el-col>
     <el-col :span="12" class="text-right">
+      <el-button type="primary" @click="openRegisterRequest">Đăng ký</el-button>
       <el-button @click="closeWindow">Trở về</el-button>
     </el-col>
   </el-row>
+  <!-- Dialog -->
+  <b-modal
+    title="Đăng ký thực tập"
+    no-fade v-model="isRegisterRequestVisible"
+    :no-close-on-backdrop="true"
+    :hide-footer="true"
+    modal-class="detail-modal"
+    center
+    size="lg"
+    >
+    <!-- <el-form 
+      label-width="9rem"
+      :model="formRegister">
+      <el-form-item label="Nhập ngày bắt đầu">
+        <el-date-picker
+          popper-class="small-date-picker"
+          type="date"
+          class="show-date width-10-rem"
+          format="dd/MM/yyyy"
+          v-model="formRegister.startDate">
+        </el-date-picker>
+      </el-form-item>
+      <el-form-item label="Nhập ngày kết thúc">
+        <el-date-picker
+          popper-class="small-date-picker"
+          class="show-date width-10-rem"
+          format="dd/MM/yyyy"
+          type="date"
+          v-model="formRegister.endDate">
+        </el-date-picker>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="registerSubmit()">Đăng ký</el-button>
+      </el-form-item>
+    </el-form> -->
+    <InputRegister v-if="isRegisterRequestVisible" :requestModel="requestModel" :internId="internId" @close="finishScreen"></InputRegister>
+  </b-modal>
 </div>

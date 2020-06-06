@@ -4,6 +4,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { requestService } from '../../services/request.service';
 import DetailRequest from './detail/DetailRequest.vue';
+import { RequestModel } from '../../models';
 
 @Component({
   components: {
@@ -11,7 +12,7 @@ import DetailRequest from './detail/DetailRequest.vue';
   }
 })
 export default class Requests extends Vue {
-  private listRequests: any[] = [];
+  private listRequests: RequestModel[] = [];
   private isLoading: boolean = false;
   private isDetailRequestVisible: boolean = false;
   private idProp: any;

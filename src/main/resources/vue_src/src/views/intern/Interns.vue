@@ -1,5 +1,5 @@
-<template src="./Intern.html"></template>
-<style lang="scss" scoped src="./Intern.scss"></style>
+<template src="./Interns.html"></template>
+<style lang="scss" scoped src="./Interns.scss"></style>
 <script lang="ts">
 import { mixins } from 'vue-class-component';
 
@@ -11,12 +11,12 @@ import { InternModel } from '@/models/InternModel';
 import { internService } from '@/services/intern.service';
 
 @Component
-export default class Intern extends Vue {
+export default class Interns extends Vue {
   private removeId?: number;
 
   public interns: InternModel[] = [];
 
-  public isFetching = false;
+  public isFetching: boolean = false;
 
   public mounted(): void {
     this.retrieveAllInterns();

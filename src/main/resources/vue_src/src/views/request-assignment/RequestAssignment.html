@@ -1,0 +1,96 @@
+<div>
+  <h2 id="page-heading">
+    <span id="request-assignment-heading">Request Assignments</span>
+    <router-link :to="{name: 'requestAssignment.create'}" tag="button" id="jh-create-entity"
+      class="btn btn-primary text-right create-request-assignment">
+      <font-awesome-icon icon="plus"></font-awesome-icon>
+      <span>
+        Create a new Request Assignment
+      </span>
+    </router-link>
+  </h2>
+  <b-alert :show="dismissCountDown" dismissible :variant="alertType" @dismissed="dismissCountDown=0"
+    @dismiss-count-down="countDownChanged">
+    {{alertMessage}}
+  </b-alert>
+  <br />
+  <div class="alert alert-warning" v-if="!isFetching && requestAssignments && requestAssignments.length === 0">
+    <span>No requestAssignments found</span>
+  </div>
+  <div v-if="requestAssignments && requestAssignments.length > 0">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th><span>ID</span></th>
+          <th><span>Start Date</span></th>
+          <th><span>End Date</span></th>
+          <th><span>Date Created</span></th>
+          <th><span>Intern Request Assignment</span></th>
+          <th><span>Organization Request Assignment</span></th>
+          <th><span>Status</span></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="requestAssignment in requestAssignments" :key="requestAssignment.id">
+          <td>
+            <router-link :to="{name: 'requestAssignment.view', params: {requestAssignmentId: requestAssignment.id}}">
+              {{requestAssignment.id}}</router-link>
+          </td>
+          <td>{{requestAssignment.startDate | formatDate}}</td>
+          <td>{{requestAssignment.endDate | formatDate}}</td>
+          <td>{{requestAssignment.dateCreated | formatDate}}</td>
+          <td>
+            <div v-if="requestAssignment.internRequestAssignment">
+              <router-link :to="{name: 'InternView', params: {internId: requestAssignment.internRequestAssignment.id}}">
+                {{requestAssignment.internRequestAssignment.code}}</router-link>
+            </div>
+          </td>
+          <td>
+            <div v-if="requestAssignment.organizationRequestAssignment">
+              <router-link
+                :to="{name: 'OrganizationView', params: {organizationId: requestAssignment.organizationRequestAssignment.id}}">
+                {{requestAssignment.organizationRequestAssignment.name}}</router-link>
+            </div>
+          </td>
+          <td>
+            <div v-if="requestAssignment.status">
+              <router-link :to="{name: 'StatusView', params: {statusId: requestAssignment.status.id}}">
+                {{requestAssignment.status.name}}</router-link>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <router-link :to="{name: 'requestAssignment.view', params: {requestAssignmentId: requestAssignment.id}}"
+                tag="button" class="btn btn-info btn-sm details">
+                <font-awesome-icon icon="eye"></font-awesome-icon>
+                <span class="d-none d-md-inline">View</span>
+              </router-link>
+              <router-link :to="{name: 'requestAssignment.edit', params: {requestAssignmentId: requestAssignment.id}}"
+                tag="button" class="btn btn-primary btn-sm edit">
+                <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </router-link>
+              <b-button v-on:click="prepareRemove(requestAssignment)" variant="danger" class="btn btn-sm"
+                v-b-modal.removeEntity>
+                <font-awesome-icon icon="times"></font-awesome-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </b-button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <b-modal ref="removeEntity" id="removeEntity">
+    <span slot="modal-title"><span id="demoApp.requestAssignment.delete.question">Confirm delete operation</span></span>
+    <div class="modal-body">
+      <p id="jhi-delete-requestAssignment-heading">Are you sure you want to delete this Request Assignment?</p>
+    </div>
+    <div slot="modal-footer">
+      <button type="button" class="btn btn-secondary" v-on:click="closeDialog()">Cancel</button>
+      <button type="button" class="btn btn-primary" id="jhi-confirm-delete-requestAssignment"
+        v-on:click="removeRequestAssignment()">Delete</button>
+    </div>
+  </b-modal>
+</div>

@@ -1,0 +1,60 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div v-if="requestAssignment">
+            <h2 class="jh-entity-heading"><span>RequestAssignment</span> {{requestAssignment.id}}</h2>
+            <dl class="row jh-entity-details">
+                <dt>
+                    <span>Start Date</span>
+                </dt>
+                <dd>
+                    <span>{{requestAssignment.startDate | formatDate}}</span>
+                </dd>
+                <dt>
+                    <span>End Date</span>
+                </dt>
+                <dd>
+                    <span>{{requestAssignment.endDate | formatDate}}</span>
+                </dd>
+                <dt>
+                    <span>Date Created</span>
+                </dt>
+                <dd>
+                    <span>{{requestAssignment.dateCreated | formatDate}}</span>
+                </dd>
+                <dt>
+                    <span>Intern Request Assignment</span>
+                </dt>
+                <dd>
+                    <div v-if="requestAssignment.internRequestAssignment">
+                        <router-link :to="{name: 'InternView', params: {internId: requestAssignment.internRequestAssignment.id}}">{{requestAssignment.internRequestAssignment.code}}</router-link>
+                    </div>
+                </dd>
+                <dt>
+                    <span>Organization Request Assignment</span>
+                </dt>
+                <dd>
+                    <div v-if="requestAssignment.organizationRequestAssignment">
+                        <router-link :to="{name: 'OrganizationView', params: {organizationId: requestAssignment.organizationRequestAssignment.id}}">{{requestAssignment.organizationRequestAssignment.name}}</router-link>
+                    </div>
+                </dd>
+                <dt>
+                    <span>Status</span>
+                </dt>
+                <dd>
+                    <div v-if="requestAssignment.status">
+                        <router-link :to="{name: 'StatusView', params: {statusId: requestAssignment.status.id}}">{{requestAssignment.status.name}}</router-link>
+                    </div>
+                </dd>
+            </dl>
+            <button type="submit"
+                    v-on:click.prevent="previousState()"
+                    class="btn btn-info">
+                <font-awesome-icon icon="arrow-left"></font-awesome-icon>&nbsp;<span> Back</span>
+            </button>
+            <router-link v-if="requestAssignment.id" :to="{name: 'requestAssignment.edit', params: {requestAssignmentId: requestAssignment.id}}" tag="button" class="btn btn-primary">
+                <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span> Edit</span>
+            </router-link>
+        </div>
+    </div>
+</div>
+

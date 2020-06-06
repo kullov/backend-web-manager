@@ -1,7 +1,7 @@
 import { AxiosPromise } from 'axios';
 import Vue from 'vue';
 import { StatusModel } from '@/models/StatusModel';
-const ROOT_API = 'http://localhost:8888/api/statuss/';  // Root api
+const ROOT_API = 'http://localhost:8888/api/statuses/';  // Root api
 class StatusService extends Vue {
 
   public getAllStatuss(): AxiosPromise<any[]> {

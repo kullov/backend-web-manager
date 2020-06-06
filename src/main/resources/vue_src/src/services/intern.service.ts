@@ -27,7 +27,7 @@ class InternService extends Vue {
     });
   }
 
-  public getIntern(id: any): AxiosPromise<any[]> {
+  public getIntern(id: any): AxiosPromise<any> {
     return Vue.axios.get<any>(ROOT_API + id);
   }
 

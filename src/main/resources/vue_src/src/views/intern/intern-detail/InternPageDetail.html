@@ -76,12 +76,6 @@
               <el-option v-for="item in listAbilities" :key="item.id" :label="item.name" :value="item.id">
               </el-option>
             </el-select> -->
-            <el-checkbox-group 
-              v-model="intern.internAbilities"
-              :min="1"
-              :max="5">
-              <el-checkbox  v-for="abilityOption in listAbilities" :key="abilityOption.id" :label="abilityOption">{{abilityOption.name}}</el-checkbox>
-            </el-checkbox-group>
               <select class="form-control" id="intern-internAbility" multiple name="internAbility" v-model="intern.internAbilities">
                 <option v-bind:value="getSelected(intern.internAbilities, abilityOption)" v-for="abilityOption in listAbilities" :key="abilityOption.id">{{abilityOption.name}}</option>
             </select>

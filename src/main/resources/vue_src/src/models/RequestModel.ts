@@ -1,5 +1,7 @@
 import { AbilityModel } from './AbilityModel';
 import { RegisterModel } from './RegisterModel';
+import { StatusModel } from './StatusModel';
+import { OrganizationModel } from './OrganizationModel';
 
 export class RequestModel {
   id?: number;
@@ -10,11 +12,9 @@ export class RequestModel {
   description?: string;
   type?: string;
   registerRequests?: RegisterModel[];
-  requestStatusName?: string;
-  requestStatusId?: number;
   requestAbilities?: AbilityModel[];
-  organizationRequestName?: string;
-  organizationRequestId?: number;
+  organizationRequest?: OrganizationModel;
+  requestStatus?: StatusModel;
 
   constructor(init?: Partial<RequestModel>) {
     Object.assign(this, init);

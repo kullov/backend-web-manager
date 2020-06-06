@@ -21,11 +21,9 @@
       </el-row>
     </el-col>
     <el-col class="right-content" :span="20">
-      <perfect-scrollbar>
         <InternPageDetail v-if="isProfileComponentVisible"></InternPageDetail>
-        <!-- <Create v-if="isCreateComponentVisible"></Create> -->
+        <!-- <InputRequest v-if="isInputRequestComponentVisible"></InputRequest> -->
         <Ability v-if="isAbilityComponentVisible"></Ability>
-      </perfect-scrollbar>
     </el-col>
   </el-row>
 </div>

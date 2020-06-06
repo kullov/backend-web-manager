@@ -27,8 +27,14 @@ Vue.use(IconsPlugin)
 
 import PerfectScrollbar from 'vue2-perfect-scrollbar'
 import 'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css'
+
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+Vue.component('font-awesome-icon', FontAwesomeIcon);
  
 Vue.use(PerfectScrollbar)
+
+import moment from 'moment';
+Vue.prototype.$moment = moment;
 
 new Vue({
   router,
