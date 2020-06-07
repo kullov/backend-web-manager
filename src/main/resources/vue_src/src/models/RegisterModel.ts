@@ -1,8 +1,15 @@
+import { InternModel } from './InternModel';
+import { RequestModel } from './RequestModel';
+import { StatusModel } from './StatusModel';
+
 export class RegisterModel {
-  public internId: string = '';
-  public requestId: string = '';
-  public startDate: string = ''; //start_date
-  public endDate: string = ''; //end_date
+  id?: number;
+  dateCreated?: Date;
+  startDate?: Date;
+  endDate?: Date;
+  internRegister?: InternModel;
+  requestRegister?: RequestModel;
+  registerRequestStatus?: StatusModel;
 
   constructor(init?: Partial<RegisterModel>) {
     Object.assign(this, init);

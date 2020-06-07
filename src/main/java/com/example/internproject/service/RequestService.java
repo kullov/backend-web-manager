@@ -4,6 +4,7 @@ import com.example.internproject.domain.Request;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -51,5 +52,7 @@ public interface RequestService {
      */
     void delete(Long id);
 
+
+	List<Request> findAll();
     List<Request> findAllByOrganizationId(Long id);
 }

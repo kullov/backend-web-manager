@@ -93,7 +93,11 @@ public class RequestResource {
 //        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().body(list);
     }
-
+    
+  @GetMapping("/requests")
+  public List<Request> getAllRequests() {
+      return requestService.findAll();
+  }
     /**
      * {@code GET  /requests/:id} : get the "id" request.
      *

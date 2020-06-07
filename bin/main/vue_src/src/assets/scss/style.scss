@@ -1,0 +1,89 @@
+// Sub tabs
+.sub-tabs {
+  .el-tabs__header {
+    margin-bottom: 0;
+    width: 200px;
+  }
+  
+  .el-tabs__content {
+    flex: 1;
+    background-color: #f1f1f1;
+    .el-tab-pane {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      padding-top: 20px;
+    }
+  }
+  .el-tabs__item {
+    font-size: 14px;
+    &.is-active {
+      background-color: teal;
+      color: white;
+      text-transform: uppercase;
+    }
+    &.is-left {
+      text-align: center;
+    }
+  }
+  .el-tabs__nav-next,
+  .el-tabs__nav-prev {
+    line-height: 54px;
+  }
+}
+.main-btn {
+  width: 8rem;
+  text-align: center;
+}
+.primary-btn {
+  background-color: #f4a125;
+}
+.title {
+  text-transform: uppercase;
+  font-family: 'Courier New', Courier, monospace !important;
+}
+.el-form-item__content {
+  text-align: left !important;
+}
+.text-left {
+  text-align: left !important;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+.right-content {
+  background-color: #f1f1f1;
+  height: 100%;
+  margin-left: 317px;
+  width: fit-content;
+}
+
+.left-content {
+  background-color: white;
+  height: 100%;
+  position: fixed;
+  top: 60px;
+  left: 0px;
+  z-index: 5555;
+  min-width: 16.5rem;
+}
+
+@import "dialog";
+// .page-container {
+//   max-height: 907px;
+// }
+.page-container {
+  background-color: #f1f1f1;
+}
+.el-menu-demo .el-menu-item {
+  float: left;
+  display: block;
+  text-align: center;
+  font-size: 14px;
+}

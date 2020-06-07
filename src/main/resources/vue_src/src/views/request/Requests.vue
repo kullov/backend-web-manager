@@ -2,18 +2,47 @@
 <style lang="scss" scoped src="./Requests.scss"></style>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { requestService } from '../../services/request.service';
+import DetailRequest from './detail/DetailRequest.vue';
+import { RequestModel } from '../../models';
 
-@Component
+@Component({
+  components: {
+    DetailRequest,
+  }
+})
 export default class Requests extends Vue {
-  private listRequests: any[] = [
-    {'position': 'Java', 'name': 'NWS', 'amount': 5, 'assignment': 2, 'address': 'Hanoi', 'status': 1},
-    {'position': 'Java', 'name': 'NWS', 'amount': 5, 'assignment': 2, 'address': 'Hanoi', 'status': 1},
-    {'position': 'Java', 'name': 'NWS', 'amount': 5, 'assignment': 2, 'address': 'Hanoi', 'status': 1},
-    {'position': 'Java', 'name': 'NWS', 'amount': 5, 'assignment': 2, 'address': 'Hanoi', 'status': 1},
-    {'position': 'Java', 'name': 'NWS', 'amount': 5, 'assignment': 2, 'address': 'Hanoi', 'status': 1},
-    {'position': 'Java', 'name': 'NWS', 'amount': 5, 'assignment': 2, 'address': 'Hanoi', 'status': 1},
-    {'position': 'Java', 'name': 'NWS', 'amount': 5, 'assignment': 2, 'address': 'Hanoi', 'status': 1},
-    {'position': 'Java', 'name': 'NWS', 'amount': 5, 'assignment': 2, 'address': 'Hanoi', 'status': 1},
-  ];
+  private listRequests: RequestModel[] = [];
+  private isLoading: boolean = false;
+  private isDetailRequestVisible: boolean = false;
+  private idProp: any;
+  
+  private created() {
+    this.getAllRequests();
+  }
+
+  private getAllRequests() {
+    this.isLoading = true;
+    requestService
+      .getAllRequests()
+      .then((res: any) => {
+        this.listRequests = res.data;
+      })
+      .catch(() => {
+        alert("Xảy ra lỗi!");
+      })
+      .finally(() => this.isLoading = false);
+  }
+
+  private openDetailRequest(item: any) {
+    if (item) {
+      this.isDetailRequestVisible = true;
+      this.idProp = item.id;
+    }
+  }
+
+  private finishScreen() {
+    this.isDetailRequestVisible = false;
+  }
 }
 </script>
