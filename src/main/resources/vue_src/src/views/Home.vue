@@ -7,13 +7,15 @@
         <el-menu-item index="/organization/view/1">Teacher</el-menu-item>
         <el-menu-item index="/intern/view/1">Intern</el-menu-item>
         <el-menu-item index="/requests">Requests</el-menu-item>
-        <el-menu-item index="/register" v-if="!authenticated">Đăng ký</el-menu-item>
-        <el-submenu index="/login" style="position:absolute;right:0px" v-if="!authenticated">
-          <template slot="title">Login</template>
+        <el-menu-item style="position:absolute;right:124px" v-if="!isLogger" index="/register">Đăng ký</el-menu-item>
+        <el-menu-item style="position:absolute;right:0px" v-if="!isLogger" index="/login">Đăng nhập</el-menu-item>
+        <!-- <el-submenu v-if="!isLogger" style="position:absolute;right:0px" index="/login">
+          <template slot="title">Đăng nhập</template>
           <el-menu-item index="/login">Student</el-menu-item>
           <el-menu-item index="/login">Company</el-menu-item>
           <el-menu-item index="/login">Teacher</el-menu-item>
-        </el-submenu>
+        </el-submenu> -->
+        <el-menu-item style="position:absolute;right:0px" v-else index="/" @click="logout()">Đăng xuất</el-menu-item>
       </el-menu>
     </el-header>
     <el-container style="margin-top:62px;">
@@ -105,13 +107,42 @@ import { loginService } from '@/services/login.service';
 @Component
 export default class Home extends Vue {
   private activeIndex: string = '1';
+  private isLogger: boolean = false;
+  private isLogin: boolean = false;
+  private isSignUp: boolean = false;
 
-  public get authenticated(): boolean {
-    return this.$store.getters.authenticated;
+  private mounted() {
+    this.checkLogger();
   }
 
-  public get username(): string {
-    return this.$store.getters.account ? this.$store.getters.account.login : '';
+  private checkLogger() {
+    this.isLogger = JSON.parse(localStorage.getItem('isLogger') || '');
   }
+
+  private loginFun() {
+    this.isLogin = true;
+    this.isSignUp = false;
+  }
+
+  private signUpFun() {
+    this.isLogin = false;
+    this.isSignUp = true;
+  }
+
+  private logout() {
+    // loginService.logout().then((response: any) => {
+
+    // })
+    localStorage.removeItem('user');
+    if (localStorage.getItem('user')) {
+      localStorage.setItem('isLogger', 'true');
+    } else {
+      localStorage.setItem('isLogger', 'false');
+    }
+    this.$router.go(0);
+      // remove the axios default header
+      // delete Home.axios.defaults.headers.common['Authorization'];
+  }
+
 }
 </script>

@@ -274,31 +274,6 @@ public class Intern implements Serializable {
         this.registerRequests = registerRequests;
     }
 
-//    public Set<RequestAssignment> getRequestAssignments() {
-//        return requestAssignments;
-//    }
-//
-//    public Intern requestAssignments(Set<RequestAssignment> requestAssignments) {
-//        this.requestAssignments = requestAssignments;
-//        return this;
-//    }
-//
-//    public Intern addRequestAssignment(RequestAssignment requestAssignment) {
-//        this.requestAssignments.add(requestAssignment);
-//        requestAssignment.setInternRequestAssignment(this);
-//        return this;
-//    }
-//
-//    public Intern removeRequestAssignment(RequestAssignment requestAssignment) {
-//        this.requestAssignments.remove(requestAssignment);
-//        requestAssignment.setInternRequestAssignment(null);
-//        return this;
-//    }
-//
-//    public void setRequestAssignments(Set<RequestAssignment> requestAssignments) {
-//        this.requestAssignments = requestAssignments;
-//    }
-
     public Set<Ability> getInternAbilities() {
         return internAbilities;
     }

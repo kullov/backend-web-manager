@@ -47,9 +47,6 @@ export default class Error extends Vue {
     this.error403 = error403;
     this.error404 = error404;
 
-    if (!this.$store.getters.authenticated && this.error403) {
-      loginService.openLogin((<any>this).$root);
-    }
   }
 
   private goHome() {

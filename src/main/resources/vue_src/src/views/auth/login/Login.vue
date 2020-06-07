@@ -68,7 +68,7 @@
 <script lang="ts">
 import axios from 'axios';
 import { Component, Vue, Inject } from 'vue-property-decorator';
-import AccountService from '@/services/account.service';
+import { loginService } from '../../../services/login.service';
 
 const ROOT_API = 'http://localhost:8888/';
 
@@ -81,36 +81,61 @@ const ROOT_API = 'http://localhost:8888/';
   }
 })
 export default class Login extends Vue {
-	@Inject('accountService')
-	//@ts-ignore
-	private accountService: () => AccountService;
 	private loginModel: any = {};
 	public authenticationError: boolean = false;
 	public rememberMe: boolean = false;
+	private isLogger: boolean = false;
+  private isError: boolean = false;
+  private isServerError: boolean = false;
+  private isUnauthorized: boolean = false;
+  private isPasswordError: boolean = false;
+  private passwordType: string = 'password';
 
 	private created() {
 
 	}
 
-	private submit() {
-		const data = { username: this.loginModel.username, password: this.loginModel.password, rememberMe: this.rememberMe  };
-    axios
-      .post('http://localhost:8888/api/authenticate', data)
-      .then(result => {
-        const bearerToken = result.headers.authorization;
-        if (bearerToken && bearerToken.slice(0, 7) === 'Bearer ') {
-          const jwt = bearerToken.slice(7, bearerToken.length);
-					sessionStorage.setItem('jhi-authenticationToken', jwt);
-					console.log(jwt);
-				}
-        this.authenticationError = false;
-        this.$root.$emit('bv::hide::modal', 'login-page');
-        this.accountService().retrieveAccount();
+	private loggedIn() {
+    return this.$store.state.auth.status.loggedIn;
+  }
+
+  private showPwd() {
+      if (this.passwordType === 'password') {
+        this.passwordType = '';
+      } else {
+        this.passwordType = 'password';
+      }
+    }
+
+  private submit() {
+    const loginData = {
+      username: this.loginModel.username,
+      password: this.loginModel.password,
+    };
+    loginService.login(loginData)
+      .then((isSuccess) => {
+        if (isSuccess) {
+          this.$router.push({ path: '/about' });
+          this.isLogger = true;
+        } else {
+          this.isLogger = false;
+        }
+        // if(localStorage) {
+        //   console.log(localStorage['x-auth-token']);
+        // }
       })
-      .catch(() => {
-        this.authenticationError = true;
+      .catch((error) => {
+        if (error.response && error.response.status === 401) {
+          this.isUnauthorized = true;
+        } else if (error.response && error.response.status === 500) {
+          this.isServerError = true;
+        } else {
+          this.isError = true;
+        }
+      }).finally(() => {
+        localStorage.setItem('isLogger', this.isLogger + '');
       });
-	}
+  }
 
   private goToRegisterPage() {
 		const path = '/register';

@@ -78,41 +78,21 @@ Vue.component("ValidationObserver", ValidationObserver);
 Vue.component('ValidationProvider', ValidationProvider);
 
 
-// const accountService = new AccountService(store, router);
-// // Add a request interceptor
-// axios.interceptors.request.use(
-//   (config) => {
-//     debugger;
-//       const token = sessionStorage['jhi-authenticationToken'];
-//       if (token) {
-//           config.headers.Authorization = 'Bearer ' + token;
-//       }
-//       // config.headers['Content-Type'] = 'application/json';
-//       return config;
-//   },
-//   (error) => {
-//       Promise.reject(error);
-//   });
+// Add a request interceptor
+axios.interceptors.request.use(
+  (config) => {
+      const token = localStorage['x-auth-token'];
+      if (token) {
+          config.headers.Authorization = 'Bearer ' + token;
+      }
+      config.headers['Content-Type'] = 'application/json';
+      return config;
+  },
+  (error) => {
+      Promise.reject(error);
+  });
 
-// router.beforeEach((to, from, next) => {
-//   if (!to.matched.length) {
-//     next('/not-found');
-//   }
-
-//   if (to.meta && to.meta.authorities && to.meta.authorities.length > 0) {
-//     if (!accountService.hasAnyAuthority(to.meta.authorities)) {
-//       sessionStorage.setItem('requested-url', to.fullPath);
-//       next('/forbidden');
-//     } else {
-//       next();
-//     }
-//   } else {
-//     // no authorities, so just proceed
-//     next();
-//   }
-// });
 import moment from 'moment';
-import AccountService from './services/account.service';
 Vue.prototype.$moment = moment;
 
 new Vue({
