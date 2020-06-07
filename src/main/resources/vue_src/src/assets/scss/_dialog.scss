@@ -1,0 +1,35 @@
+
+// begin Căn giữa dialog
+.modal {
+  display: flex !important;
+  align-items: center !important;
+}
+// end
+// fix dialog
+.modal-dialog {
+  max-height: calc(100vh - 50px);
+}
+
+.modal-body {
+  max-height: calc(100vh - 50px - 63px);
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+// end
+.modal-content {
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 3px;
+  border-radius: 2px;
+  border: none;
+}
+
+.modal-backdrop {
+  opacity: 0.5;
+}
+.modal-open .modal {
+  overflow: hidden;
+}
+.dialog-normal {
+  width: 840px;
+  max-width: 840px;
+}

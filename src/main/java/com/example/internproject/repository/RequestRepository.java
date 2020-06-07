@@ -26,4 +26,7 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
 
     @Query("select request from Request request left join fetch request.requestAbilities where request.id =:id")
     Optional<Request> findOneWithEagerRelationships(@Param("id") Long id);
+
+    @Query("select distinct request from Request request left join fetch request.requestAbilities  where request.organizationRequest.id =:id")
+    List<Request> findAllByOrganizationId(@Param("id") Long id);
 }

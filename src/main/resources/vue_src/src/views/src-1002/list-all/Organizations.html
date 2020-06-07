@@ -1,0 +1,55 @@
+<div class="page-container w3-container">
+  <h2 id="page-heading">
+      <span id="organization-heading">Danh sách các doanh nghiệp</span>
+  </h2>
+  
+  <br/>
+  <div class="alert alert-warning" v-if="organizations && organizations.length === 0">
+      <span>Không tìm thấy doanh nghiệp nào!</span>
+  </div>
+  <div v-if="organizations && organizations.length > 0">
+      <el-table
+      stripe
+      :data="organizations"
+      style="width: 100%"
+      max-height="480">
+      <el-table-column
+        fixed
+        prop="id"
+        align="center"
+        label="ID"
+        width="60">
+      </el-table-column>
+      <el-table-column
+        prop="name"
+        label="Tên"
+        align="center"
+        width="160">
+      </el-table-column>
+      <el-table-column
+        prop="taxNumber"
+        label="Mã số thuế"
+        align="center"
+        width="150">
+      </el-table-column>
+      <el-table-column
+        prop="email"
+        label="Email"
+        align="center"
+        width="160">
+      </el-table-column>
+      <el-table-column
+        prop="contact"
+        label="Liên hệ"
+        align="center"
+        width="130">
+      </el-table-column>
+      <el-table-column
+        prop="address"
+        align="center"
+        label="Địa chỉ"
+        width="320">
+      </el-table-column>
+    </el-table>
+  </div>
+</div>

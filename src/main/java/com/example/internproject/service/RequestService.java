@@ -5,6 +5,7 @@ import com.example.internproject.domain.Request;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -27,7 +28,7 @@ public interface RequestService {
      * @return the list of entities.
      */
     Page<Request> findAll(Pageable pageable);
-
+    List<Request> findAll();
     /**
      * Get all the requests with eager load of many-to-many relationships.
      *
@@ -49,4 +50,6 @@ public interface RequestService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    List<Request> findAllByOrganizationId(Long id);
 }

@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -49,6 +50,11 @@ public class RequestServiceImpl implements RequestService {
         return requestRepository.findAll(pageable);
     }
 
+    @Override
+    public List<Request> findAll() {
+        return requestRepository.findAll();
+    }
+
     /**
      * Get all the requests with eager load of many-to-many relationships.
      *
@@ -80,5 +86,10 @@ public class RequestServiceImpl implements RequestService {
     public void delete(Long id) {
         log.debug("Request to delete Request : {}", id);
         requestRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Request> findAllByOrganizationId(Long id) {
+        return requestRepository.findAllByOrganizationId(id);
     }
 }

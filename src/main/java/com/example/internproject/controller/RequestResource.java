@@ -80,18 +80,19 @@ public class RequestResource {
      * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of requests in body.
      */
-//    @GetMapping("/requests")
-//    public ResponseEntity<List<Request>> getAllRequests(Pageable pageable, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
-//        log.debug("REST request to get a page of Requests");
+    @GetMapping("/requests")
+    public ResponseEntity<List<Request>> getAllRequests(Pageable pageable, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+        log.debug("REST request to get a page of Requests");
 //        Page<Request> page;
 //        if (eagerload) {
 //            page = requestService.findAllWithEagerRelationships(pageable);
 //        } else {
 //            page = requestService.findAll(pageable);
 //        }
+        List<Request> list = requestService.findAll();
 //        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-//        return ResponseEntity.ok().headers(headers).body(page.getContent());
-//    }
+        return ResponseEntity.ok().body(list);
+    }
 
     /**
      * {@code GET  /requests/:id} : get the "id" request.
@@ -117,5 +118,12 @@ public class RequestResource {
         log.debug("REST request to delete Request : {}", id);
         requestService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/requests/organization/{id}")
+    public ResponseEntity<List<Request>> getAllRequestsByOrganization(@PathVariable Long id) {
+        log.debug("REST request to get a list of Requests by organizationId");
+        List<Request> list = requestService.findAllByOrganizationId(id);
+        return ResponseEntity.ok().body(list);
     }
 }
