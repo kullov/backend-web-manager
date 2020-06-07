@@ -53,6 +53,5 @@ public interface RequestService {
     void delete(Long id);
 
 
-	List<Request> findAll();
     List<Request> findAllByOrganizationId(Long id);
 }

@@ -92,9 +92,4 @@ public class RequestServiceImpl implements RequestService {
     public List<Request> findAllByOrganizationId(Long id) {
         return requestRepository.findAllByOrganizationId(id);
     }
-
-	@Override
-	public List<Request> findAll() {
-		return requestRepository.findAll();
-	}
 }
