@@ -5,6 +5,9 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.internproject.controller.errors.BadRequestAlertException;
+import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +35,13 @@ public class TeacherResource {
 
     private static final String ENTITY_NAME = "teacher";
 
-    @Autowired
-    private TeacherService teacherService;
+    private String applicationName = "InternProject";;
+
+    private final TeacherService teacherService;
+
+    public TeacherResource(TeacherService teacherService) {
+        this.teacherService = teacherService;
+    }
 
     /**
      * {@code POST  /teachers} : Create a new teacher.
@@ -45,9 +53,13 @@ public class TeacherResource {
     @PostMapping("/teachers")
     public ResponseEntity<Teacher> createTeacher(@RequestBody Teacher teacher) throws URISyntaxException {
         log.debug("REST request to save Teacher : {}", teacher);
+        if (teacher.getId() != null) {
+            throw new BadRequestAlertException("A new teacher cannot already have an ID", ENTITY_NAME, "idexists");
+        }
         Teacher result = teacherService.save(teacher);
         return ResponseEntity.created(new URI("/api/teachers/" + result.getId()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
+                .body(result);
     }
 
     /**
@@ -62,9 +74,13 @@ public class TeacherResource {
     @PutMapping("/teachers")
     public ResponseEntity<Teacher> updateTeacher(@RequestBody Teacher teacher) throws URISyntaxException {
         log.debug("REST request to update Teacher : {}", teacher);
+        if (teacher.getId() == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
         Teacher result = teacherService.save(teacher);
         return ResponseEntity.ok()
-            .body(result);
+                .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, teacher.getId().toString()))
+                .body(result);
     }
 
     /**
@@ -88,7 +104,7 @@ public class TeacherResource {
     public ResponseEntity<Teacher> getTeacher(@PathVariable Long id) {
         log.debug("REST request to get Teacher : {}", id);
         Optional<Teacher> teacher = teacherService.findOne(id);
-        return ResponseEntity.of(teacher);
+        return ResponseUtil.wrapOrNotFound(teacher);
     }
 
     /**
@@ -101,6 +117,6 @@ public class TeacherResource {
     public ResponseEntity<Void> deleteTeacher(@PathVariable Long id) {
         log.debug("REST request to delete Teacher : {}", id);
         teacherService.delete(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString())).build();
     }
 }

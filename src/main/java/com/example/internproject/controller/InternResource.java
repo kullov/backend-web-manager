@@ -5,6 +5,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 
+import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,8 @@ public class InternResource {
 
     private static final String ENTITY_NAME = "intern";
 
+    private String applicationName = "InternProject";
+
     @Autowired
     private InternService internService;
 
@@ -48,6 +52,7 @@ public class InternResource {
         log.debug("REST request to save Intern : {}", intern);
         Intern result = internService.save(intern);
         return ResponseEntity.created(new URI("/api/interns/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
 
@@ -65,6 +70,7 @@ public class InternResource {
         log.debug("REST request to update Intern : {}", intern);
         Intern result = internService.save(intern);
         return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, intern.getId().toString()))
             .body(result);
     }
 
@@ -90,7 +96,7 @@ public class InternResource {
     public ResponseEntity<Intern> getIntern(@PathVariable Long id) {
         log.debug("REST request to get Intern : {}", id);
         Optional<Intern> intern = internService.findOne(id);
-        return ResponseEntity.of(intern);
+        return ResponseUtil.wrapOrNotFound(intern);
     }
 
     /**
@@ -103,6 +109,6 @@ public class InternResource {
     public ResponseEntity<Void> deleteIntern(@PathVariable Long id) {
         log.debug("REST request to delete Intern : {}", id);
         internService.delete(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString())).build();
     }
 }

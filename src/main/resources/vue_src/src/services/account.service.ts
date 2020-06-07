@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Store } from 'vuex';
 import VueRouter from 'vue-router';
+const ROOT_API = 'http://localhost:8888/api/';  // Root api
 
 export default class AccountService {
   constructor(private store: Store<any>, private router: VueRouter) {
@@ -16,7 +17,7 @@ export default class AccountService {
   }
 
   public retrieveProfiles(): void {
-    axios.get('management/info').then(res => {
+    axios.get(ROOT_API +'management/info').then(res => {
       if (res.data && res.data.activeProfiles) {
         this.store.commit('setRibbonOnProfiles', res.data['display-ribbon-on-profiles']);
         this.store.commit('setActiveProfiles', res.data['activeProfiles']);
@@ -27,13 +28,15 @@ export default class AccountService {
   public retrieveAccount(): void {
     this.store.commit('authenticate');
     axios
-      .get('api/account')
+      .get(ROOT_API+'account')
       .then(response => {
         const account = response.data;
+        debugger;
         if (account) {
           this.store.commit('authenticated', account);
           if (sessionStorage.getItem('requested-url')) {
-            // this.router.replace(sessionStorage.getItem('requested-url'));
+            //@ts-ignore
+            this.router.replace(sessionStorage.getItem('requested-url'));
             sessionStorage.removeItem('requested-url');
           }
         } else {

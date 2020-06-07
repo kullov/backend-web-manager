@@ -6,6 +6,7 @@ import InputRequest from '@/views/request/input-request/InputRequest.vue'
 import Organization from '@/views/src-1002/list-all/Organizations.vue'
 // import OrganizationUpdate from '@/views/src-1002/src-1002C/'
 import OrganizationDetails from '@/views/src-1002/src-1002A/OrganizationPage.vue'
+import Component from 'vue-class-component'
 
 // // prettier-ignore
 const Register = () => import('@/views/auth/register/Register.vue');
@@ -55,6 +56,11 @@ const RequestDetails = () => import('@/views/request/detail/DetailRequest.vue');
 // const StatusDetails = () => import('@/views/status/status-details.vue');
 // // jhipster-needle-add-entity-to-router-import - JHipster will import entities to the router here
 
+Component.registerHooks([
+  'beforeRouteEnter',
+  'beforeRouteLeave',
+  'beforeRouteUpdate' // for vue-router 2.2+
+]);
 
 Vue.use(VueRouter);
 

@@ -5,7 +5,9 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.tomcat.util.http.HeaderUtil;
+import com.example.internproject.controller.errors.BadRequestAlertException;
+import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +35,13 @@ public class StatusResource {
 
     private static final String ENTITY_NAME = "status";
 
-    @Autowired
-    private StatusService statusService;
+    private String applicationName = "InternProject";
+
+    private final StatusService statusService;
+
+    public StatusResource(StatusService statusService) {
+        this.statusService = statusService;
+    }
 
     /**
      * {@code POST  /statuses} : Create a new status.
@@ -46,9 +53,13 @@ public class StatusResource {
     @PostMapping("/statuses")
     public ResponseEntity<Status> createStatus(@RequestBody Status status) throws URISyntaxException {
         log.debug("REST request to save Status : {}", status);
+        if (status.getId() != null) {
+            throw new BadRequestAlertException("A new status cannot already have an ID", ENTITY_NAME, "idexists");
+        }
         Status result = statusService.save(status);
         return ResponseEntity.created(new URI("/api/statuses/" + result.getId()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
+                .body(result);
     }
 
     /**
@@ -63,9 +74,13 @@ public class StatusResource {
     @PutMapping("/statuses")
     public ResponseEntity<Status> updateStatus(@RequestBody Status status) throws URISyntaxException {
         log.debug("REST request to update Status : {}", status);
+        if (status.getId() == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
         Status result = statusService.save(status);
         return ResponseEntity.ok()
-            .body(result);
+                .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, status.getId().toString()))
+                .body(result);
     }
 
     /**
@@ -89,7 +104,7 @@ public class StatusResource {
     public ResponseEntity<Status> getStatus(@PathVariable Long id) {
         log.debug("REST request to get Status : {}", id);
         Optional<Status> status = statusService.findOne(id);
-        return ResponseEntity.of(status);
+        return ResponseUtil.wrapOrNotFound(status);
     }
 
     /**
@@ -102,6 +117,6 @@ public class StatusResource {
     public ResponseEntity<Void> deleteStatus(@PathVariable Long id) {
         log.debug("REST request to delete Status : {}", id);
         statusService.delete(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString())).build();
     }
 }

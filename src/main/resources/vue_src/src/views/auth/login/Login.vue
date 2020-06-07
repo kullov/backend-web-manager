@@ -69,6 +69,10 @@
 import axios from 'axios';
 import { Component, Vue, Inject } from 'vue-property-decorator';
 import AccountService from '@/services/account.service';
+
+const ROOT_API = 'http://localhost:8888/';
+
+
 @Component({
   watch: {
     $route() {
@@ -82,22 +86,23 @@ export default class Login extends Vue {
 	private accountService: () => AccountService;
 	private loginModel: any = {};
 	public authenticationError: boolean = false;
+	public rememberMe: boolean = false;
 
 	private created() {
 
 	}
 
 	private submit() {
-		console.log(this.loginModel);
-		const data = { username: this.loginModel.username, password: this.loginModel.password };
+		const data = { username: this.loginModel.username, password: this.loginModel.password, rememberMe: this.rememberMe  };
     axios
-      .post('api/authenticate', data)
+      .post('http://localhost:8888/api/authenticate', data)
       .then(result => {
         const bearerToken = result.headers.authorization;
         if (bearerToken && bearerToken.slice(0, 7) === 'Bearer ') {
           const jwt = bearerToken.slice(7, bearerToken.length);
 					sessionStorage.setItem('jhi-authenticationToken', jwt);
-        }
+					console.log(jwt);
+				}
         this.authenticationError = false;
         this.$root.$emit('bv::hide::modal', 'login-page');
         this.accountService().retrieveAccount();

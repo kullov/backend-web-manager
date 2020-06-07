@@ -9,7 +9,7 @@ class RequestService extends Vue {
   }
 
   public getAllRequestsByOrganization(id: any) {
-    return Vue.axios.get(ROOT_API + "/organization/" + id);
+    return Vue.axios.get(ROOT_API + "organization/" + id);
   }
 
   public createRequest(entity: RequestModel): AxiosPromise<RequestModel> {

@@ -7,7 +7,8 @@
         <el-menu-item index="/organization/view/1">Teacher</el-menu-item>
         <el-menu-item index="/intern/view/1">Intern</el-menu-item>
         <el-menu-item index="/requests">Requests</el-menu-item>
-        <el-submenu style="position:absolute;right:0px">
+        <el-menu-item index="/register" v-if="!authenticated">Đăng ký</el-menu-item>
+        <el-submenu index="/login" style="position:absolute;right:0px" v-if="!authenticated">
           <template slot="title">Login</template>
           <el-menu-item index="/login">Student</el-menu-item>
           <el-menu-item index="/login">Company</el-menu-item>
@@ -100,9 +101,17 @@ li.el-menu-item.w3-bar-item.w-100.text-left.is-active {
 // @ is an alias to /src
 import { Component, Vue } from 'vue-property-decorator';
 import HelloWorld from '@/components/HelloWorld.vue'
-
+import { loginService } from '@/services/login.service';
 @Component
 export default class Home extends Vue {
   private activeIndex: string = '1';
+
+  public get authenticated(): boolean {
+    return this.$store.getters.authenticated;
+  }
+
+  public get username(): string {
+    return this.$store.getters.account ? this.$store.getters.account.login : '';
+  }
 }
 </script>

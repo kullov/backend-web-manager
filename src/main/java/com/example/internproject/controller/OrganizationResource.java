@@ -1,8 +1,11 @@
 package com.example.internproject.controller;
 
+import com.example.internproject.controller.errors.BadRequestAlertException;
 import com.example.internproject.domain.Organization;
 import com.example.internproject.service.OrganizationService;
 
+import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,7 +28,7 @@ public class OrganizationResource {
 
     private static final String ENTITY_NAME = "organization";
 
-
+    private String applicationName = "InternProject";
     private final OrganizationService organizationService;
 
     public OrganizationResource(OrganizationService organizationService) {
@@ -42,9 +45,13 @@ public class OrganizationResource {
     @PostMapping("/organizations")
     public ResponseEntity<Organization> createOrganization(@RequestBody Organization organization) throws URISyntaxException {
         log.debug("REST request to save Organization : {}", organization);
+        if (organization.getId() != null) {
+            throw new BadRequestAlertException("A new organization cannot already have an ID", ENTITY_NAME, "idexists");
+        }
         Organization result = organizationService.save(organization);
         return ResponseEntity.created(new URI("/api/organizations/" + result.getId()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
+                .body(result);
     }
 
     /**
@@ -59,9 +66,13 @@ public class OrganizationResource {
     @PutMapping("/organizations")
     public ResponseEntity<Organization> updateOrganization(@RequestBody Organization organization) throws URISyntaxException {
         log.debug("REST request to update Organization : {}", organization);
+        if (organization.getId() == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
         Organization result = organizationService.save(organization);
         return ResponseEntity.ok()
-            .body(result);
+                .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, organization.getId().toString()))
+                .body(result);
     }
 
     /**
@@ -85,7 +96,7 @@ public class OrganizationResource {
     public ResponseEntity<Organization> getOrganization(@PathVariable Long id) {
         log.debug("REST request to get Organization : {}", id);
         Optional<Organization> organization = organizationService.findOne(id);
-        return ResponseEntity.of(organization);
+        return ResponseUtil.wrapOrNotFound(organization);
     }
 
     /**
@@ -98,6 +109,6 @@ public class OrganizationResource {
     public ResponseEntity<Void> deleteOrganization(@PathVariable Long id) {
         log.debug("REST request to delete Organization : {}", id);
         organizationService.delete(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString())).build();
     }
 }

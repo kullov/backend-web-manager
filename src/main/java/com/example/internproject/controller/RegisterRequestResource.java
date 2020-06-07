@@ -5,7 +5,9 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.tomcat.util.http.HeaderUtil;
+import com.example.internproject.controller.errors.BadRequestAlertException;
+import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +35,13 @@ public class RegisterRequestResource {
 
     private static final String ENTITY_NAME = "registerRequest";
 
-    @Autowired
-    private RegisterRequestService registerRequestService;
+    private String applicationName = "InternProject";
+
+    private final RegisterRequestService registerRequestService;
+
+    public RegisterRequestResource(RegisterRequestService registerRequestService) {
+        this.registerRequestService = registerRequestService;
+    }
 
     /**
      * {@code POST  /register-requests} : Create a new registerRequest.
@@ -46,9 +53,13 @@ public class RegisterRequestResource {
     @PostMapping("/register-requests")
     public ResponseEntity<RegisterRequest> createRegisterRequest(@RequestBody RegisterRequest registerRequest) throws URISyntaxException {
         log.debug("REST request to save RegisterRequest : {}", registerRequest);
+        if (registerRequest.getId() != null) {
+            throw new BadRequestAlertException("A new registerRequest cannot already have an ID", ENTITY_NAME, "idexists");
+        }
         RegisterRequest result = registerRequestService.save(registerRequest);
         return ResponseEntity.created(new URI("/api/register-requests/" + result.getId()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
+                .body(result);
     }
 
     /**
@@ -63,9 +74,13 @@ public class RegisterRequestResource {
     @PutMapping("/register-requests")
     public ResponseEntity<RegisterRequest> updateRegisterRequest(@RequestBody RegisterRequest registerRequest) throws URISyntaxException {
         log.debug("REST request to update RegisterRequest : {}", registerRequest);
+        if (registerRequest.getId() == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
         RegisterRequest result = registerRequestService.save(registerRequest);
         return ResponseEntity.ok()
-            .body(result);
+                .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, registerRequest.getId().toString()))
+                .body(result);
     }
 
     /**
@@ -89,7 +104,7 @@ public class RegisterRequestResource {
     public ResponseEntity<RegisterRequest> getRegisterRequest(@PathVariable Long id) {
         log.debug("REST request to get RegisterRequest : {}", id);
         Optional<RegisterRequest> registerRequest = registerRequestService.findOne(id);
-        return ResponseEntity.of(registerRequest);
+        return ResponseUtil.wrapOrNotFound(registerRequest);
     }
 
     /**
@@ -102,6 +117,6 @@ public class RegisterRequestResource {
     public ResponseEntity<Void> deleteRegisterRequest(@PathVariable Long id) {
         log.debug("REST request to delete RegisterRequest : {}", id);
         registerRequestService.delete(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString())).build();
     }
 }

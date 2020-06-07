@@ -68,6 +68,8 @@ import { Component, Vue } from 'vue-property-decorator';
 import { loginService } from '@/services/login.service';
 import { registerService } from '@/services/register.service';
 import { LOGIN_ALREADY_USED_TYPE, EMAIL_ALREADY_USED_TYPE } from '../../../components/shared/constants';
+const ROOT_API = 'http://localhost:8888/api/abilities/';  // Root api
+
 @Component
 export default class Register extends Vue{
   private registerModel: any = {};
