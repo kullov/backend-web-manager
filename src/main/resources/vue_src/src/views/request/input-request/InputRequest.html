@@ -43,7 +43,7 @@
       <div class="w3-row-padding">
         <div class="w3-half w3-padding">
           <label><i class="fas fa-map-marker-alt"></i> Địa chỉ làm việc:</label>
-          <p><el-input type="text" disabled placeholder=""></el-input></p>
+          <p><el-input v-model="address" type="text" disabled placeholder=""></el-input></p>
         </div>
         <div class="w3-half w3-padding">
           <label><i class="fa fa-fw fa-clock-o"></i> Thời gian làm việc:</label>
@@ -65,14 +65,6 @@
           </el-select>  
         </div>
       </div>
-      <h4><strong>Mô tả công việc</strong></h4>
-      <div class="w3-row-padding">
-        <div class="w3-padding">
-          <el-input class="w3-input" type="textarea" placeholder="Thêm mô tả" name="description" v-model="createForm.description" ></el-input>
-        </div>
-      </div>
-      <hr>
-
     </div>
     <hr>
     

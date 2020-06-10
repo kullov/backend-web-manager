@@ -1,11 +1,11 @@
 <div v-loading="isLoading" class="animated fadeIn page-container w3-container">
   <div v-if="intern">
-    <h2><span>Intern</span> {{intern.firstName}}</h2>
+    <h2>Sửa thông tin</h2>
     <el-row :gutter="20">
       <el-form :model="intern">
         <el-col :span="12">
           <el-form-item label="Code">
-            <el-input v-model="intern.code"></el-input>
+            <el-input :disabled="true" v-model="intern.code"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -25,7 +25,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="Join Date">
-            <el-input v-model="intern.joinDate"></el-input>
+            <el-input :disabled="true" v-model="intern.joinDate"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -36,11 +36,6 @@
         <el-col :span="12">
           <el-form-item label="Avatar">
             <el-input v-model="intern.avatar"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="Password">
-            <el-input v-model="intern.password"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -63,24 +58,13 @@
             <el-input v-model="intern.address"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="24">
+        <!-- <el-col :span="24">
           <el-form-item prop="required" label="Yêu cầu thêm" class="form-group">
-            <!-- <el-select v-model="intern.internAbilities" class="w-100" multiple placeholder="">
-              <el-option 
-                v-for="abilityOption in listAbilities" 
-                :value="getSelected(intern.internAbilities, abilityOption)" 
-                :key="abilityOption.id">
-                {{abilityOption.name}}
-              </el-option>
-              
-              <el-option v-for="item in listAbilities" :key="item.id" :label="item.name" :value="item.id">
-              </el-option>
-            </el-select> -->
               <select class="form-control" id="intern-internAbility" multiple name="internAbility" v-model="intern.internAbilities">
                 <option v-bind:value="getSelected(intern.internAbilities, abilityOption)" v-for="abilityOption in listAbilities" :key="abilityOption.id">{{abilityOption.name}}</option>
             </select>
           </el-form-item>
-        </el-col>
+        </el-col> -->
         <!-- <el-col :span="12">
           <el-form-item label="Organization Intern">
             <div v-if="intern.organizationInternId">

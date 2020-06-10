@@ -5,6 +5,7 @@ import { Component, Vue } from "vue-property-decorator";
 import { requestService } from '../../../services/request.service';
 import { RequestModel } from '../../../models';
 import DetailRequest from "@/views/request/detail/DetailRequest.vue";
+import { organizationService } from '../../../services/organization.service';
 
 @Component({
   components: {
@@ -13,34 +14,30 @@ import DetailRequest from "@/views/request/detail/DetailRequest.vue";
 })
 export default class OrganizationPage extends Vue {
   private isLoading: boolean = false;
-  private organizationId: number = 1;
+  private organizationId: any = '';
   private listRequests: RequestModel[] = [];
   private isDetailRequestVisible: boolean = false;
   private idProp: any;
 
-  private listAssignments: any[] = [
-    {'id': '1', 'code': '16001231', 'name': 'ABCDE', 'startDate': '2019-11-08', 'endDate': '2019-12-19', 'position': 'Java', 'status': 1, 'dateCreated': '2019-11-22'},
-    {'id': '1', 'code': '16001231', 'name': 'ABCDE', 'startDate': '2019-11-08', 'endDate': '2019-12-19', 'position': 'Java', 'status': 1, 'dateCreated': '2019-11-22'},
-    {'id': '1', 'code': '16001231', 'name': 'ABCDE', 'startDate': '2019-11-08', 'endDate': '2019-12-19', 'position': 'Java', 'status': 1, 'dateCreated': '2019-11-22'},
-    {'id': '1', 'code': '16001231', 'name': 'ABCDE', 'startDate': '2019-11-08', 'endDate': '2019-12-19', 'position': 'Java', 'status': 1, 'dateCreated': '2019-11-22'},
-    {'id': '1', 'code': '16001231', 'name': 'ABCDE', 'startDate': '2019-11-08', 'endDate': '2019-12-19', 'position': 'Java', 'status': 1, 'dateCreated': '2019-11-22'},
-    {'id': '1', 'code': '16001231', 'name': 'ABCDE', 'startDate': '2019-11-08', 'endDate': '2019-12-19', 'position': 'Java', 'status': 1, 'dateCreated': '2019-11-22'},
-    {'id': '1', 'code': '16001231', 'name': 'ABCDE', 'startDate': '2019-11-08', 'endDate': '2019-12-19', 'position': 'Java', 'status': 1, 'dateCreated': '2019-11-22'},
-    {'id': '1', 'code': '16001231', 'name': 'ABCDE', 'startDate': '2019-11-08', 'endDate': '2019-12-19', 'position': 'Java', 'status': 1, 'dateCreated': '2019-11-22'},
-    {'id': '1', 'code': '16001231', 'name': 'ABCDE', 'startDate': '2019-11-08', 'endDate': '2019-12-19', 'position': 'Java', 'status': 1, 'dateCreated': '2019-11-22'},
-    {'id': '1', 'code': '16001231', 'name': 'ABCDE', 'startDate': '2019-11-08', 'endDate': '2019-12-19', 'position': 'Java', 'status': 1, 'dateCreated': '2019-11-22'},
-  ];
+  private listAssignments: any[] = [];
 
   private created() {
-    this.getAllRequestByOrganizationId(this.organizationId);
+    this.organizationId = localStorage.getItem('idCurrentUser');
+    this.getOrganization(this.organizationId);
   }
 
-  private getAllRequestByOrganizationId(id: any) {
-    requestService
-      .getAllRequestsByOrganization(id)
-      .then((res: any) => {
-        this.listRequests = res.data;
-      })
+  private getOrganization(id: any) {
+    organizationService.getOrganization(id)
+    .then((res: any) => {
+      this.listRequests = res.data.requests;
+      this.listRequests.forEach((item: any) => {
+        item.registerRequests.forEach((element: any) => {
+          if (element.registerRequestStatus.id === 1) {
+            this.listAssignments.push(element);
+          }
+        });
+      });
+    });
   }
 
   private openDetailRequest(item: any) {

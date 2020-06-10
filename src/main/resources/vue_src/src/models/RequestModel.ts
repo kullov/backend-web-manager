@@ -15,6 +15,7 @@ export class RequestModel {
   requestAbilities?: AbilityModel[];
   organizationRequest?: OrganizationModel;
   requestStatus?: StatusModel;
+  assigned?: number;
 
   constructor(init?: Partial<RequestModel>) {
     Object.assign(this, init);

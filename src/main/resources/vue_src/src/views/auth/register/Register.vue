@@ -21,7 +21,7 @@
 							</div>
 							<div class="form-input editContent">
 								<i class="el-icon-lock" aria-hidden="true" style="outline: none; cursor: inherit;"></i> 
-								<el-input type="password" name="password" placeholder="Confirm Password" v-model="registerModel.passwordConfirm" required></el-input>
+								<el-input type="password" name="password" placeholder="Confirm Password" v-model="confirmPassword" required></el-input>
 							</div>
 
 							<div class="login-remember d-grid editContent">
@@ -68,6 +68,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { loginService } from '@/services/login.service';
 import { registerService } from '@/services/register.service';
 import { LOGIN_ALREADY_USED_TYPE, EMAIL_ALREADY_USED_TYPE } from '../../../components/shared/constants';
+import { accountService } from '../../../services/account.service';
 const ROOT_API = 'http://localhost:8888/api/abilities/';  // Root api
 
 @Component
@@ -81,22 +82,27 @@ export default class Register extends Vue{
 	public success = false;
 	
 	private created() {
-
+		console.log(this.$route.params.typeUser);
+		
 	}
 
 	private submit() {
 		console.log(this.registerModel);
 		if (this.registerModel.password !== this.confirmPassword) {
-      this.doNotMatch = 'ERROR';
+			this.doNotMatch = 'Mật khẩu không khớp';
+			alert('Mật khẩu không khớp');
     } else {
       this.doNotMatch = '';
       this.error = '';
       this.errorUserExists = '';
-      this.errorEmailExists = '';
-      registerService
-        .processRegistration(this.registerModel)
+			this.errorEmailExists = '';
+			this.registerModel.typeUser = this.$route.params.typeUser;
+      accountService
+        .create(this.registerModel)
         .then(() => {
-          this.success = true;
+					this.success = true;
+					alert('Đăng ký thành công!');
+					this.goToLoginPage();
         })
         .catch(error => {
           this.success = false;

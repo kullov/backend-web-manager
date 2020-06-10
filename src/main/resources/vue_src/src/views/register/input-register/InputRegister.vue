@@ -27,12 +27,12 @@ const validations: any = {
   }
 })
 export default class InputRegister extends Vue {
-  @Prop() internId?: any;
   @Prop() requestModel!: RequestModel;
   @Prop() registerModel?: RegisterModel;
   private listRegister: any[] = [];
   private isLoading: boolean = false;
   private removeId: any;
+  private internId?: any;
 
   public registerRequest: RegisterModel = new RegisterModel();
   public statuses: StatusModel[] = [];
@@ -52,6 +52,7 @@ export default class InputRegister extends Vue {
   }
 
   private created() {
+    this.internId = localStorage.getItem('idCurrentUser');
     if (this.$route.params.registerRequestId) {
       this.retrieveRegisterRequest(this.$route.params.registerRequestId);
     }
@@ -77,6 +78,7 @@ export default class InputRegister extends Vue {
           this.closeDialog();
         });
     } else {
+      this.registerRequest.registerRequestStatus = this.statuses[2];
       registerRequestService
         .createRegister(this.registerRequest)
         .then((param: any) => {

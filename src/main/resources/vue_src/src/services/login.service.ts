@@ -26,10 +26,9 @@ class LoginService extends Vue {
         if (res.data.token) {
           // Success
           localStorage[this.token] = res.data.token;
-          // localStorage[this.token] = res.headers['x-auth-token'];
-          // const decoded: UserDetail = jwt_decode(res.headers['x-auth-token']);
-          // localStorage[this.userDetailKey] = JSON.stringify(decoded);
           return true;
+        } else {
+          alert(res.data);
         }
         return false;
       });

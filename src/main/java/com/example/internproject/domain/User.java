@@ -1,9 +1,5 @@
 package com.example.internproject.domain;
 
-import lombok.*;
-import org.hibernate.annotations.BatchSize;
-
-import javax.persistence.*;
 import java.util.Set;
 
 @Entity
@@ -24,13 +20,13 @@ public class User {
     private String password;
 
     @Column(nullable = true, unique = true)
-    private Long internId;
+    private Long typeUserId;
 
-    @Column(nullable = true, unique = true)
-    private Long teacherId;
+    @Column(nullable = true)
+    private int typeUser;
 
-    @Column(nullable = true, unique = true)
-    private Long organizationId;
+    @Column(nullable = true)
+    private String email;
 
     @ManyToMany(fetch =FetchType.EAGER, cascade = {
       CascadeType.PERSIST,

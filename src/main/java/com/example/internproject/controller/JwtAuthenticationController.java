@@ -4,20 +4,8 @@ import com.example.internproject.authentication.JwtTokenUtil;
 import com.example.internproject.authentication.payload.JwtRequest;
 import com.example.internproject.authentication.payload.JwtResponse;
 import com.example.internproject.authentication.user_.JwtUserDetailsService;
+import com.example.internproject.domain.User;
 import com.example.internproject.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -29,7 +17,7 @@ public class JwtAuthenticationController {
   private JwtTokenUtil jwtTokenUtil;
 
   @Autowired
-  UserService users;
+  UserService userService;
 
   @Autowired
   private JwtUserDetailsService userDetailsService;
@@ -44,10 +32,11 @@ public class JwtAuthenticationController {
     //Tao token
 //        final String token = jwtTokenUtil.generateToken(userDetails);
 
-    String token = jwtTokenUtil.createToken(authenticationRequest.getUsername(), this.users.findByUsername(authenticationRequest.getUsername()).getRoles());
-
+    String token = jwtTokenUtil.createToken(authenticationRequest.getUsername(), this.userService.findByUsername(authenticationRequest.getUsername()).getRoles());
+    User userResult = this.userService.findByUsername(authenticationRequest.getUsername());
     // Trả về jwt cho người dùng.
-    return ResponseEntity.ok(new JwtResponse(token));
+    return ResponseEntity
+      .ok(new JwtResponse(token));
   }
 
   private void authenticate(String username, String password) throws Exception {

@@ -1,9 +1,7 @@
 package com.example.internproject.repository;
 
+import com.example.internproject.domain.Intern;
 import com.example.internproject.domain.Organization;
-
-import org.springframework.data.jpa.repository.*;
-import org.springframework.stereotype.Repository;
 
 /**
  * Spring Data  repository for the Organization entity.
@@ -11,4 +9,7 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface OrganizationRepository extends JpaRepository<Organization, Long> {
+
+  @Query("select o from Organization o where o.taxNumber =:taxNumber")
+  Organization findByTaxNumber(@Param("taxNumber") String taxNumber);
 }

@@ -5,23 +5,24 @@ import { Component, Vue } from 'vue-property-decorator';
 import { InternModel } from '@/models/InternModel';
 import { internService } from '@/services/intern.service';
 import { abilityService } from '@/services';
+import { RegisterModel } from '../../../models/RegisterModel';
+import Register from '@/views/register/Register.vue';
 
-@Component
+@Component({
+  components: {
+    Register,
+  }
+})
 export default class InputIntern extends Vue{
   private isLoading: boolean = false;
   private intern: InternModel = new InternModel();
   private listAbilities: any[] = [];
-  // beforeRouteEnter(to: any, from: any, next: any) {
-  //   next((vm: any) => {
-  //     if (to.params.internId) {
-  //       vm.retrieveIntern(to.params.internId);
-  //     }
-  //   });
-  // }
+  private listRegisterRequest: RegisterModel[] = [];
 
   private mounted() {
     this.getAllAbilities();
-    this.retrieveIntern(1);
+    let idCurrentUser = localStorage.getItem('idCurrentUser');
+    this.retrieveIntern(this.$route.params.internId);
   }
 
   public retrieveIntern(internId: any) {
@@ -29,8 +30,10 @@ export default class InputIntern extends Vue{
     internService
       .getIntern(internId)
       .then((res: any) => {
-        debugger;
         this.intern = res.data;
+        if (res.data.registerRequests) {
+          this.listRegisterRequest = res.data.registerRequests;
+        }
       })
       .catch(() => {
         alert("Lỗi!");
@@ -52,6 +55,7 @@ export default class InputIntern extends Vue{
     this.isLoading = true;
     internService.updateIntern(this.intern).then((res:any) => {
       alert("Update thành công!");
+      localStorage.setItem('currentUserName', this.intern.firstName + ' ' + this.intern.lastName);
     }).catch(() => {
       alert("Loi!");
     }).finally(() => this.isLoading = false);

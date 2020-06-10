@@ -12,10 +12,12 @@ import { statusService } from '@/services/status.service';
 import { InternModel } from '@/models/InternModel';
 import { OrganizationModel } from '@/models/OrganizationModel';
 import InputRegister from '@/views/register/input-register/InputRegister.vue';
+import Register from '@/views/register/Register.vue';
 
 @Component({
   components: {
-    InputRegister
+    InputRegister,
+    Register
   }
 })
 export default class DetailRequest extends Vue{
@@ -23,12 +25,17 @@ export default class DetailRequest extends Vue{
   private isLoading: boolean = false;
   private requestModel: RequestModel = new RequestModel();
   private isRegisterRequestVisible: boolean = false;
+  private isViewInternRegisterVisible: boolean = false;
   private formRegister: RegisterModel = new RegisterModel();
   private internId: string = '1';
+  private typeUser: any = '';
+  private countAssigned: number = 0;
+  private listRegister: any = [];
 
   private created() {
     this.getDetailRequest();
     this.internId = '1';
+    this.typeUser = localStorage.getItem('typeUser');
   }
 
   private getDetailRequest() {
@@ -38,6 +45,14 @@ export default class DetailRequest extends Vue{
         .getRequest(this.id)
         .then((res: any) => {
           this.requestModel = new RequestModel(res.data);
+          if (this.requestModel.registerRequests) {
+            this.listRegister = res.data.registerRequests;
+            this.requestModel.registerRequests.forEach(element => {
+            if (element.registerRequestStatus.id === 1) {
+              this.countAssigned++;
+            }
+          });
+          }
         })
         .catch(() => {
           alert("Error!");
@@ -86,6 +101,10 @@ export default class DetailRequest extends Vue{
       }); 
 
     // let startDate = this.$moment()
+  }
+
+  private finishScreenInternRegister() {
+    this.isViewInternRegisterVisible = false;
   }
 
 }

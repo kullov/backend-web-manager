@@ -16,7 +16,7 @@ export class InternModel {
   phone?: number;
   description?: string;
   address?: string;
-  // registerRequests?: RegisterModel[];
+  registerRequests?: RegisterModel[];
   // requestAssignments?: RequestAssignmentModel[];
   // internAbilities?: AbilityModel[] = [];
   organizationInternId?: number;

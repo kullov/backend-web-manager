@@ -1,14 +1,9 @@
 package com.example.internproject.service.impl;
 
+import com.example.internproject.domain.Request;
 import com.example.internproject.service.RegisterRequestService;
 import com.example.internproject.domain.RegisterRequest;
 import com.example.internproject.repository.RegisterRequestRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
@@ -73,5 +68,10 @@ public class RegisterRequestServiceImpl implements RegisterRequestService {
     public void delete(Long id) {
         log.debug("Request to delete RegisterRequest : {}", id);
         registerRequestRepository.deleteById(id);
+    }
+
+    @Override
+    public List<RegisterRequest> findAllByInternId(Long id) {
+        return registerRequestRepository.findAllByInternId(id);
     }
 }

@@ -4,13 +4,15 @@ import Home from '@/views/Home.vue'
 import About from '@/views/About.vue'
 import InputRequest from '@/views/request/input-request/InputRequest.vue'
 import Organization from '@/views/src-1002/list-all/Organizations.vue'
-// import OrganizationUpdate from '@/views/src-1002/src-1002C/'
 import OrganizationDetails from '@/views/src-1002/src-1002A/OrganizationPage.vue'
 import Component from 'vue-class-component'
+import { Authority } from '@/components/shared/security/authority'
 
 // // prettier-ignore
 const Register = () => import('@/views/auth/register/Register.vue');
 const Login = () => import('@/views/auth/login/Login.vue');
+const User = () => import('@/views/auth/User.vue');
+const Error = () => import('@/views/Error.vue');
 
 const Interns = () => import('@/views/intern/Interns.vue');
 const InputIntern = () => import('@/views/intern/input-intern/InputIntern.vue');
@@ -101,20 +103,15 @@ const routes = [
         alias: 'intern/edit',
         name: 'routes.intern.edit',
         component: InputIntern,
+        meta: { authorities: [Authority.INTERN] }
       },
       {
         path: '/interns',
         alias: 'interns/list',
         name: 'routes.intern.list',
         component: Interns,
-        //meta: { authorities: [Authority.USER] }
+        meta: { authorities: [Authority.TEACHER] }
       },
-      // {
-      //   path: '/intern/new',
-      //   name: 'InternCreate',
-      //   component: InternUpdate,
-      //   //meta: { authorities: [Authority.USER] }
-      // },
       // {
       //   path: '/intern/:internId/edit',
       //   name: 'InternEdit',
@@ -124,15 +121,15 @@ const routes = [
       {
         path: '/intern/view/:internId',
         name: 'routes/intern.view',
-        component: InternPageDetail,
-        //meta: { authorities: [Authority.USER] }
+        component: InputIntern,
+        meta: { authorities: [Authority.INTERN] }
       },
       {
         path: 'organization',
         alias: 'organization/list',
         name: 'routes.organization.list',
         component: Organization,
-        //meta: { authorities: [Authority.USER] }
+        meta: { authorities: [Authority.TEACHER] }
       },
       // {
       //   path: '/organization/new',
@@ -150,16 +147,14 @@ const routes = [
         path: '/organization/view/:organizationId',
         name: 'routes.organization.view',
         component: OrganizationDetails,
-        //meta: { authorities: [Authority.USER] }
+        meta: { authorities: [Authority.INTERN, Authority.ORGANIZATION, Authority.TEACHER] }
       }
       
-      // ,
-      // {
-      //   path: '/teacher',
-      //   name: 'Teacher',
-      //   component: Teacher,
-      //   //meta: { authorities: [Authority.USER] }
-      // },
+      ,
+      {
+        path: '/teacher',
+        name: 'Teacher',
+      },
       // {
       //   path: '/teacher/new',
       //   name: 'TeacherCreate',
@@ -178,7 +173,6 @@ const routes = [
       //   component: TeacherDetails,
       //   //meta: { authorities: [Authority.USER] }
       // }
-      ,
       {
         path: '/ability',
         name: 'Ability',
@@ -190,25 +184,25 @@ const routes = [
         alias: 'register/list',
         name: 'routes.registerRequest.list',
         component: RegisterRequest,
-        //meta: { authorities: [Authority.USER] }
+        meta: { authorities: [Authority.INTERN, Authority.TEACHER, Authority.ORGANIZATION] }
       },
       {
         path: 'register-request/create',
         name: 'routes.registerRequest.create',
         component: RegisterRequestUpdate,
-        //meta: { authorities: [Authority.USER] }
+        meta: { authorities: [Authority.INTERN, Authority.TEACHER] }
       },
       {
         path: 'register-request/edit/:registerRequestId',
         name: 'routes.registerRequest.edit',
         component: RegisterRequestUpdate,
-        //meta: { authorities: [Authority.USER] }
+        meta: { authorities: [Authority.INTERN, Authority.TEACHER] }
       },
       {
         path: 'register-request/view/:registerRequestId',
         name: 'routes.registerRequest.view',
         component: RegisterRequestDetails,
-        //meta: { authorities: [Authority.USER] }
+        meta: { authorities: [Authority.TEACHER, Authority.INTERN, Authority.ORGANIZATION] }
       }
       ,
       {
@@ -216,27 +210,8 @@ const routes = [
         alias: 'request-assignment/list',
         name: 'routes.requestAssignment.list',
         component: RequestAssignment,
-        //meta: { authorities: [Authority.USER] }
+        meta: { authorities: [Authority.TEACHER, Authority.INTERN, Authority.ORGANIZATION] }
       },
-      // {
-      //   path: 'request-assignment/create',
-      //   name: 'routes.requestAssignment.create',
-      //   component: RequestAssignmentUpdate,
-      //   //meta: { authorities: [Authority.USER] }
-      // },
-      // {
-      //   path: '/request-assignment/edit/:requestAssignmentId',
-      //   name: 'routes.requestAssignment.edit',
-      //   component: RequestAssignmentUpdate,
-      //   //meta: { authorities: [Authority.USER] }
-      // },
-      // {
-      //   path: '/request-assignment/view/:requestAssignmentId',
-      //   name: 'routes.requestAssignment.view',
-      //   component: RequestAssignmentDetails,
-      //   //meta: { authorities: [Authority.USER] }
-      // }
-      // ,
       {
         path: 'request',
         alias: 'request/list',
@@ -248,84 +223,44 @@ const routes = [
         path: '/request/create',
         name: 'routes.request.create',
         component: RequestUpdate,
-        //meta: { authorities: [Authority.USER] }
+        meta: { authorities: [Authority.ORGANIZATION] }
       },
       {
         path: '/request/edit/:requestId',
         name: 'routes.request.edit',
         component: RequestUpdate,
-        //meta: { authorities: [Authority.USER] }
+        meta: { authorities: [Authority.ORGANIZATION] }
       },
       {
         path: '/request/view/:requestId',
         name: 'routes.request.view',
         component: RequestDetails,
-        //meta: { authorities: [Authority.USER] }
       }
-      // ,
-      // {
-      //   path: '/ability-category',
-      //   name: 'AbilityCategory',
-      //   component: AbilityCategory,
-      //   //meta: { authorities: [Authority.USER] }
-      // },
-      // {
-      //   path: '/ability-category/new',
-      //   name: 'AbilityCategoryCreate',
-      //   component: AbilityCategoryUpdate,
-      //   //meta: { authorities: [Authority.USER] }
-      // },
-      // {
-      //   path: '/ability-category/:abilityCategoryId/edit',
-      //   name: 'AbilityCategoryEdit',
-      //   component: AbilityCategoryUpdate,
-      //   //meta: { authorities: [Authority.USER] }
-      // },
-      // {
-      //   path: '/ability-category/:abilityCategoryId/view',
-      //   name: 'AbilityCategoryView',
-      //   component: AbilityCategoryDetails,
-      //   //meta: { authorities: [Authority.USER] }
-      // }
-      // ,
-      // {
-      //   path: '/status',
-      //   name: 'Status',
-      //   component: Status,
-      //   //meta: { authorities: [Authority.USER] }
-      // },
-      // {
-      //   path: '/status/new',
-      //   name: 'StatusCreate',
-      //   component: StatusUpdate,
-      //   //meta: { authorities: [Authority.USER] }
-      // },
-      // {
-      //   path: '/status/:statusId/edit',
-      //   name: 'StatusEdit',
-      //   component: StatusUpdate,
-      //   //meta: { authorities: [Authority.USER] }
-      // },
-      // {
-      //   path: '/status/:statusId/view',
-      //   name: 'StatusView',
-      //   component: StatusDetails,
-      //   //meta: { authorities: [Authority.USER] }
-      // }
-      
     ]
   },
   {
-    path: '/register',
+    path: '/register/:typeUser',
     name: 'routes.auth.register',
     component: Register,
-    // meta: { requiresAuth: false },
+    meta: { requiresAuth: false },
   },
   {
     path: '/login',
     name: 'routes.auth.login',
     component: Login,
-    // meta: { requiresAuth: false },
+    meta: { requiresAuth: false },
+  },
+  {
+    path: '/user/:id',
+    name: 'routes.user',
+    component: User,
+    meta: { requiresAuth: false },
+  },
+  {
+    path: '/forbidden',
+    name: 'routes.forbidden',
+    component: Error,
+    meta: { requiresAuth: false },
   }
   ];
 const router = new  VueRouter({
@@ -334,16 +269,4 @@ const router = new  VueRouter({
   routes
 });
 
-// router.beforeEach((to, from, next) => {
-//   // Check user role from local storage
-//   if (to.meta.requiresAuth) {
-//     if (authService.checkPermission(to.meta.functionName)) {
-//       next();
-//     } else {
-//       next({ name: 'routes.unauthorized' });
-//     }
-//   } else {
-//     next();
-//   }
-// });
 export default router;

@@ -46,18 +46,27 @@
         label="Ngày bắt đầu"
         align="center"
         width="130">
+        <template slot-scope="scope">
+          <span v-if="scope.row.startDate"> {{scope.row.startDate | formatDate}} </span>
+        </template>
       </el-table-column>
       <el-table-column
         prop="endDate"
         label="Ngày kết thúc"
         align="center"
         width="130">
+        <template slot-scope="scope">
+          <span v-if="scope.row.endDate"> {{scope.row.endDate | formatDate}} </span>
+        </template>
       </el-table-column>
       <el-table-column
         prop="dateCreated"
         align="center"
         label="Ngày tạo"
         width="130">
+        <template slot-scope="scope">
+          <span v-if="scope.row.dateCreated"> {{scope.row.dateCreated | formatDate}} </span>
+        </template>
       </el-table-column>
       <el-table-column
         prop="registerRequestStatus"

@@ -69,6 +69,10 @@
 import axios from 'axios';
 import { Component, Vue, Inject } from 'vue-property-decorator';
 import { loginService } from '../../../services/login.service';
+import {accountService} from '../../../services/account.service';
+import { internService } from '../../../services/intern.service';
+import { organizationService } from '../../../services/organization.service';
+import { teacherService } from '../../../services/teacher.service';
 
 const ROOT_API = 'http://localhost:8888/';
 
@@ -115,14 +119,58 @@ export default class Login extends Vue {
     loginService.login(loginData)
       .then((isSuccess) => {
         if (isSuccess) {
-          this.$router.push({ path: '/about' });
-          this.isLogger = true;
+					alert("Đăng nhập thành công!");
+					accountService.getUserByUsername(this.loginModel.username)
+						.then((res: any) => {
+							if (res.data.typeUser === 1) {
+								localStorage.setItem('typeUser', '1');
+								internService.getIntern(res.data.typeUserId)
+								.then((response: any) => {
+									localStorage.setItem('idCurrentUser', response.data.id);
+									this.$store.dispatch('SET_CURRENT_USER', response.data);
+									localStorage.setItem('currentUserName', response.data.firstName + ' ' + response.data.lastName);
+									if (!response.data.firstName) {
+										this.$router.push({ path: '/intern/edit/' + response.data.id });
+									} else {
+										this.$router.push({ path: '/about'});
+									}
+								});
+							} else if (res.data.typeUser === 2) {
+								localStorage.setItem('typeUser', '2');
+								organizationService.getOrganization(res.data.typeUserId)
+								.then((response: any) => {
+									localStorage.setItem('idCurrentUser', response.data.id);
+									this.$store.dispatch('SET_CURRENT_USER', response.data);
+									localStorage.setItem('currentUserName', response.data.name);
+									localStorage.setItem('address', response.data.address);
+									if (!response.data.name) {
+										this.$router.push({ path: '/user/' + response.data.id });
+									} else {
+										this.$router.push({ path: '/about'});
+									}
+								});
+							} else {
+								localStorage.setItem('typeUser', '3');
+								teacherService.getTeacher(res.data.typeUserId)
+								.then((response: any) => {
+									localStorage.setItem('idCurrentUser', response.data.id);
+									this.$store.dispatch('SET_CURRENT_USER', response.data);
+									localStorage.setItem('currentUserName', response.data.name);
+									if (!response.data.name) {
+										this.$router.push({ path: '/user/' + response.data.id });
+									} else {
+										this.$router.push({ path: '/about'});
+									}
+								});
+							}
+						});
+					localStorage.setItem('isLogger', 'true');
+					localStorage.setItem('username', this.loginModel.username);
+					this.isLogger = true;
         } else {
-          this.isLogger = false;
+					this.isLogger = false;
+					alert("Đăng nhập thất bại!");
         }
-        // if(localStorage) {
-        //   console.log(localStorage['x-auth-token']);
-        // }
       })
       .catch((error) => {
         if (error.response && error.response.status === 401) {
@@ -130,13 +178,14 @@ export default class Login extends Vue {
         } else if (error.response && error.response.status === 500) {
           this.isServerError = true;
         } else {
-          this.isError = true;
+					this.isError = true;
         }
+				alert("Đăng nhập thất bại!");
       }).finally(() => {
         localStorage.setItem('isLogger', this.isLogger + '');
       });
-  }
-
+	}
+	
   private goToRegisterPage() {
 		const path = '/register';
 		if (this.$route.path !== path) {

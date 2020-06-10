@@ -1,7 +1,7 @@
 <template src="./Register.html"></template>
 <style lang="scss" scoped src="./Register.scss"></style>
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
 import { registerRequestService } from '../../services/registerRequest.service';
 import { RegisterModel } from '../../models/RegisterModel';
 import InputRegister from './input-register/InputRegister.vue';
@@ -9,6 +9,7 @@ import { requestAssignmentService } from '../../services/requestAssignment.servi
 import { RequestAssignmentModel } from '../../models/RequestAssignmentModel';
 import { statusService } from '../../services/status.service';
 import { StatusModel } from '../../models/StatusModel';
+import { internService } from '../../services/intern.service';
 
 @Component({
   components: {
@@ -16,21 +17,48 @@ import { StatusModel } from '../../models/StatusModel';
   }
 })
 export default class Register extends Vue {
-  private listRegister: any[] = [];
+  @Prop() listRegister?: any;
   private isLoading: boolean = false;
   private removeId?: number;
   private isInputRegisterVisible: boolean = false;
   private statusActive: StatusModel = new StatusModel();
   private title: string = 'Tạo mới đăng ký thực tập';
 
+  public listRegisterRequest: RegisterModel[] = [];
   public registerRequests: RegisterModel[] = [];
   public editModel: RegisterModel = new RegisterModel();
 
   public isFetching: boolean = false;
+  private idCurrentUser: string = '';
+  private typeUser: string = '';
+  
+  private created() {
+    this.typeUser = localStorage.getItem('typeUser') || '';
+    this.idCurrentUser = localStorage.getItem('idCurrentUser') || '';
+    if (this.typeUser === '1' && this.idCurrentUser) {
+      this.retrieveRegisterRequestByIntern(this.idCurrentUser);
+    } else if (this.listRegister) {
+      this.registerRequests = this.listRegister;
+    } else {
+      this.retrieveAllRegisterRequests();
+      this.getStatusActive();
+    }
 
-  public mounted(): void {
-    this.retrieveAllRegisterRequests();
-    this.getStatusActive();
+  }
+
+  public retrieveRegisterRequestByIntern(internId: any) {
+    this.isLoading = true;
+    internService
+      .getIntern(internId)
+      .then((res: any) => {
+        if (res.data.registerRequests) {
+          this.registerRequests = res.data.registerRequests;
+        }
+      })
+      .catch(() => {
+        alert("Lỗi!");
+      })
+      .finally(() => this.isLoading = false);
   }
 
   public clear(): void {

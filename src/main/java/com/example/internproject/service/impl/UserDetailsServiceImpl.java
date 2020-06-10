@@ -1,22 +1,8 @@
 package com.example.internproject.service.impl;
 
-import com.example.internproject.domain.Role;
-import com.example.internproject.domain.User;
-import com.example.internproject.repository.RoleRepository;
-import com.example.internproject.repository.UserRepository;
+import com.example.internproject.domain.*;
+import com.example.internproject.repository.*;
 import com.example.internproject.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -34,6 +20,12 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
 
   @Autowired
   private RoleRepository roleDAO;
+  @Autowired
+  private OrganizationRepository organizationRepository;
+ @Autowired
+  private TeacherRepository teacherRepository;
+ @Autowired
+  private InternRepository internRepository;
 
   @Override
   public Page<User> getAllUsers(int pageN, int limit) {
@@ -47,20 +39,48 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
   }
 
   @Override
-  public boolean addUser(User account, String role) {
+  public boolean addUser(User account) {
     User checkUser = userDAO.findByUsername(account.getUsername());
     if (checkUser != null) {
       return false;
     } else {
-      Role userRole = roleDAO.findByRoleName(role);
       User user = new User();
       String encodedPassword = bCryptPasswordEncoder.encode(account.getPassword());
       user.setUsername(account.getUsername());
       user.setPassword(encodedPassword);
-      user.setOrganizationId(account.getOrganizationId());
-//      user.setInternId(account.getInternId() != null ? account.getInternId() : null);
-//      user.setTeacherId(account.getTeacherId());
+      user.setTypeUser(account.getTypeUser());
+      Long typeUserId;
+      Role userRole = new Role();
+      if (account.getTypeUser() == 1) {
+        userRole = roleDAO.findByRoleName("INTERN");
+        int code = Integer.parseInt(RandomStringUtils.randomNumeric(6));
+        Intern intern = new Intern();
+        intern.setEmail(account.getEmail());
+        intern.setCode(code);
+        intern.setPassword(encodedPassword);
+        internRepository.save(intern);
+        typeUserId = internRepository.findByCode(code).getId();
+      } else if (account.getTypeUser() == 2) {
+        userRole = roleDAO.findByRoleName("ORGANIZATION");
+        String taxNumber = RandomStringUtils.randomAlphanumeric(6);
+        Organization organization = new Organization();
+        organization.setEmail(account.getEmail());
+        organization.setTaxNumber(taxNumber);
+        organization.setPassword(encodedPassword);
+        organizationRepository.save(organization);
+        typeUserId = organizationRepository.findByTaxNumber(taxNumber).getId();
+      } else {
+        userRole = roleDAO.findByRoleName("TEACHER");
+        String code = RandomStringUtils.randomAlphanumeric(6);
+        Teacher teacher = new Teacher();
+        teacher.setEmail(account.getEmail());
+        teacher.setCode(code);
+        teacher.setPassword(encodedPassword);
+        teacherRepository.save(teacher);
+        typeUserId = teacherRepository.findByCode(code).getId();
+      }
       user.setRoles(new HashSet<>(Arrays.asList(userRole)));
+      user.setTypeUserId(typeUserId);
 //	    	user.setRoles(new HashSet<>(roleDAO.findAll()));
       userDAO.save(user);
       return true;
@@ -73,7 +93,7 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
 //		accountDb.setUserId(account.getUserId());
     accountDb.setUsername(account.getUsername());
     accountDb.setPassword(account.getPassword());
-    accountDb.setOrganizationId(account.getOrganizationId());
+//    accountDb.setOrganizationId(account.getOrganizationId());
 //      accountDb.setInternId(account.getInternId() != null ? account.getInternId() : null);
 //      accountDb.setTeacherId(account.getTeacherId());
     userDAO.save(accountDb);

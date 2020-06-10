@@ -6,9 +6,6 @@ import java.util.Set;
 
 import com.example.internproject.domain.Role;
 import com.example.internproject.domain.User;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 public class CustomUserDetails implements UserDetails {
     /**

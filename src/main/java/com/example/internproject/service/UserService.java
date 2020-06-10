@@ -1,8 +1,6 @@
 package com.example.internproject.service;
 
 import com.example.internproject.domain.User;
-import org.springframework.data.domain.Page;
-
 import java.util.List;
 
 public interface UserService {
@@ -13,7 +11,7 @@ public interface UserService {
 
     User findByUserId(final long userId);
 
-    boolean addUser(User account, String role);
+    boolean addUser(User account);
 
     void updateUser(User user);
 

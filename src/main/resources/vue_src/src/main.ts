@@ -2,7 +2,6 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import store from './store'
 import axios from 'axios';
 import VueAxios from 'vue-axios';
  
@@ -77,6 +76,23 @@ extend('is_date_before', {
 Vue.component("ValidationObserver", ValidationObserver);
 Vue.component('ValidationProvider', ValidationProvider);
 
+// router.beforeEach((to, from, next) => {
+//   if (!to.matched.length) {
+//     next('/not-found');
+//   }
+
+//   if (to.meta && to.meta.authorities && to.meta.authorities.length > 0) {
+//     if (!accountService.hasAnyAuthority(to.meta.authorities)) {
+//       sessionStorage.setItem('requested-url', to.fullPath);
+//       next('/forbidden');
+//     } else {
+//       next();
+//     }
+//   } else {
+//     // no authorities, so just proceed
+//     next();
+//   }
+// });
 
 // Add a request interceptor
 axios.interceptors.request.use(
@@ -91,8 +107,15 @@ axios.interceptors.request.use(
   (error) => {
       Promise.reject(error);
   });
-
+  import store from './store';
 import moment from 'moment';
+
+Vue.filter('formatDate', function(value: any) {
+  if (value) {
+    return moment.unix(value).format('DD/MM/YYYY')
+  }
+});
+
 Vue.prototype.$moment = moment;
 
 new Vue({

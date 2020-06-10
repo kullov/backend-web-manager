@@ -5,22 +5,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 
-import io.github.jhipster.web.util.HeaderUtil;
-import io.github.jhipster.web.util.ResponseUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
+import com.example.internproject.domain.RegisterRequest;
+import com.example.internproject.domain.Request;
 import com.example.internproject.domain.Intern;
 import com.example.internproject.service.InternService;
 
@@ -111,4 +97,12 @@ public class InternResource {
         internService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString())).build();
     }
+
+    @GetMapping("/interns/register-request/{id}")
+    public ResponseEntity<List<Intern>> findAllByRegisterRequest(@PathVariable Long id) {
+        log.debug("REST request to get a list of interns by registerRequest");
+        List<Intern> list = internService.findAllByRegisterRequest(id);
+        return ResponseEntity.ok().body(list);
+    }
+
 }

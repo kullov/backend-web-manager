@@ -1,8 +1,5 @@
 package com.example.internproject.controller.errors;
 
-import org.zalando.problem.AbstractThrowableProblem;
-import org.zalando.problem.Status;
-
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;

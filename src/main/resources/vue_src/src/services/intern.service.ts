@@ -35,5 +35,9 @@ class InternService extends Vue {
     return Vue.axios.delete(ROOT_API + id);
   }
 
+  public getAllByRegisterRequest(id: any) {
+    return Vue.axios.get(ROOT_API + 'register-request/' + id);
+  }
+
 }
 export const internService = new InternService();

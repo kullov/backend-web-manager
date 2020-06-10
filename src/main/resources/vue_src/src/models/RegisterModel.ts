@@ -9,7 +9,7 @@ export class RegisterModel {
   endDate?: Date;
   internRegister?: InternModel;
   requestRegister?: RequestModel;
-  registerRequestStatus?: StatusModel;
+  registerRequestStatus: StatusModel = new StatusModel();
 
   constructor(init?: Partial<RegisterModel>) {
     Object.assign(this, init);

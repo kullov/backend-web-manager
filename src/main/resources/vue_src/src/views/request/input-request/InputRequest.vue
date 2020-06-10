@@ -19,6 +19,7 @@ export default class InputRequest extends Vue {
   private rules: any = null;
   private createForm: RequestModel = new RequestModel();
   private isLoading = false;
+  private address: any = '';
 
   private noError: string = "";
   private required: string = "";
@@ -95,6 +96,7 @@ export default class InputRequest extends Vue {
       this.retrieveRequest(this.$route.params.requestId);
     }
     this.initRelationships();
+    this.address = localStorage.getItem('address');
   }
 
   private getListAbilities() {
@@ -218,8 +220,9 @@ export default class InputRequest extends Vue {
     //   .then(res => {
     //     this.organizations = res.data;
     //   });
+    let idCurrentUser = localStorage.getItem('idCurrentUser');
     organizationService
-      .getOrganization('1')
+      .getOrganization(idCurrentUser)
       .then((res: any) => {
         this.organizationModel = res.data;
       });
