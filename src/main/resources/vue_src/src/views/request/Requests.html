@@ -10,7 +10,7 @@
             <h4><i class="fa fa-diamond fa-fw mr-2"></i>Công ty: {{ item.organizationRequest ? item.organizationRequest.name : '' }}</h4>
             <p><i class="fa fa-fw fa-male"></i> Chúng tôi cần: <b>{{ item.amount }}</b> người</p>
             <p><i class="fa fa-fw fa-check-square"></i> Số lượng đã đăng ký: <b>{{ item.registerRequests.length }}</b></p>
-            <p><i class="fa fa-map-pin fa-fw"></i> Địa điểm làm việc: {{ item.address }}</p>
+            <p><i class="fa fa-map-pin fa-fw"></i> Địa điểm làm việc: {{ item.organizationRequest ? item.organizationRequest.address : '' }}</p>
             <p><i class="fa fa-fw fa-check"></i> Trạng thái: {{ item.status === 2 ? "Hết hiệu lực" : "Còn hiệu lực" }}</p>
           </div>
         </el-card>
