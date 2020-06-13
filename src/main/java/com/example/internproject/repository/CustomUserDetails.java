@@ -2,11 +2,15 @@ package com.example.internproject.repository;
 
 import com.example.internproject.domain.Role;
 import com.example.internproject.domain.User;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-
 @Data
 @AllArgsConstructor
 public class CustomUserDetails implements UserDetails {

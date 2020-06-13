@@ -1,9 +1,11 @@
 package com.example.internproject.repository;
 
 import com.example.internproject.domain.RegisterRequest;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
 /**
  * Spring Data  repository for the RegisterRequest entity.
  */

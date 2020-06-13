@@ -1,8 +1,8 @@
 package com.example.internproject.domain;
 
 
+import javax.persistence.*;
 import java.io.Serializable;
-
 /**
  * A Status.
  */

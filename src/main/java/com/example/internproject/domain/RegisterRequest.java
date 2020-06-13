@@ -1,9 +1,11 @@
 package com.example.internproject.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.ZonedDateTime;
-
 /**
  * A RegisterRequest.
  */

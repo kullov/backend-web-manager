@@ -8,6 +8,12 @@ import java.util.Optional;
 import com.example.internproject.controller.errors.BadRequestAlertException;
 import com.example.internproject.domain.Ability;
 import com.example.internproject.service.AbilityService;
+import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.ResponseUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * REST controller for managing {@link com.example.internproject.domain.Ability}.
@@ -60,7 +66,9 @@ public class AbilityResource {
     public ResponseEntity<Ability> updateAbility(@RequestBody Ability ability) throws URISyntaxException {
         log.debug("REST request to update Ability : {}", ability);
         if (ability.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+            throw new BadRequestAlertException("Invalid id",
+              ENTITY_NAME,
+              "idnull");
         }
         Ability result = abilityService.save(ability);
         return ResponseEntity.ok()

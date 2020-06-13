@@ -3,6 +3,9 @@ package com.example.internproject.service;
 import com.example.internproject.domain.Intern;
 
 import com.example.internproject.domain.RegisterRequest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 import java.util.Optional;
 

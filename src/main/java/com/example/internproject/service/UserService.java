@@ -1,6 +1,8 @@
 package com.example.internproject.service;
 
 import com.example.internproject.domain.User;
+import org.springframework.data.domain.Page;
+
 import java.util.List;
 
 public interface UserService {

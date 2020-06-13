@@ -1,9 +1,16 @@
 package com.example.internproject.service.impl;
 
-import com.example.internproject.domain.RegisterRequest;
-import com.example.internproject.service.InternService;
 import com.example.internproject.domain.Intern;
 import com.example.internproject.repository.InternRepository;
+import com.example.internproject.service.InternService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -42,11 +49,13 @@ public class InternServiceImpl implements InternService {
         return internRepository.findAllWithEagerRelationships();
     }
 
+
     /**
      * Get all the interns with eager load of many-to-many relationships.
      *
      * @return the list of entities.
      */
+    @Override
     public Page<Intern> findAllWithEagerRelationships(Pageable pageable) {
         return internRepository.findAllWithEagerRelationships(pageable);
     }

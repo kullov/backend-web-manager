@@ -18,7 +18,7 @@ export class InternModel {
   address?: string;
   registerRequests?: RegisterModel[];
   // requestAssignments?: RequestAssignmentModel[];
-  // internAbilities?: AbilityModel[] = [];
+  internAbilities?: AbilityModel[] = [];
   organizationInternId?: number;
 
   constructor(init?: Partial<InternModel>) {

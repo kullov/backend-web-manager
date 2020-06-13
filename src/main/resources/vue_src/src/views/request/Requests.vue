@@ -26,7 +26,11 @@ export default class Requests extends Vue {
     requestService
       .getAllRequests()
       .then((res: any) => {
-        this.listRequests = res.data;
+        debugger;
+        res.data.forEach((element: any) => {
+          debugger;
+          this.listRequests.push(new RequestModel(element));
+        });;
       })
       .catch(() => {
         alert("Xảy ra lỗi!");

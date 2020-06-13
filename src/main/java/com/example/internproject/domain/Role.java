@@ -1,7 +1,9 @@
 package com.example.internproject.domain;
 
-import java.io.Serializable;
+import lombok.Data;
 
+import javax.persistence.*;
+import java.io.Serializable;
 @Entity
 @Table(name = "tbl_Role")
 @Data

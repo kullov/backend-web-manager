@@ -1,14 +1,19 @@
 package com.example.internproject.controller;
 
+import com.example.internproject.controller.errors.BadRequestAlertException;
+import com.example.internproject.domain.Request;
+import com.example.internproject.service.RequestService;
+import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.ResponseUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
-
-import com.example.internproject.controller.errors.BadRequestAlertException;
-import com.example.internproject.domain.Intern;
-import com.example.internproject.domain.Request;
-import com.example.internproject.service.RequestService;
 
 /**
  * REST controller for managing {@link com.example.internproject.domain.Request}.
@@ -76,9 +81,9 @@ public class RequestResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of requests in body.
      */
     @GetMapping("/requests")
-    public List<Request> getAllRequests(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    public ResponseEntity<List<Request>> getAllRequests(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all Requests");
-        return requestService.findAll();
+        return ResponseEntity.ok().body(requestService.findAll());
     }
 
     /**
@@ -95,7 +100,7 @@ public class RequestResource {
     }
 
     /**
-     * {@code DELETE  /requests/:id} : delete the "id" request.
+     * {@code DELETE  com.fasterxml.jackson.databind.ser.std.CollectionSerializer/requests/:id} : delete the "id" request.
      *
      * @param id the id of the request to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.

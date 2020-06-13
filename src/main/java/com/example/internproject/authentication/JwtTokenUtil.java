@@ -1,14 +1,18 @@
 package com.example.internproject.authentication;
 //Class mã hóa thông tin người dùng thành chuỗi JWT
+import com.example.internproject.domain.Role;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Value;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
-import java.util.stream.Collectors;
-
-import com.example.internproject.domain.Role;
 
 @Component
 public class JwtTokenUtil implements Serializable {

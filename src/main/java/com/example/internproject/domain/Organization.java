@@ -1,10 +1,10 @@
 package com.example.internproject.domain;
 
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-
 /**
  * A Organization.
  */

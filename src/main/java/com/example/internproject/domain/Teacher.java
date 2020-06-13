@@ -1,8 +1,11 @@
 package com.example.internproject.domain;
 
 
-import java.io.Serializable;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.*;
+import java.io.Serializable;
 /**
  * A Teacher.
  */

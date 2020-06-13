@@ -1,5 +1,9 @@
 package com.example.internproject.domain;
 
+import lombok.*;
+import org.hibernate.annotations.BatchSize;
+
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity
@@ -28,7 +32,7 @@ public class User {
     @Column(nullable = true)
     private String email;
 
-    @ManyToMany(fetch =FetchType.EAGER, cascade = {
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {
       CascadeType.PERSIST,
       CascadeType.MERGE
     })
