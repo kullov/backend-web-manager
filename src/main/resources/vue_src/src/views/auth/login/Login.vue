@@ -129,6 +129,7 @@ export default class Login extends Vue {
 									localStorage.setItem('idCurrentUser', response.data.id);
 									this.$store.dispatch('SET_CURRENT_USER', response.data);
 									localStorage.setItem('currentUserName', response.data.firstName + ' ' + response.data.lastName);
+									localStorage.setItem('avatar', response.data.avatar);
 									if (!response.data.firstName) {
 										this.$router.push({ path: '/intern/edit/' + response.data.id });
 									} else {
@@ -143,6 +144,7 @@ export default class Login extends Vue {
 									this.$store.dispatch('SET_CURRENT_USER', response.data);
 									localStorage.setItem('currentUserName', response.data.name);
 									localStorage.setItem('address', response.data.address);
+									localStorage.setItem('avatar', response.data.avatar);
 									if (!response.data.name) {
 										this.$router.push({ path: '/user/' + response.data.id });
 									} else {
@@ -156,6 +158,7 @@ export default class Login extends Vue {
 									localStorage.setItem('idCurrentUser', response.data.id);
 									this.$store.dispatch('SET_CURRENT_USER', response.data);
 									localStorage.setItem('currentUserName', response.data.name);
+									localStorage.setItem('avatar', response.data.avatar);
 									if (!response.data.name) {
 										this.$router.push({ path: '/user/' + response.data.id });
 									} else {

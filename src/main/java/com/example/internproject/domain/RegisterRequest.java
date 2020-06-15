@@ -32,15 +32,18 @@ public class RegisterRequest implements Serializable {
     private Integer status;
 
     @ManyToOne
-    @JsonIgnoreProperties("registerRequests")
+//    @JsonIgnoreProperties("registerRequests")
+    @JsonIgnoreProperties(value = {"registerRequests"}, allowSetters = true)
     private Intern internRegister;
 
     @ManyToOne
-    @JsonIgnoreProperties("registerRequests")
+//    @JsonIgnoreProperties("registerRequests")
+    @JsonIgnoreProperties(value = {"registerRequests"}, allowSetters = true)
     private Request requestRegister;
 
     @ManyToOne
-    @JsonIgnoreProperties("requests")
+//    @JsonIgnoreProperties("requests")
+    @JsonIgnoreProperties(value = {"requests"}, allowSetters = true)
     private Status requestStatus;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

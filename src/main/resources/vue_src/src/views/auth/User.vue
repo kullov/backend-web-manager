@@ -34,12 +34,15 @@ export default class User extends Vue{
         alert("Update thành công!");
         localStorage.setItem('currentUserName', this.model.name);
         this.$router.push({ path: '/about' });
+        localStorage.setItem('avatar', this.model.avatar);
       }).catch(() => {
         alert("Loi!");
       }).finally(() => this.isLoading = false);
     } else {
       organizationService.updateOrganization(this.model).then((res:any) => {
         alert("Update thành công!");
+        localStorage.setItem('currentUserName', this.model.name);
+        localStorage.setItem('avatar', this.model.avatar);
         this.$router.push({ path: '/about' });
       }).catch(() => {
         alert("Loi!");

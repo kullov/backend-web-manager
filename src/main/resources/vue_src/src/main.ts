@@ -116,6 +116,11 @@ Vue.filter('formatDate', function(value: any) {
   }
 });
 
+declare module 'vue/types/vue' {
+  interface Vue {
+    $moment: any,
+  }
+}
 Vue.prototype.$moment = moment;
 
 new Vue({

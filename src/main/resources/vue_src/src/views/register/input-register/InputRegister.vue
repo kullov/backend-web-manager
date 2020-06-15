@@ -12,7 +12,6 @@ import { requestService } from '@/services/request.service';
 import { internService } from '@/services/intern.service';
 import { StatusModel } from '../../../models/StatusModel';
 import { statusService } from '../../../services/status.service';
-
 const validations: any = {
   registerRequest: {
     dateCreated: {},
@@ -42,6 +41,10 @@ export default class InputRegister extends Vue {
   public requests: RequestModel[] = [];
   public isSaving = false;
 
+  private isDisabledStatus: boolean = false;
+
+  private typeUser: any;
+
   beforeRouteEnter(to: any, from: any, next: any) {
     next((vm: any) => {
       if (to.params.registerRequestId) {
@@ -52,24 +55,25 @@ export default class InputRegister extends Vue {
   }
 
   private created() {
-    this.internId = localStorage.getItem('idCurrentUser');
-    if (this.$route.params.registerRequestId) {
-      this.retrieveRegisterRequest(this.$route.params.registerRequestId);
+    this.typeUser = localStorage.getItem('typeUser') || '';
+    if (this.typeUser === '1') {
+      this.internId = localStorage.getItem('idCurrentUser');
     }
     this.initRelationships();
-    if (this.requestModel) {
-    this.registerRequest.requestRegister = this.requestModel;
-    }
-    if (this.registerModel) {
-      this.registerRequest = this.registerModel;
-    }
   }
 
   public save(): void {
     this.isSaving = true;
+    let model = this.registerRequest;
+    model.dateCreated = this.$moment(this.registerRequest.dateCreated, 'DD/MM/YYYY').unix();
+    model.startDate = this.$moment(this.registerRequest.startDate, 'DD/MM/YYYY').unix();
+    model.endDate = this.$moment(this.registerRequest.endDate, 'DD/MM/YYYY').unix();
+    debugger;
+    console.log(this.registerRequest);
+    
     if (this.registerRequest.id) {
       registerRequestService
-        .updateRegister(this.registerRequest)
+        .updateRegister(model)
         .then((param: any) => {
           this.isSaving = false;
           this.$router.go(-1);
@@ -78,9 +82,8 @@ export default class InputRegister extends Vue {
           this.closeDialog();
         });
     } else {
-      this.registerRequest.registerRequestStatus = this.statuses[2];
       registerRequestService
-        .createRegister(this.registerRequest)
+        .createRegister(model)
         .then((param: any) => {
           this.isSaving = false;
           this.$router.go(-1);
@@ -102,10 +105,10 @@ export default class InputRegister extends Vue {
     registerRequestService
       .getRegister(registerRequestId)
       .then((res: any) => {
-        res.dateCreated = new Date(res.dateCreated);
-        res.startDate = new Date(res.startDate);
-        res.endDate = new Date(res.endDate);
-        this.registerRequest = res;
+        this.registerRequest = res.data;
+        this.registerRequest.dateCreated = this.$moment.unix(res.data.dateCreated).format("MM/DD/YYYY");
+        this.registerRequest.startDate = this.$moment.unix(res.data.startDate).format("MM/DD/YYYY");
+        this.registerRequest.endDate = this.$moment.unix(res.data.endDate).format("MM/DD/YYYY");
       });
   }
 
@@ -113,36 +116,45 @@ export default class InputRegister extends Vue {
     this.$emit('close');
   }
 
-  public initRelationships(): void {
-    internService
+  public async initRelationships() {
+    await internService
       .getAllInterns()
       .then((res: any) => {
         this.interns = res.data;
       });
-    requestService
+    await requestService
       .getAllRequests()
       .then((res: any) => {
         this.requests = res.data;
       });
 
     if (this.internId) {
-      internService
+      await internService
       .getIntern(this.internId)
       .then((res: any) => {
         this.registerRequest.internRegister = res.data;
       });
     }
 
-    statusService
+    await statusService
       .getAllStatuss()
       .then(res => {
         this.statuses = res.data;
       });
-    // requestService
-    //   .getRequest(this.requestId)
-    //   .then((res: any) => {
-    //     this.registerRequest.requestRegister = res.data;
-    //   });
+
+    if (this.registerModel) {
+      this.isDisabledStatus = false;
+      this.retrieveRegisterRequest(this.registerModel.id);
+    } else {
+      this.registerRequest.registerRequestStatus = this.statuses[2];
+      this.isDisabledStatus = true;
+    }
+    if (this.requestModel) {
+    this.registerRequest.requestRegister = this.requestModel;
+    }
+    if (this.registerModel) {
+      this.registerRequest = this.registerModel;
+    }
   }
 }
 </script>

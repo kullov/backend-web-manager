@@ -14,7 +14,7 @@ class RegisterRequestService extends Vue {
       startDate: entity.startDate,
       internRegister: entity.internRegister,
       requestRegister: entity.requestRegister,
-      requestStatus: entity.registerRequestStatus
+      registerRequestStatus: entity.registerRequestStatus
     }
     return Vue.axios.post<RegisterModel>(ROOT_API, model);
   }

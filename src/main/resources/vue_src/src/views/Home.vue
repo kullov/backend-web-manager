@@ -6,7 +6,7 @@
         <el-menu-item v-if="typeUser === '2'" :index="'/organization/view/' + idCurrentUser">Organization</el-menu-item>
         <el-menu-item v-if="typeUser === '3'" index="/teacher">Teacher</el-menu-item>
         <el-menu-item v-if="typeUser === '1'" :index="'/intern/view/'+idCurrentUser">Intern</el-menu-item>
-        <el-menu-item index="/requests">Requests</el-menu-item>
+        <!-- <el-menu-item index="/requests">Requests</el-menu-item> -->
         <!-- <el-menu-item style="position:absolute;right:124px" v-if="!isLogger" index="/register">Đăng ký</el-menu-item> -->
         <el-menu-item style="position:absolute;right:124px" v-if="!isLogger" index="/login">Đăng nhập</el-menu-item>
         <el-submenu v-if="!isLogger" style="position:absolute;right:0px" index="/login">
@@ -19,9 +19,9 @@
       </el-menu>
     </el-header>
     <el-container style="margin-top:62px;">
-      <el-aside style="width:268px; min-height:548px !important;" class="left-content" v-if="$route.path !== '/about' && $route.path !== '/requests'">
+      <el-aside style="width:268px; min-height:548px !important;" class="left-content" v-if="$route.path !== '/about'">
         <div class="header-block p-2">
-          <img src="https://www.w3schools.com/w3images/avatar_g2.jpg" style="width:100px;" class="w3-round"><br><br>
+          <img :src=" avatar ? avatar : 'https://www.w3schools.com/w3images/avatar_g2.jpg'" style="width:100px;" class="w3-round"><br><br>
           <h3><b> {{ currentUserName }} </b></h3>
           <p class="w3-text-grey"><i>{{ typeUserName }}</i></p>
         </div>
@@ -29,6 +29,7 @@
           <el-menu style="background-color:#f1f1f1;" router :default-active="$route.path">
             <el-menu-item v-if="typeUser === '2'" class="w3-bar-item w-100 text-left" :index="'/organization/view/' + idCurrentUser"><i class="fa fa-th-large fa-fw w3-margin-right"></i>PROFILE</el-menu-item>
             <el-menu-item v-if="typeUser === '1'" class="w3-bar-item w-100 text-left" :index="'/intern/view/'+idCurrentUser"><i class="fa fa-th-large fa-fw w3-margin-right"></i>PROFILE</el-menu-item>
+            <el-menu-item class="w3-bar-item w-100 text-left" index="/requests"><i class="fa fa-star fa-fw w3-margin-right"></i>REQUESTS</el-menu-item>
             <el-menu-item v-if="typeUser === '3'" class="w3-bar-item w-100 text-left" index="/organization/list"><i class="fa fa-star fa-fw w3-margin-right"></i>DANH SÁCH DOANH NGHIỆP</el-menu-item>
             <el-menu-item v-if="typeUser === '3'" class="w3-bar-item w-100 text-left" index="/interns/list"><i class="fa fa-star fa-fw w3-margin-right"></i>DANH SÁCH SINH VIÊN</el-menu-item>
             <el-menu-item v-if="typeUser === '1' || typeUser === '3'" class="w3-bar-item w-100 text-left" index="/register/list"><i class="fa fa-star fa-fw w3-margin-right"></i>DANH SÁCH PHIẾU ĐĂNG KÝ</el-menu-item>
@@ -38,7 +39,7 @@
           </el-menu>
         </perfect-scrollbar>
       </el-aside>
-      <el-main class="main right-content" :class="$route.path === '/about' || $route.path === '/requests' ? 'none-margin' : ''">
+      <el-main class="main right-content" :class="$route.path === '/about' ? 'none-margin' : ''">
         <router-view></router-view>
       </el-main>
     </el-container>
@@ -114,11 +115,13 @@ export default class Home extends Vue {
   private currentUserName: string = '';
   private idCurrentUser: string = '';
   private typeUser: string = '';
+  private avatar: any = '';
 
   private mounted() {
     this.checkLogger();
     this.typeUser = localStorage.getItem('typeUser') || '';
     this.idCurrentUser = localStorage.getItem('idCurrentUser') || '';
+    this.avatar = localStorage.getItem('avatar') || '';
     if (this.typeUser === '1') {
       this.typeUserName = "Sinh viên";
     } else if (this.typeUser === '2') {
