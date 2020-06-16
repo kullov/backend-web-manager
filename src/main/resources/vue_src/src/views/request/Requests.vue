@@ -16,9 +16,30 @@ export default class Requests extends Vue {
   private isLoading: boolean = false;
   private isDetailRequestVisible: boolean = false;
   private idProp: any;
+  private searchText: string = '';
   
   private created() {
     this.getAllRequests();
+  }
+
+  private search() {
+    if (this.searchText) {
+      requestService
+      .getAllRequestsByPosition(this.searchText)
+      .then((res: any) => {
+        this.listRequests = [];
+        res.data.forEach((element: any) => {
+          this.listRequests.push(new RequestModel(element));
+        });;
+      })
+      .catch(() => {
+        alert("Xảy ra lỗi!");
+      })
+      .finally(() => this.isLoading = false);
+    } else {
+      this.listRequests = [];
+      this.getAllRequests();
+    }
   }
 
   private getAllRequests() {

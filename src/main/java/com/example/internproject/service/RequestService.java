@@ -51,6 +51,7 @@ public interface RequestService {
     void delete(Long id);
 
 
-    List<Request> findAllByOrganizationId(Long id);
 
+    List<Request> findAllByOrganizationId(Long id);
+    List<Request> findAllByPosition(String position);
 }

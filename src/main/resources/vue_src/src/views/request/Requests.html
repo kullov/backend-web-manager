@@ -1,6 +1,18 @@
 <div v-loading="isLoading" class="animated fadeIn page-container w3-container">
   <h1 class="p-4 title"><b>Danh sách phiếu yêu cầu</b></h1>
   <hr>
+  <el-row>
+    <el-form label-width="10rem">
+      <el-col :span="6">
+        <el-form-item label="Tìm kiếm theo tên">
+          <el-input v-model="searchText"></el-input>
+        </el-form-item>
+      </el-col>
+      <el-col :span="6">
+        <el-button @click="search()">Tìm kiếm</el-button>
+      </el-col>
+    </el-form>
+  </el-row>
   <el-row class="text-center" id="list-require" style="padding-top:1px;" :gutter="20">
       <el-col :span="8" v-for="item in listRequests" v-bind:key="item.id" class="pb-4">
         <el-card>

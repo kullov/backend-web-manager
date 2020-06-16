@@ -118,4 +118,11 @@ public class RequestResource {
         List<Request> list = requestService.findAllByOrganizationId(id);
         return ResponseEntity.ok().body(list);
     }
+
+    @GetMapping("/requests/position/{position}")
+    public ResponseEntity<List<Request>> findAllByPosition(@PathVariable String position) {
+        log.debug("REST request to get a list of interns by registerRequest");
+        List<Request> list = requestService.findAllByPosition(position);
+        return ResponseEntity.ok().body(list);
+    }
 }

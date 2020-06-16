@@ -8,6 +8,10 @@ class RequestService extends Vue {
     return Vue.axios.get<any>(ROOT_API);
   }
 
+  public getAllRequestsByPosition(position: any): AxiosPromise<any[]> {
+    return Vue.axios.get<any>(ROOT_API + 'position/' + position);
+  }
+
   public getAllRequestsByOrganization(id: any) {
     return Vue.axios.get(ROOT_API + "organization/" + id);
   }
