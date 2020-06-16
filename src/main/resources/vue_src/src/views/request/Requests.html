@@ -4,7 +4,7 @@
   <el-row class="text-center" id="list-require" style="padding-top:1px;" :gutter="20">
       <el-col :span="8" v-for="item in listRequests" v-bind:key="item.id" class="pb-4">
         <el-card>
-          <img src="https://www.ourlincolnpark.com/wp-content/uploads/2014/07/I-wish-it-were-that-easy.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
+          <img :src="item.avatar ? item.avatar : 'https://www.ourlincolnpark.com/wp-content/uploads/2014/07/I-wish-it-were-that-easy.jpg'" alt="Norway" style="width:100%" class="w3-hover-opacity">
           <div @click="openDetailRequest(item)" class="w3-container w3-white" style="height:270px;">
             <h3 class="w3-center"><i>Vị trí: </i><b>{{ item.position }}</b></h3>
             <h4><i class="fa fa-diamond fa-fw mr-2"></i>Công ty: {{ item.organizationRequest ? item.organizationRequest.name : '' }}</h4>

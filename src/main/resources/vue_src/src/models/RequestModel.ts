@@ -16,6 +16,7 @@ export class RequestModel {
   organizationRequest?: OrganizationModel;
   requestStatus?: StatusModel;
   assigned?: number;
+  avatar?: string;
 
   constructor(init?: Partial<RequestModel>) {
     Object.assign(this, init);

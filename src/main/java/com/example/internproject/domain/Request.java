@@ -39,6 +39,9 @@ public class Request implements Serializable {
     @Column(name = "type")
     private String type;
 
+    @Column(name = "avatar")
+    private String avatar;
+
     @OneToMany(mappedBy = "requestRegister")
     private Set<RegisterRequest> registerRequests = new HashSet<>();
 
@@ -141,6 +144,14 @@ public class Request implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public Set<RegisterRequest> getRegisterRequests() {
