@@ -1,0 +1,128 @@
+<div v-loading="isLoading" class="animated fadeIn page-container w3-container">
+  <h2 id="page-heading">
+    <span id="register-request-heading">Danh sách phiếu đăng ký thực tập</span>
+  </h2>
+  <br />
+  <div class="alert alert-warning" v-if="!isFetching && registerRequests && registerRequests.length === 0">
+    <span>Không có phiếu đăng ký thực tập nào</span>
+  </div>
+  <div v-if="registerRequests && registerRequests.length > 0">
+    <el-table
+      stripe
+      :data="registerRequests"
+      style="width: 100%"
+      max-height="480">
+      <el-table-column
+        fixed
+        prop="id"
+        align="center"
+        label="ID"
+        width="60">
+      </el-table-column>
+      <el-table-column
+        prop="internRegister"
+        label="Sinh viên"
+        align="center"
+        width="150">
+        <template slot-scope="scope">
+          <span v-if="scope.row.internRegister">
+            {{ scope.row.internRegister.firstName }} {{ scope.row.internRegister.lastName }}
+          </span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="requestRegister"
+        label="Vị trí thực tập"
+        align="center"
+        width="150">
+        <template slot-scope="scope">
+          <span v-if="scope.row.requestRegister">
+            {{ scope.row.requestRegister.position }}
+          </span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="startDate"
+        label="Ngày bắt đầu"
+        align="center"
+        width="130">
+        <template slot-scope="scope">
+          <span v-if="scope.row.startDate"> {{scope.row.startDate | formatDate}} </span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="endDate"
+        label="Ngày kết thúc"
+        align="center"
+        width="130">
+        <template slot-scope="scope">
+          <span v-if="scope.row.endDate"> {{scope.row.endDate | formatDate}} </span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="dateCreated"
+        align="center"
+        label="Ngày tạo"
+        width="130">
+        <template slot-scope="scope">
+          <span v-if="scope.row.dateCreated"> {{scope.row.dateCreated | formatDate}} </span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="registerRequestStatus"
+        align="center"
+        label="Trạng thái"
+        width="100">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.registerRequestStatus"
+          :type="scope.row.registerRequestStatus.id === 1 ? 'success'
+          : (scope.row.registerRequestStatus.id === 2 ? 'danger' : 'warning')
+           "
+          disable-transitions
+          >
+            {{ scope.row.registerRequestStatus.name }}
+          </el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column
+        fixed="right"
+        label="Thao tác"
+        align="center"
+        width="120">
+        <template slot-scope="scope">
+          <el-button v-if="!(scope.row.registerRequestStatus && scope.row.registerRequestStatus.id === 1)" @click="assign(scope.row)" type="success" icon="el-icon-check" circle>
+          </el-button>
+          <el-button 
+            @click="prepareRemove(scope.row)" 
+            type="danger"
+            v-b-modal.removeEntity 
+            icon="el-icon-delete" 
+            circle>
+          </el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+  </div>
+  <b-modal ref="removeEntity" id="removeEntity">
+    <span slot="modal-title">
+      <span id="demoApp.registerRequest.delete.question">Xác nhận xóa</span>
+    </span>
+    <div class="modal-body">
+      <p id="jhi-delete-registerRequest-heading">Bạn chắc chắn muốn xóa phiếu đăng ký không?</p>
+    </div>
+    <div slot="modal-footer">
+      <el-button type="button" class="btn btn-primary" id="jhi-confirm-delete-registerRequest"
+        @click="removeRegisterRequest()">Xóa</el-button>
+      <el-button type="button" class="btn btn-secondary" @click="closeDialog()">Hủy</el-button>
+    </div>
+  </b-modal>
+  <!-- Dialog -->
+  <b-modal :title="title" no-fade v-model="isInputRegisterVisible" :no-close-on-backdrop="true"
+    :hide-footer="true" size="xl">
+    <InputRegister
+      v-if="isInputRegisterVisible"
+      @close="finishScreen"
+      :id="idProp">
+    </InputRegister>
+  </b-modal>
+</div>

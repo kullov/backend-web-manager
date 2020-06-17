@@ -1,23 +1,12 @@
 package com.example.internproject.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * A Request.
@@ -50,22 +39,25 @@ public class Request implements Serializable {
     @Column(name = "type")
     private String type;
 
+    @Column(name = "avatar")
+    private String avatar;
+
     @OneToMany(mappedBy = "requestRegister")
     private Set<RegisterRequest> registerRequests = new HashSet<>();
 
-    @ManyToOne
-    @JsonIgnoreProperties("requests")
-    private Status requestStatus;
-
     @ManyToMany
     @JoinTable(name = "request_request_ability",
-               joinColumns = @JoinColumn(name = "request_id", referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(name = "request_ability_id", referencedColumnName = "id"))
+      joinColumns = @JoinColumn(name = "request_id", referencedColumnName = "id"),
+      inverseJoinColumns = @JoinColumn(name = "request_ability_id", referencedColumnName = "id"))
     private Set<Ability> requestAbilities = new HashSet<>();
 
     @ManyToOne
     @JsonIgnoreProperties("requests")
     private Organization organizationRequest;
+
+    @ManyToOne
+    @JsonIgnoreProperties("requests")
+    private Status requestStatus;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -154,6 +146,14 @@ public class Request implements Serializable {
         this.type = type;
     }
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
     public Set<RegisterRequest> getRegisterRequests() {
         return registerRequests;
     }
@@ -179,18 +179,6 @@ public class Request implements Serializable {
         this.registerRequests = registerRequests;
     }
 
-    public Status getRequestStatus() {
-        return requestStatus;
-    }
-
-    public Request requestStatus(Status status) {
-        this.requestStatus = status;
-        return this;
-    }
-
-    public void setRequestStatus(Status status) {
-        this.requestStatus = status;
-    }
 
     public Set<Ability> getRequestAbilities() {
         return requestAbilities;
@@ -229,6 +217,19 @@ public class Request implements Serializable {
     public void setOrganizationRequest(Organization organization) {
         this.organizationRequest = organization;
     }
+
+    public Status getRequestStatus() {
+        return requestStatus;
+    }
+
+    public Request requestStatus(Status status) {
+        this.requestStatus = status;
+        return this;
+    }
+
+    public void setRequestStatus(Status status) {
+        this.requestStatus = status;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -250,13 +251,13 @@ public class Request implements Serializable {
     @Override
     public String toString() {
         return "Request{" +
-            "id=" + getId() +
-            ", position='" + getPosition() + "'" +
-            ", amount=" + getAmount() +
-            ", dateCreated='" + getDateCreated() + "'" +
-            ", status=" + getStatus() +
-            ", description='" + getDescription() + "'" +
-            ", type='" + getType() + "'" +
-            "}";
+          "id=" + getId() +
+          ", position='" + getPosition() + "'" +
+          ", amount=" + getAmount() +
+          ", dateCreated='" + getDateCreated() + "'" +
+          ", status=" + getStatus() +
+          ", description='" + getDescription() + "'" +
+          ", type='" + getType() + "'" +
+          "}";
     }
 }

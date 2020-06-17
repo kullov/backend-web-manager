@@ -1,18 +1,10 @@
 package com.example.internproject.domain;
 
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 /**
  * A Organization.
  */
@@ -59,8 +51,9 @@ public class Organization implements Serializable {
     @OneToMany(mappedBy = "organizationIntern")
     private Set<Intern> interns = new HashSet<>();
 
-    @OneToMany(mappedBy = "organizationRequestAssignment")
-    private Set<RequestAssignment> requestAssignments = new HashSet<>();
+//    @OneToMany(mappedBy = "organizationRequestAssignment")
+//    private Set<RequdBy = "organizationRequestAssignment")
+//    private Set<RequestAssignment> requestAssignments = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -238,30 +231,30 @@ public class Organization implements Serializable {
         this.interns = interns;
     }
 
-    public Set<RequestAssignment> getRequestAssignments() {
-        return requestAssignments;
-    }
+//    public Set<RequestAssignment> getRequestAssignments() {
+//        return requestAssignments;
+//    }
 
-    public Organization requestAssignments(Set<RequestAssignment> requestAssignments) {
-        this.requestAssignments = requestAssignments;
-        return this;
-    }
+//    public Organization requestAssignments(Set<RequestAssignment> requestAssignments) {
+//        this.requestAssignments = requestAssignments;
+//        return this;
+//    }
 
-    public Organization addRequestAssignment(RequestAssignment requestAssignment) {
-        this.requestAssignments.add(requestAssignment);
-        requestAssignment.setOrganizationRequestAssignment(this);
-        return this;
-    }
+//    public Organization addRequestAssignment(RequestAssignment requestAssignment) {
+//        this.requestAssignments.add(requestAssignment);
+////        requestAssignment.setOrganizationRequestAssignment(this);
+//        return this;
+//    }
 
-    public Organization removeRequestAssignment(RequestAssignment requestAssignment) {
-        this.requestAssignments.remove(requestAssignment);
-        requestAssignment.setOrganizationRequestAssignment(null);
-        return this;
-    }
+//    public Organization removeRequestAssignment(RequestAssignment requestAssignment) {
+//        this.requestAssignments.remove(requestAssignment);
+////        requestAssignment.setOrganizationRequestAssignment(null);
+//        return this;
+//    }
 
-    public void setRequestAssignments(Set<RequestAssignment> requestAssignments) {
-        this.requestAssignments = requestAssignments;
-    }
+//    public void setRequestAssignments(Set<RequestAssignment> requestAssignments) {
+//        this.requestAssignments = requestAssignments;
+//    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override

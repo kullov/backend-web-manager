@@ -1,0 +1,105 @@
+<div v-loading="isLoading" class="animated fadeIn page-container p-4">
+  <el-form label-width="9rem" :model="registerRequest" name="editForm" role="form" novalidate>
+    <el-row :gutter="20">
+    <h2 class="text-center pb-3">Đăng ký thực tập</h2>
+      <el-col :span="12">
+        <el-form-item label="ID" v-if="registerRequest.id">
+          <el-input class="width-13-rem" type="text" id="id" name="id" v-model="registerRequest.id" readonly ></el-input>
+        </el-form-item>
+      </el-col>
+      <el-col :span="12">
+        <el-form-item label="Ngày tạo" v-if="false">
+          <el-input class="width-13-rem" type="text" id="id" name="id" v-model="registerRequest.dateCreated" readonly ></el-input>
+        </el-form-item>
+      </el-col>
+    </el-row>
+    <el-row :gutter="20">
+      <el-col :span="12">
+        <el-form-item label="Ngày bắt đầu">
+          <el-date-picker
+            class="width-13-rem" 
+            format="dd/MM/yyyy"
+            v-model="registerRequest.startDate">
+          </el-date-picker>
+        </el-form-item>
+      </el-col>
+      <el-col :span="12">
+        <el-form-item label="Ngày kết thúc">
+          <el-date-picker
+            class="width-13-rem"
+            format="dd/MM/yyyy"
+            v-model="registerRequest.endDate">
+          </el-date-picker>
+        </el-form-item>
+      </el-col>
+    </el-row>
+    <el-row :gutter="20">
+      <el-col :span="12">
+        <el-form-item label="Sinh viên đăng ký">
+          <el-select placeholder="" 
+            v-model="registerRequest.internRegister"
+            value-key="id"
+            :disabled="true">
+            <el-option
+              :value="internOption"
+              :key="index"
+              v-for="(internOption, index) in interns" 
+              :label="internOption.lastName">
+            </el-option>
+          </el-select>
+        </el-form-item>
+      </el-col>
+      <el-col :span="12">
+        <el-form-item label="Vị trí thực tập">
+          <el-select id="register-request-requestRegister" 
+            class="width-13-rem"
+            name="requestRegister"
+            placeholder=""
+            value-key="id"
+            v-model="registerRequest.requestRegister"
+            :disabled="true">
+            <el-option
+              :value="requestOption"
+              v-for="(requestOption, index) in requests" 
+              :key="index" 
+              :label="requestOption.position">
+            </el-option>
+          </el-select>
+        </el-form-item>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="12">
+        <el-form-item label="Trạng thái">
+          <el-select :disabled="isDisabledStatus" placeholder="" v-model="registerRequest.registerRequestStatus" value-key="id">
+            <el-option
+              :value="statusOption"
+              v-for="statusOption in statuses" :key="statusOption.id" :label="statusOption.name"></el-option>
+          </el-select>
+        </el-form-item>
+      </el-col>
+    </el-row>
+    <el-row :gutter="20">
+      <el-col class="text-center">
+        <el-button @click="save" id="save-entity" class="btn btn-primary">
+          Xác nhận
+        </el-button>
+        <el-button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="closeDialog()">
+          Hủy
+        </el-button>
+      </el-col>
+    </el-row>
+  </el-form>
+  <!-- Dialog -->
+  <!-- <b-modal
+    title="Đăng ký thực tập"
+    no-fade v-model="isRegisterRequestVisible"
+    :no-close-on-backdrop="true"
+    :hide-footer="true"
+    modal-class="detail-modal"
+    center
+    size="lg"
+    >
+    <InputRegister v-if="isRegisterRequestVisible" :requestModel="requestModel" :internId="internId" @close="finishScreen"></InputRegister>
+  </b-modal> -->
+</div>

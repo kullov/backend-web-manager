@@ -2,6 +2,7 @@ package com.example.internproject.service;
 
 import com.example.internproject.domain.Intern;
 
+import com.example.internproject.domain.RegisterRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -49,4 +50,6 @@ public interface InternService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    List<Intern> findAllByRegisterRequest(Long id);
 }

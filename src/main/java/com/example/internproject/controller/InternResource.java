@@ -5,22 +5,17 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.internproject.domain.RegisterRequest;
+import com.example.internproject.domain.Request;
+import com.example.internproject.domain.Intern;
+import com.example.internproject.service.InternService;
+import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.example.internproject.domain.Intern;
-import com.example.internproject.service.InternService;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * REST controller for managing {@link com.example.internproject.domain.Intern}.
@@ -32,6 +27,8 @@ public class InternResource {
     private final Logger log = LoggerFactory.getLogger(InternResource.class);
 
     private static final String ENTITY_NAME = "intern";
+
+    private String applicationName = "InternProject";
 
     @Autowired
     private InternService internService;
@@ -48,6 +45,7 @@ public class InternResource {
         log.debug("REST request to save Intern : {}", intern);
         Intern result = internService.save(intern);
         return ResponseEntity.created(new URI("/api/interns/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
 
@@ -65,6 +63,7 @@ public class InternResource {
         log.debug("REST request to update Intern : {}", intern);
         Intern result = internService.save(intern);
         return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, intern.getId().toString()))
             .body(result);
     }
 
@@ -90,7 +89,7 @@ public class InternResource {
     public ResponseEntity<Intern> getIntern(@PathVariable Long id) {
         log.debug("REST request to get Intern : {}", id);
         Optional<Intern> intern = internService.findOne(id);
-        return ResponseEntity.of(intern);
+        return ResponseUtil.wrapOrNotFound(intern);
     }
 
     /**
@@ -103,6 +102,14 @@ public class InternResource {
     public ResponseEntity<Void> deleteIntern(@PathVariable Long id) {
         log.debug("REST request to delete Intern : {}", id);
         internService.delete(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString())).build();
     }
+
+    @GetMapping("/interns/register-request/{id}")
+    public ResponseEntity<List<Intern>> findAllByRegisterRequest(@PathVariable Long id) {
+        log.debug("REST request to get a list of interns by registerRequest");
+        List<Intern> list = internService.findAllByRegisterRequest(id);
+        return ResponseEntity.ok().body(list);
+    }
+
 }

@@ -1,23 +1,12 @@
 package com.example.internproject.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * A Intern.
@@ -71,13 +60,13 @@ public class Intern implements Serializable {
     @OneToMany(mappedBy = "internRegister")
     private Set<RegisterRequest> registerRequests = new HashSet<>();
 
-    @OneToMany(mappedBy = "internRequestAssignment")
-    private Set<RequestAssignment> requestAssignments = new HashSet<>();
+//    @OneToMany(mappedBy = "internRequestAssignment")
+//    private Set<RequestAssignment> requestAssignments = new HashSet<>();
 
     @ManyToMany
     @JoinTable(name = "intern_intern_ability",
-               joinColumns = @JoinColumn(name = "intern_id", referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(name = "intern_ability_id", referencedColumnName = "id"))
+      joinColumns = @JoinColumn(name = "intern_id", referencedColumnName = "id"),
+      inverseJoinColumns = @JoinColumn(name = "intern_ability_id", referencedColumnName = "id"))
     private Set<Ability> internAbilities = new HashSet<>();
 
     @ManyToOne
@@ -274,31 +263,6 @@ public class Intern implements Serializable {
         this.registerRequests = registerRequests;
     }
 
-    public Set<RequestAssignment> getRequestAssignments() {
-        return requestAssignments;
-    }
-
-    public Intern requestAssignments(Set<RequestAssignment> requestAssignments) {
-        this.requestAssignments = requestAssignments;
-        return this;
-    }
-
-    public Intern addRequestAssignment(RequestAssignment requestAssignment) {
-        this.requestAssignments.add(requestAssignment);
-        requestAssignment.setInternRequestAssignment(this);
-        return this;
-    }
-
-    public Intern removeRequestAssignment(RequestAssignment requestAssignment) {
-        this.requestAssignments.remove(requestAssignment);
-        requestAssignment.setInternRequestAssignment(null);
-        return this;
-    }
-
-    public void setRequestAssignments(Set<RequestAssignment> requestAssignments) {
-        this.requestAssignments = requestAssignments;
-    }
-
     public Set<Ability> getInternAbilities() {
         return internAbilities;
     }
@@ -357,19 +321,19 @@ public class Intern implements Serializable {
     @Override
     public String toString() {
         return "Intern{" +
-            "id=" + getId() +
-            ", code=" + getCode() +
-            ", firstName='" + getFirstName() + "'" +
-            ", lastName='" + getLastName() + "'" +
-            ", dateOfBirth='" + getDateOfBirth() + "'" +
-            ", joinDate='" + getJoinDate() + "'" +
-            ", className='" + getClassName() + "'" +
-            ", avatar='" + getAvatar() + "'" +
-            ", password='" + getPassword() + "'" +
-            ", email='" + getEmail() + "'" +
-            ", phone=" + getPhone() +
-            ", description='" + getDescription() + "'" +
-            ", address='" + getAddress() + "'" +
-            "}";
+          "id=" + getId() +
+          ", code=" + getCode() +
+          ", firstName='" + getFirstName() + "'" +
+          ", lastName='" + getLastName() + "'" +
+          ", dateOfBirth='" + getDateOfBirth() + "'" +
+          ", joinDate='" + getJoinDate() + "'" +
+          ", className='" + getClassName() + "'" +
+          ", avatar='" + getAvatar() + "'" +
+          ", password='" + getPassword() + "'" +
+          ", email='" + getEmail() + "'" +
+          ", phone=" + getPhone() +
+          ", description='" + getDescription() + "'" +
+          ", address='" + getAddress() + "'" +
+          "}";
     }
 }

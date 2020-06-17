@@ -1,14 +1,15 @@
 package com.example.internproject.service.impl;
 
-import com.example.internproject.service.RegisterRequestService;
 import com.example.internproject.domain.RegisterRequest;
 import com.example.internproject.repository.RegisterRequestRepository;
+import com.example.internproject.service.RegisterRequestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +32,7 @@ public class RegisterRequestServiceImpl implements RegisterRequestService {
      */
     @Override
     public RegisterRequest save(RegisterRequest registerRequest) {
+        registerRequest.setDateCreated(ZonedDateTime.now());
         log.debug("Request to save RegisterRequest : {}", registerRequest);
         return registerRequestRepository.save(registerRequest);
     }
@@ -69,5 +71,10 @@ public class RegisterRequestServiceImpl implements RegisterRequestService {
     public void delete(Long id) {
         log.debug("Request to delete RegisterRequest : {}", id);
         registerRequestRepository.deleteById(id);
+    }
+
+    @Override
+    public List<RegisterRequest> findAllByInternId(Long id) {
+        return registerRequestRepository.findAllByInternId(id);
     }
 }

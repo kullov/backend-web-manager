@@ -1,5 +1,5 @@
 <!-- !PAGE CONTENT! -->
-<div class="w3-main">
+<div v-loading="isLoading" class="animated fadeIn page-container w3-container w3-main">
   <el-row>
     <h1 class="p-4 title"><b>Không gian</b></h1>
     <br>
@@ -20,49 +20,98 @@
   </el-row>
   <el-row class="text-center" id="list-require" style="padding-top:1px;" :gutter="20">
     <h1 class="p-4 title"><b>Danh sách phiếu yêu cầu</b></h1>
-    <el-col :span="8" v-for="item in listRequests" v-bind:key="item.id" class="pb-4">
-      <img src="https://www.ourlincolnpark.com/wp-content/uploads/2014/07/I-wish-it-were-that-easy.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
-      <div class="w3-container w3-white" style="height:270px;">
+    <el-col :span="8" v-for="item in listRequests" v-bind:key="item.id" class="card">
+      <img :src="item.avatar ? item.avatar : 'https://www.ourlincolnpark.com/wp-content/uploads/2014/07/I-wish-it-were-that-easy.jpg'" alt="Norway" style="width:100%;height:300px;" class="w3-hover-opacity">
+      <div @click="openDetailRequest(item)" class="w3-container w3-white" style="height:200px;">
         <h3 class="w3-center"><i>Vị trí: </i><b>{{ item.position }}</b></h3>
-        <h4><i class="fa fa-diamond fa-fw mr-2"></i>Công ty: {{ item.name }}</h4>
+        <h4><i class="fa fa-diamond fa-fw mr-2"></i>Công ty: {{ item.organizationRequest ? item.organizationRequest.name : '' }}</h4>
         <p><i class="fa fa-fw fa-male"></i> Chúng tôi cần: <b>{{ item.amount }}</b> người</p>
-        <p><i class="fa fa-fw fa-check-square"></i> Số lượng đã đăng ký: <b>{{ item.assignment }}</b></p>
-        <p><i class="fa fa-map-pin fa-fw"></i> Địa điểm làm việc: {{ item.address }}</p>
-        <p><i class="fa fa-fw fa-check"></i> Trạng thái: {{ item.status === 2 ? "Het hieu luc" : "Con hieu luc" }}</p>
+        <p><i class="fa fa-fw fa-check-square"></i> Số lượng đã đăng ký: <b>{{ item.registerRequests.length }}</b></p>
+        <p><i class="fa fa-fw fa-check"></i> Trạng thái: {{ item.status === 2 ? "Hết hiệu lực" : "Còn hiệu lực" }}</p>
       </div>
     </el-col>
-    <!-- <el-col :span="8">
-
-    </el-col>
-    <el-col :span="8">
-
-    </el-col> -->
-    <div class="w3-center w3-padding-32 w3-row-padding">
-      <div class="w3-bar">
-        <a href="#" class="w3-bar-item w3-button w3-hover-black">«</a>
-        <a href="#" class="w3-bar-item w3-black w3-button">1</a>
-        <a href="#" class="w3-bar-item w3-button w3-hover-black">2</a>
-        <a href="#" class="w3-bar-item w3-button w3-hover-black">3</a>
-        <a href="#" class="w3-bar-item w3-button w3-hover-black">4</a>
-        <a href="#" class="w3-bar-item w3-button w3-hover-black">»</a>
-      </div>
-    </div>
   </el-row>
   <!-- Assignment -->
   <div class="w3-container" id="assignment">
     <h1 class="p-4 title"><b>Bảng phân công</b></h1>
-    <table class="w3-table w3-striped w3-bordered w3-centered w3-hoverable w3-margin-bottom">
-      <tr>
-        <th name="organization_request_id">Mã phiếu yêu cầu</th>
-        <th name="student_id">Mã sinh viên</th>
-        <th name="name_student">Tên sinh viên</th>
-        <th name="start_date">Ngày bắt đầu thực tập</th>
-        <th name="end_date">Ngày kết thúc thực tập</th>
-        <th name="position">Vị trí thực tập</th>
-        <th name="status">Trạng thái</th>
-        <th name="create_date">Thời gian phân công</th>
-      </tr>
-    </table>
+    <el-table
+      stripe
+      :data="listAssignments"
+      style="width: 100%"
+      max-height="480">
+      <el-table-column
+        fixed
+        align="center"
+        prop="id"
+        label="ID"
+        width="60">
+      </el-table-column>
+      <el-table-column
+        prop="internRegister"
+        label="Sinh viên"
+        align="center"
+        width="160">
+        <template slot-scope="scope">
+          <span v-if="scope.row.internRegister">
+            {{ scope.row.internRegister.firstName }} {{ scope.row.internRegister.lastName }}
+          </span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="requestRegister"
+        label="Vị trí thực tập"
+        align="center"
+        width="170">
+        <template slot-scope="scope">
+          <span v-if="scope.row.requestRegister">
+            {{ scope.row.requestRegister.position }}
+          </span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="startDate"
+        label="Ngày bắt đầu"
+        align="center"
+        width="140">
+        <template slot-scope="scope">
+          <span v-if="scope.row.startDate"> {{scope.row.startDate | formatDate}} </span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="endDate"
+        label="Ngày kết thúc"
+        align="center"
+        width="140">
+        <template slot-scope="scope">
+          <span v-if="scope.row.endDate"> {{scope.row.endDate | formatDate}} </span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="dateCreated"
+        align="center"
+        label="Ngày tạo"
+        width="140">
+        <template slot-scope="scope">
+          <span v-if="scope.row.dateCreated"> {{scope.row.dateCreated | formatDate}} </span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="registerRequestStatus"
+        label="Trạng thái"
+        align="center"
+        width="100">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.registerRequestStatus"
+          :type="scope.row.registerRequestStatus.id === 1 ? 'success'
+          : (scope.row.registerRequestStatus.id === 2 ? 'danger' : 'warning')
+           "
+          disable-transitions
+          >
+            {{ scope.row.registerRequestStatus.name }}
+          </el-tag>
+        </template>
+      </el-table-column>
+    </el-table>
     <br><br>
   </div>
   <!-- Contact Section -->
@@ -84,7 +133,22 @@
 
   <!-- Footer -->
   
-  <div class="w3-black w3-center w3-padding-24">Powered by <a href="./" title="Origen" target="_blank" class="w3-hover-opacity">Origen</a></div>
-
+  <div class="w3-black w3-center w3-padding-24">Powered by <a href="./" title="NgaTT" target="_blank" class="w3-hover-opacity">NgaTT</a></div>
+  <!-- Dialog -->
+  <b-modal
+    title="Thông tin phiếu yêu cầu"
+    no-fade v-model="isDetailRequestVisible"
+    :no-close-on-backdrop="true"
+    :hide-footer="true"
+    modal-class="detail-modal"
+    size="xl"
+    center
+    >
+    <DetailRequest
+      v-if="isDetailRequestVisible"
+      @close="finishScreen"
+      :id="idProp">
+    </DetailRequest>
+  </b-modal>
 <!-- End page content -->
 </div>

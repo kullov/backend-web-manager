@@ -5,22 +5,16 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.internproject.controller.errors.BadRequestAlertException;
+import com.example.internproject.domain.AbilityCategory;
+import com.example.internproject.service.AbilityCategoryService;
+import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.example.internproject.domain.AbilityCategory;
-import com.example.internproject.service.AbilityCategoryService;
-
+import org.springframework.web.bind.annotation.*;
 /**
  * REST controller for managing {@link com.example.internproject.domain.AbilityCategory}.
  */
@@ -32,8 +26,13 @@ public class AbilityCategoryResource {
 
     private static final String ENTITY_NAME = "abilityCategory";
 
-    @Autowired
-    private AbilityCategoryService abilityCategoryService;
+    private String applicationName = "InternProject";
+
+    private final AbilityCategoryService abilityCategoryService;
+
+    public AbilityCategoryResource(AbilityCategoryService abilityCategoryService) {
+        this.abilityCategoryService = abilityCategoryService;
+    }
 
     /**
      * {@code POST  /ability-categories} : Create a new abilityCategory.
@@ -45,9 +44,13 @@ public class AbilityCategoryResource {
     @PostMapping("/ability-categories")
     public ResponseEntity<AbilityCategory> createAbilityCategory(@RequestBody AbilityCategory abilityCategory) throws URISyntaxException {
         log.debug("REST request to save AbilityCategory : {}", abilityCategory);
+        if (abilityCategory.getId() != null) {
+            throw new BadRequestAlertException("A new abilityCategory cannot already have an ID", ENTITY_NAME, "idexists");
+        }
         AbilityCategory result = abilityCategoryService.save(abilityCategory);
         return ResponseEntity.created(new URI("/api/ability-categories/" + result.getId()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
+                .body(result);
     }
 
     /**
@@ -62,9 +65,13 @@ public class AbilityCategoryResource {
     @PutMapping("/ability-categories")
     public ResponseEntity<AbilityCategory> updateAbilityCategory(@RequestBody AbilityCategory abilityCategory) throws URISyntaxException {
         log.debug("REST request to update AbilityCategory : {}", abilityCategory);
+        if (abilityCategory.getId() == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
         AbilityCategory result = abilityCategoryService.save(abilityCategory);
         return ResponseEntity.ok()
-            .body(result);
+                .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, abilityCategory.getId().toString()))
+                .body(result);
     }
 
     /**
@@ -88,7 +95,7 @@ public class AbilityCategoryResource {
     public ResponseEntity<AbilityCategory> getAbilityCategory(@PathVariable Long id) {
         log.debug("REST request to get AbilityCategory : {}", id);
         Optional<AbilityCategory> abilityCategory = abilityCategoryService.findOne(id);
-        return ResponseEntity.of(abilityCategory);
+        return ResponseUtil.wrapOrNotFound(abilityCategory);
     }
 
     /**
@@ -101,6 +108,6 @@ public class AbilityCategoryResource {
     public ResponseEntity<Void> deleteAbilityCategory(@PathVariable Long id) {
         log.debug("REST request to delete AbilityCategory : {}", id);
         abilityCategoryService.delete(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString())).build();
     }
 }

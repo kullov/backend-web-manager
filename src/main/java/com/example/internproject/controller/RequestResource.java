@@ -1,31 +1,19 @@
 package com.example.internproject.controller;
 
+import com.example.internproject.controller.errors.BadRequestAlertException;
+import com.example.internproject.domain.Request;
+import com.example.internproject.service.RequestService;
+import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.ResponseUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
-
-import org.apache.tomcat.util.http.HeaderUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import com.example.internproject.domain.Request;
-import com.example.internproject.service.RequestService;
 
 /**
  * REST controller for managing {@link com.example.internproject.domain.Request}.
@@ -38,8 +26,13 @@ public class RequestResource {
 
     private static final String ENTITY_NAME = "request";
 
-    @Autowired
-    private RequestService requestService;
+    private String applicationName = "InternProject";
+
+    private final RequestService requestService;
+
+    public RequestResource(RequestService requestService) {
+        this.requestService = requestService;
+    }
 
     /**
      * {@code POST  /requests} : Create a new request.
@@ -51,9 +44,13 @@ public class RequestResource {
     @PostMapping("/requests")
     public ResponseEntity<Request> createRequest(@RequestBody Request request) throws URISyntaxException {
         log.debug("REST request to save Request : {}", request);
+        if (request.getId() != null) {
+            throw new BadRequestAlertException("A new request cannot already have an ID", ENTITY_NAME, "idexists");
+        }
         Request result = requestService.save(request);
         return ResponseEntity.created(new URI("/api/requests/" + result.getId()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
+                .body(result);
     }
 
     /**
@@ -68,30 +65,26 @@ public class RequestResource {
     @PutMapping("/requests")
     public ResponseEntity<Request> updateRequest(@RequestBody Request request) throws URISyntaxException {
         log.debug("REST request to update Request : {}", request);
+        if (request.getId() == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
         Request result = requestService.save(request);
         return ResponseEntity.ok()
-            .body(result);
+                .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, request.getId().toString()))
+                .body(result);
     }
 
     /**
      * {@code GET  /requests} : get all the requests.
      *
-     * @param pageable the pagination information.
      * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of requests in body.
      */
-//    @GetMapping("/requests")
-//    public ResponseEntity<List<Request>> getAllRequests(Pageable pageable, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
-//        log.debug("REST request to get a page of Requests");
-//        Page<Request> page;
-//        if (eagerload) {
-//            page = requestService.findAllWithEagerRelationships(pageable);
-//        } else {
-//            page = requestService.findAll(pageable);
-//        }
-//        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-//        return ResponseEntity.ok().headers(headers).body(page.getContent());
-//    }
+    @GetMapping("/requests")
+    public ResponseEntity<List<Request>> getAllRequests(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+        log.debug("REST request to get all Requests");
+        return ResponseEntity.ok().body(requestService.findAll());
+    }
 
     /**
      * {@code GET  /requests/:id} : get the "id" request.
@@ -103,11 +96,11 @@ public class RequestResource {
     public ResponseEntity<Request> getRequest(@PathVariable Long id) {
         log.debug("REST request to get Request : {}", id);
         Optional<Request> request = requestService.findOne(id);
-        return ResponseEntity.of(request);
+        return ResponseUtil.wrapOrNotFound(request);
     }
 
     /**
-     * {@code DELETE  /requests/:id} : delete the "id" request.
+     * {@code DELETE  com.fasterxml.jackson.databind.ser.std.CollectionSerializer/requests/:id} : delete the "id" request.
      *
      * @param id the id of the request to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
@@ -116,6 +109,20 @@ public class RequestResource {
     public ResponseEntity<Void> deleteRequest(@PathVariable Long id) {
         log.debug("REST request to delete Request : {}", id);
         requestService.delete(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString())).build();
+    }
+
+    @GetMapping("/requests/organization/{id}")
+    public ResponseEntity<List<Request>> findAllByOrganization(@PathVariable Long id) {
+        log.debug("REST request to get a list of interns by registerRequest");
+        List<Request> list = requestService.findAllByOrganizationId(id);
+        return ResponseEntity.ok().body(list);
+    }
+
+    @GetMapping("/requests/position/{position}")
+    public ResponseEntity<List<Request>> findAllByPosition(@PathVariable String position) {
+        log.debug("REST request to get a list of interns by registerRequest");
+        List<Request> list = requestService.findAllByPosition(position);
+        return ResponseEntity.ok().body(list);
     }
 }

@@ -1,17 +1,16 @@
 package com.example.internproject.service.impl;
 
-import java.util.List;
-import java.util.Optional;
-
+import com.example.internproject.domain.AbilityCategory;
+import com.example.internproject.repository.AbilityCategoryRepository;
+import com.example.internproject.service.AbilityCategoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.internproject.domain.AbilityCategory;
-import com.example.internproject.repository.AbilityCategoryRepository;
-import com.example.internproject.service.AbilityCategoryService;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Service Implementation for managing {@link AbilityCategory}.

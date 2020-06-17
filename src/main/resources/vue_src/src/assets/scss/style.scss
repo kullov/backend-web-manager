@@ -1,6 +1,5 @@
 // Sub tabs
 .sub-tabs {
-  text-align: center !important;
   .el-tabs__header {
     margin-bottom: 0;
     width: 200px;
@@ -8,7 +7,7 @@
   
   .el-tabs__content {
     flex: 1;
-    background-color: #f1f1f1;
+    background-color: white;
     .el-tab-pane {
       height: 100%;
       display: flex;
@@ -43,4 +42,39 @@
 .title {
   text-transform: uppercase;
   font-family: 'Courier New', Courier, monospace !important;
+}
+.el-form-item__content {
+  text-align: left !important;
+}
+.text-left {
+  text-align: left !important;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+.right-content {
+  height: 100%;
+  width: 80%;
+  margin-left: 21%;
+}
+
+@import "dialog";
+// .page-container {
+//   max-height: 907px;
+// }
+// Import atomic style
+@import "atomic";
+.page-container {
+  background-color: white;
+}
+.el-menu-demo .el-menu-item {
+  float: left;
+  display: block;
+  text-align: center;
+  font-size: 14px;
 }

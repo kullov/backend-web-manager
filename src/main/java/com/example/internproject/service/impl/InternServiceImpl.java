@@ -1,8 +1,8 @@
 package com.example.internproject.service.impl;
 
-import com.example.internproject.service.InternService;
 import com.example.internproject.domain.Intern;
 import com.example.internproject.repository.InternRepository;
+import com.example.internproject.service.InternService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,11 +49,13 @@ public class InternServiceImpl implements InternService {
         return internRepository.findAllWithEagerRelationships();
     }
 
+
     /**
      * Get all the interns with eager load of many-to-many relationships.
      *
      * @return the list of entities.
      */
+    @Override
     public Page<Intern> findAllWithEagerRelationships(Pageable pageable) {
         return internRepository.findAllWithEagerRelationships(pageable);
     }
@@ -81,4 +83,10 @@ public class InternServiceImpl implements InternService {
         log.debug("Request to delete Intern : {}", id);
         internRepository.deleteById(id);
     }
+
+    @Override
+    public List<Intern> findAllByRegisterRequest(Long id) {
+        return internRepository.findAllByRegisterRequest(id);
+    }
+
 }

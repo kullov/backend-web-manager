@@ -5,21 +5,15 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import com.example.internproject.controller.errors.BadRequestAlertException;
 import com.example.internproject.domain.Ability;
 import com.example.internproject.service.AbilityService;
+import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.ResponseUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * REST controller for managing {@link com.example.internproject.domain.Ability}.
@@ -32,8 +26,13 @@ public class AbilityResource {
 
     private static final String ENTITY_NAME = "ability";
 
-    @Autowired
-    private AbilityService abilityService;
+    private String applicationName = "InternProject";
+
+    private final AbilityService abilityService;
+
+    public AbilityResource(AbilityService abilityService) {
+        this.abilityService = abilityService;
+    }
 
     /**
      * {@code POST  /abilities} : Create a new ability.
@@ -45,9 +44,13 @@ public class AbilityResource {
     @PostMapping("/abilities")
     public ResponseEntity<Ability> createAbility(@RequestBody Ability ability) throws URISyntaxException {
         log.debug("REST request to save Ability : {}", ability);
+        if (ability.getId() != null) {
+            throw new BadRequestAlertException("A new ability cannot already have an ID", ENTITY_NAME, "idexists");
+        }
         Ability result = abilityService.save(ability);
         return ResponseEntity.created(new URI("/api/abilities/" + result.getId()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
+                .body(result);
     }
 
     /**
@@ -62,9 +65,15 @@ public class AbilityResource {
     @PutMapping("/abilities")
     public ResponseEntity<Ability> updateAbility(@RequestBody Ability ability) throws URISyntaxException {
         log.debug("REST request to update Ability : {}", ability);
+        if (ability.getId() == null) {
+            throw new BadRequestAlertException("Invalid id",
+              ENTITY_NAME,
+              "idnull");
+        }
         Ability result = abilityService.save(ability);
         return ResponseEntity.ok()
-            .body(result);
+                .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, ability.getId().toString()))
+                .body(result);
     }
 
     /**
@@ -88,7 +97,7 @@ public class AbilityResource {
     public ResponseEntity<Ability> getAbility(@PathVariable Long id) {
         log.debug("REST request to get Ability : {}", id);
         Optional<Ability> ability = abilityService.findOne(id);
-        return ResponseEntity.of(ability);
+        return ResponseUtil.wrapOrNotFound(ability);
     }
 
     /**
@@ -101,6 +110,6 @@ public class AbilityResource {
     public ResponseEntity<Void> deleteAbility(@PathVariable Long id) {
         log.debug("REST request to delete Ability : {}", id);
         abilityService.delete(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString())).build();
     }
 }

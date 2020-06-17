@@ -1,10 +1,12 @@
 export class TeacherModel {
-  public name: string = '';
-  public contact: string = '';
-  public email: string = '';
-  public description: string = '';
-  public address: string = 'Bac Tu Liem Ha Noi';
-  public password: string = '';
+  id?: number;
+  name?: string;
+  code?: string;
+  className?: string;
+  contact?: number;
+  password?: string;
+  email?: string;
+  address?: string;
 
   constructor(init?: Partial<TeacherModel>) {
     Object.assign(this, init);

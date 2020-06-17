@@ -1,8 +1,8 @@
 package com.example.internproject.service.impl;
 
-import com.example.internproject.service.TeacherService;
 import com.example.internproject.domain.Teacher;
 import com.example.internproject.repository.TeacherRepository;
+import com.example.internproject.service.TeacherService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

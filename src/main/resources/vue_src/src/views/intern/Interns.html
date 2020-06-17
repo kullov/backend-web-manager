@@ -1,0 +1,68 @@
+<div class="page-container w3-container">
+  <h2 id="page-heading">Danh sách sinh viên</h2>
+  
+  <br/>
+  <div class="alert alert-warning" v-if="!isFetching && interns && interns.length === 0">
+      <span>Không có sinh viên nào!</span>
+  </div>
+  <div v-if="interns && interns.length > 0">
+      <el-table
+      stripe
+      :data="interns"
+      style="width: 100%"
+      max-height="480">
+      <el-table-column
+        fixed
+        align="center"
+        prop="id"
+        label="ID"
+        width="60">
+      </el-table-column>
+      <el-table-column
+        prop="code"
+        align="center"
+        label="Mã sinh viên"
+        width="120">
+      </el-table-column>
+      <el-table-column
+        prop="name"
+        align="center"
+        label="Tên"
+        width="120">
+        <template slot-scope="scope">
+          <span v-if="scope.row.firstName">
+            {{ scope.row.firstName }} {{ scope.row.lastName }}
+          </span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="dateOfBirth"
+        label="Ngày sinh"
+        align="center"
+        width="130">
+        <template slot-scope="scope">
+          <span v-if="scope.row.dateOfBirth"> {{scope.row.dateOfBirth | formatDate}} </span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="email"
+        label="Email"
+        align="center"
+        width="130">
+      </el-table-column>
+      <el-table-column
+        prop="phone"
+        label="Số điện thoại"
+        align="center"
+        width="130">
+      </el-table-column>
+      <el-table-column
+        prop="address"
+        label="Địa chỉ"
+        align="center"
+        width="280">
+      </el-table-column>
+    </el-table>
+    <!-- </perfect-scrollbar> -->
+  </div>
+</div>

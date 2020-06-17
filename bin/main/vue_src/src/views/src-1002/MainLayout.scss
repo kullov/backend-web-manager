@@ -1,0 +1,30 @@
+::v-deep {
+  .sub-tabs.el-tabs.el-tabs--left {
+    top: -207px;
+    z-index: 5;
+    position: relative;
+  }
+  .el-tabs--left .el-tabs__header.is-left {
+    top: 200px;
+    width: 290px;
+  }
+  .el-radio-button__inner {
+    width: 100%;
+    border: none;
+  }
+  .el-radio-button__orig-radio:checked+.el-radio-button__inner {
+    background-color: teal;
+    border: none;
+  }
+}
+.header-block {
+  padding-top: 10px;
+  text-align: center !important;
+  z-index:3
+}
+.sub-tabs .el-tabs__content .el-tab-pane {
+  min-height: 910px;
+}
+.ps {
+  height: 908px;
+}
