@@ -3,11 +3,9 @@
     <el-header style="text-align: right; font-size: 12px; z-index: 555; position:fixed;">
       <el-menu router :default-active="$route.path" class="el-menu-demo" mode="horizontal">
         <el-menu-item index="/about">Home</el-menu-item>
-        <el-menu-item v-if="typeUser === '2'" :index="'/organization/view/' + idCurrentUser">Organization</el-menu-item>
-        <el-menu-item v-if="typeUser === '3'" index="/teacher">Teacher</el-menu-item>
-        <el-menu-item v-if="typeUser === '1'" :index="'/intern/view/'+idCurrentUser">Intern</el-menu-item>
-        <!-- <el-menu-item index="/requests">Requests</el-menu-item> -->
-        <!-- <el-menu-item style="position:absolute;right:124px" v-if="!isLogger" index="/register">Đăng ký</el-menu-item> -->
+        <el-menu-item v-if="typeUser === '2'" :index="'/organization/view/' + idCurrentUser">Doanh nghiệp</el-menu-item>
+        <el-menu-item v-if="typeUser === '3'" index="/teacher">Giáo viên</el-menu-item>
+        <el-menu-item v-if="typeUser === '1'" :index="'/intern/view/'+idCurrentUser">Sinh viên</el-menu-item>
         <el-menu-item style="position:absolute;right:124px" v-if="!isLogger" index="/login">Đăng nhập</el-menu-item>
         <el-submenu v-if="!isLogger" style="position:absolute;right:0px" index="/login">
           <template slot="title">Đăng ký</template>
@@ -15,13 +13,14 @@
           <el-menu-item index="/register/2">Doanh nghiệp</el-menu-item>
           <el-menu-item index="/register/3">Giáo viên</el-menu-item>
         </el-submenu>
-        <el-menu-item style="position:absolute;right:0px" v-else index="/" @click="logout()">Đăng xuất</el-menu-item>
+        <el-menu-item style="position:absolute;right:118px;background-color:white;" v-if="isLogger" index="/"><i style="color:teal">Xin chào, {{currentUserName}}!</i></el-menu-item>
+        <el-menu-item style="position:absolute;right:0px" v-if="isLogger" index="/" @click="logout()">Đăng xuất</el-menu-item>
       </el-menu>
     </el-header>
     <el-container style="margin-top:62px;">
       <el-aside style="width:268px; min-height:548px !important;" class="left-content" v-if="$route.path !== '/about'">
         <div class="header-block p-2">
-          <img :src=" avatar ? avatar : 'https://www.w3schools.com/w3images/avatar_g2.jpg'" style="width:100px;" class="w3-round"><br><br>
+          <img ref="detailHome" :src=" avatar ? avatar : 'https://www.w3schools.com/w3images/avatar_g2.jpg'" style="width:100px;" class="w3-round"><br><br>
           <h3><b> {{ currentUserName }} </b></h3>
           <p class="w3-text-grey"><i>{{ typeUserName }}</i></p>
         </div>
@@ -29,6 +28,7 @@
           <el-menu style="background-color:#f1f1f1;" router :default-active="$route.path">
             <el-menu-item v-if="typeUser === '2'" class="w3-bar-item w-100 text-left" :index="'/organization/view/' + idCurrentUser"><i class="fa fa-th-large fa-fw w3-margin-right"></i>PROFILE</el-menu-item>
             <el-menu-item v-if="typeUser === '1'" class="w3-bar-item w-100 text-left" :index="'/intern/view/'+idCurrentUser"><i class="fa fa-th-large fa-fw w3-margin-right"></i>PROFILE</el-menu-item>
+            <el-menu-item v-if="typeUser === '1'" class="w3-bar-item w-100 text-left" :index="'/intern/edit/'+idCurrentUser"><i class="fa fa-th-large fa-fw w3-margin-right"></i>SỬA THÔNG TIN</el-menu-item>
             <el-menu-item class="w3-bar-item w-100 text-left" index="/requests"><i class="fa fa-star fa-fw w3-margin-right"></i>REQUESTS</el-menu-item>
             <el-menu-item v-if="typeUser === '3'" class="w3-bar-item w-100 text-left" index="/organization/list"><i class="fa fa-star fa-fw w3-margin-right"></i>DANH SÁCH DOANH NGHIỆP</el-menu-item>
             <el-menu-item v-if="typeUser === '3'" class="w3-bar-item w-100 text-left" index="/interns/list"><i class="fa fa-star fa-fw w3-margin-right"></i>DANH SÁCH SINH VIÊN</el-menu-item>
@@ -36,6 +36,14 @@
             <el-menu-item v-if="typeUser === '3'" class="w3-bar-item w-100 text-left" index="/request-assignment/list"><i class="fa fa-star fa-fw w3-margin-right"></i>PHÂN CÔNG</el-menu-item>
             <el-menu-item v-if="typeUser === '2'" index="/request/create" class="w3-bar-item w3-text-teal w-100 text-left"><i class="fa fa-th-large fa-fw w3-margin-right"></i>TẠO PHIẾU TUYỂN DỤNG</el-menu-item>
             <el-menu-item class="w3-bar-item w-100 text-left" index="/"><i class="fa fa-envelope fa-fw w3-margin-right"></i>LIÊN HỆ</el-menu-item>
+            <div class="w3-panel w3-large">
+              <i class="fa p-2 fa-facebook-official w3-hover-opacity"></i>
+              <i class="fa p-2 fa-instagram w3-hover-opacity"></i>
+              <i class="fa p-2 fa-snapchat w3-hover-opacity"></i>
+              <i class="fa p-2 fa-pinterest-p w3-hover-opacity"></i>
+              <i class="fa p-2 fa-twitter w3-hover-opacity"></i>
+              <i class="fa p-2 fa-linkedin w3-hover-opacity"></i>
+            </div>
           </el-menu>
         </perfect-scrollbar>
       </el-aside>

@@ -94,11 +94,6 @@ const routes = [
         // component: MainOrganization,
       },
       {
-        path: 'main-layout-teacher',
-        name: 'routes.teacher',
-        // component: MainTeacher,
-      },
-      {
         path: 'intern/edit/:internId',
         alias: 'intern/edit',
         name: 'routes.intern.edit',
@@ -121,7 +116,7 @@ const routes = [
       {
         path: '/intern/view/:internId',
         name: 'routes/intern.view',
-        component: InputIntern,
+        component: InternPageDetail,
         meta: { authorities: [Authority.INTERN] }
       },
       {
@@ -154,6 +149,7 @@ const routes = [
       {
         path: '/teacher',
         name: 'Teacher',
+        component: Requests,
       },
       // {
       //   path: '/teacher/new',

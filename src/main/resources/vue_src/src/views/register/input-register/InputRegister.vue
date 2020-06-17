@@ -68,8 +68,6 @@ export default class InputRegister extends Vue {
     model.dateCreated = this.$moment(this.registerRequest.dateCreated, 'DD/MM/YYYY').unix();
     model.startDate = this.$moment(this.registerRequest.startDate, 'DD/MM/YYYY').unix();
     model.endDate = this.$moment(this.registerRequest.endDate, 'DD/MM/YYYY').unix();
-    debugger;
-    console.log(this.registerRequest);
     
     if (this.registerRequest.id) {
       registerRequestService

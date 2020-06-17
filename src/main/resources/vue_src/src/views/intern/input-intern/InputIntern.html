@@ -1,35 +1,36 @@
 <div v-loading="isLoading" class="animated fadeIn page-container w3-container">
   <div v-if="intern">
-    <h2>Sửa thông tin</h2>
+    <h2 class="p-4">Sửa thông tin</h2>
     <el-row :gutter="20">
-      <el-form :model="intern">
+      <el-form :model="intern" label-width="7rem">
         <el-col :span="12">
-          <el-form-item label="Code">
-            <el-input :disabled="true" v-model="intern.code"></el-input>
+          <el-form-item label="Mã sinh viên">
+            <el-input readonly v-model="intern.code"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="First Name">
+          <el-form-item label="Họ">
             <el-input v-model="intern.firstName"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="Last Name">
+          <el-form-item label="Tên">
             <el-input v-model="intern.lastName"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="Date Of Birth">
-            <el-input v-model="intern.dateOfBirth"></el-input>
+          <el-form-item label="Ngày sinh">
+            <el-date-picker v-model="intern.dateOfBirth"></el-date-picker>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="Join Date">
-            <el-input :disabled="true" v-model="intern.joinDate"></el-input>
+          <el-form-item label="Ngày tạo" v-if="false">
+            <el-date-picker :disabled="true" v-model="intern.joinDate">
+            </el-date-picker>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="Class Name">
+          <el-form-item label="Lớp">
             <el-input v-model="intern.className"></el-input>
           </el-form-item>
         </el-col>
@@ -44,17 +45,17 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="Phone">
+          <el-form-item label="Số điện thoại">
             <el-input v-model="intern.phone"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="Description">
+          <el-form-item label="Mô tả thêm">
             <el-input v-model="intern.description"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="Address">
+          <el-form-item label="Địa chỉ">
             <el-input v-model="intern.address"></el-input>
           </el-form-item>
         </el-col>

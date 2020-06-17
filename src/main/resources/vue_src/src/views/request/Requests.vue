@@ -5,6 +5,8 @@ import { Component, Vue } from 'vue-property-decorator';
 import { requestService } from '../../services/request.service';
 import DetailRequest from './detail/DetailRequest.vue';
 import { RequestModel } from '../../models';
+import { statusService } from '../../services/status.service';
+import { StatusModel } from '../../models/StatusModel';
 
 @Component({
   components: {
@@ -17,9 +19,18 @@ export default class Requests extends Vue {
   private isDetailRequestVisible: boolean = false;
   private idProp: any;
   private searchText: string = '';
+  private statuses: StatusModel[] = [];
   
   private created() {
     this.getAllRequests();
+  }
+
+  private getAllStatus() {
+    statusService
+    .getAllStatuss()
+    .then(res => {
+      this.statuses = res.data;
+    });
   }
 
   private search() {
@@ -30,7 +41,7 @@ export default class Requests extends Vue {
         this.listRequests = [];
         res.data.forEach((element: any) => {
           this.listRequests.push(new RequestModel(element));
-        });;
+        });
       })
       .catch(() => {
         alert("Xảy ra lỗi!");
@@ -48,8 +59,12 @@ export default class Requests extends Vue {
       .getAllRequests()
       .then((res: any) => {
         res.data.forEach((element: any) => {
+          if (element.assigned === element.amount) {
+            element.requestStatus = this.statuses[1];
+            element.status = 2;
+          }
           this.listRequests.push(new RequestModel(element));
-        });;
+        });
       })
       .catch(() => {
         alert("Xảy ra lỗi!");

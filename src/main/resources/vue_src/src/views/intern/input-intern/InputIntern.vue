@@ -56,6 +56,8 @@ export default class InputIntern extends Vue{
     internService.updateIntern(this.intern).then((res:any) => {
       alert("Update thành công!");
       localStorage.setItem('currentUserName', this.intern.firstName + ' ' + this.intern.lastName);
+      localStorage.setItem('avatar', this.intern.avatar ? this.intern.avatar : '');
+      this.$router.push('/about');
     }).catch(() => {
       alert("Loi!");
     }).finally(() => this.isLoading = false);

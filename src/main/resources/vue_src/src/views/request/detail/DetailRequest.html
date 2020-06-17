@@ -62,7 +62,7 @@
     </footer>
     </el-col>
     <el-col :span="12" class="text-right">
-      <el-button v-if="typeUser === '1' && countAssigned < requestModel.amount" type="primary" @click="openRegisterRequest">Đăng ký</el-button>
+      <el-button v-if="(typeUser === '1' && countAssigned < requestModel.amount) && !disableRegister" type="primary" @click="openRegisterRequest">Đăng ký</el-button>
       <el-button @click="closeWindow">Trở về</el-button>
     </el-col>
   </el-row>

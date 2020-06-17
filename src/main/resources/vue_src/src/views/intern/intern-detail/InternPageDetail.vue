@@ -21,7 +21,9 @@ export default class InternPageDetail extends Vue{
 
   private mounted() {
     this.getAllAbilities();
-    this.retrieveIntern(1);
+    if(this.$route.params.internId) {
+      this.retrieveIntern(this.$route.params.internId);
+    }
   }
 
   public retrieveIntern(internId: any) {
@@ -29,6 +31,8 @@ export default class InternPageDetail extends Vue{
     internService
       .getIntern(internId)
       .then((res: any) => {
+        res.data.joinDate = this.$moment.unix(res.data.joinDate).format("MM/DD/YYYY");
+        res.data.dateOfBirth = this.$moment.unix(res.data.dateOfBirth).format("MM/DD/YYYY");
         this.intern = res.data;
       })
       .catch(() => {

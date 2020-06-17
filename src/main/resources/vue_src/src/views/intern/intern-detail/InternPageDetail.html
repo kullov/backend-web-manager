@@ -1,100 +1,74 @@
 <div v-loading="isLoading" class="animated fadeIn page-container w3-container">
   <div v-if="intern">
-    <h2><span>Intern</span> {{intern.firstName}}</h2>
-    <el-row :gutter="20">
-      <el-form :model="intern">
-        <el-col :span="12">
-          <el-form-item label="Code">
-            <el-input v-model="intern.code"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="First Name">
-            <el-input v-model="intern.firstName"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="Last Name">
-            <el-input v-model="intern.lastName"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="Date Of Birth">
-            <el-input v-model="intern.dateOfBirth"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="Join Date">
-            <el-input v-model="intern.joinDate"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="Class Name">
-            <el-input v-model="intern.className"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="Avatar">
-            <el-input v-model="intern.avatar"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="Password">
-            <el-input v-model="intern.password"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="Email">
-            <el-input v-model="intern.email"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="Phone">
-            <el-input v-model="intern.phone"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="Description">
-            <el-input v-model="intern.description"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="Address">
-            <el-input v-model="intern.address"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="24">
-          <el-form-item prop="required" label="Yêu cầu thêm" class="form-group">
-            <!-- <el-select v-model="intern.internAbilities" class="w-100" multiple placeholder="">
-              <el-option 
-                v-for="abilityOption in listAbilities" 
-                :value="getSelected(intern.internAbilities, abilityOption)" 
-                :key="abilityOption.id">
-                {{abilityOption.name}}
-              </el-option>
-              
-              <el-option v-for="item in listAbilities" :key="item.id" :label="item.name" :value="item.id">
-              </el-option>
-            </el-select> -->
-              <select class="form-control" id="intern-internAbility" multiple name="internAbility" v-model="intern.internAbilities">
-                <option v-bind:value="getSelected(intern.internAbilities, abilityOption)" v-for="abilityOption in listAbilities" :key="abilityOption.id">{{abilityOption.name}}</option>
-            </select>
-          </el-form-item>
-        </el-col>
-        <!-- <el-col :span="12">
-          <el-form-item label="Organization Intern">
-            <div v-if="intern.organizationInternId">
-              <router-link :to="{name: 'OrganizationView', params: {organizationId: intern.organizationInternId}}">
-                {{intern.organizationInternId}}</router-link>
+    <!-- Header -->
+    <header class="pt-3" id="PROFILE">
+      <img src="https://www.w3schools.com/w3images/mountains.jpg" style="width:65px;" class="w3-circle w3-center w3-margin w3-hide-large w3-hover-opacity">
+      <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i class="fa fa-bars"></i></span>
+      <div class="w3-container">
+        <h4><b>PROFILE</b></h4>
+        <div class="w3-row-padding w3-padding">
+          <div class=" w3-half w3-container w3-section text-left" style="padding-left:50px;">
+            <p class="pb-3"><i class="fa fa-address-card w3-margin-right w3-large w3-text-teal"></i>Mã sinh viên: <b>{{intern.code}}</b></p>
+            <p class="pb-3"><i class="fa fa-birthday-cake w3-margin-right w3-large w3-text-teal"></i>Ngày sinh: <b>{{intern.dateOfBirth}}</b></p>
+            <p class="pb-3"><i class="fa fa-graduation-cap w3-margin-right w3-large w3-text-teal"></i>Lớp: <b>{{intern.className}}</b></p>
+            <p class="pb-3"><i class="fa fa-calendar-check-o w3-margin-right w3-large w3-text-teal"></i>Ngày tham gia: <b>{{intern.joinDate}}</b></p>
             </div>
-          </el-form-item>
-        </el-col> -->
-      </el-form>
-    </el-row>
-    <el-button @click.prevent="previousState()"> Trở về</el-button>
-    <el-button @click="updateIntern"> Sửa</el-button>
-    <!-- <router-link v-if="intern.id" :to="{name: 'InternEdit', params: {internId: intern.id}}" tag="button"
-      class="btn btn-primary">
-    </router-link> -->
+          <div class=" w3-half w3-container w3-section text-left" style="padding-left:100px;">
+            <p class="pb-3"><i class="fa fa-address-card w3-margin-right w3-large w3-text-teal"></i>Tên đầy đủ: <b>{{intern.firstName}} {{intern.lastName}}</b></p>
+            <p class="pb-3"><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>Địa chỉ: {{ intern.address ? intern.address : 'Quận Bắc Từ Liêm, Hà Nội'}}</p>
+            <p class="pb-3"><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>Email: <b>{{intern.email ? intern.email : ''}}</b></p>
+            <p class="pb-3"><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>Số điện thoại: <b>{{intern.phone ? intern.phone : ''}}</b></p>
+          </div>
+        </div>
+      </div>
+      <hr>
+    </header>
+    <div class="w3-container" style="margin-bottom:32px" id="about">
+      <h4><b>THÔNG TIN</b></h4>
+      <!-- First Photo Grid-->
+      <p class="w3-padding w3-center">{{intern.description ? intern.description : 'Năng động, hoạt bát'}}</p>
+      <div class="w3-padding w3-row-padding">
+        <div class="w3-half w3-container w3-margin-bottom">
+          <img src="https://static2.yan.vn/YanNews/2167221/201901/sinh-vien-y-duoc-tinh-nguyen-dem-mua-xuan-den-voi-lam-dong-46feb4c3.jpg" alt="Norway" style="width:100%;height:350px" class="w3-hover-opacity">
+          <div class="w3-container w3-white">
+            <p><b>Các hoạt động tham gia tình nguyện</b></p>
+            <p>Tích cực, năng nổ tham gia các hoạt động tình nguyện.</p>
+          </div>
+        </div>
+        <div class="w3-half w3-container w3-margin-bottom">
+          <img src="https://www.vnu.edu.vn/upload/2013/07/14802/image/Bia%201.JPG" alt="Norway" style="width:100%;height:350px" class="w3-hover-opacity">
+          <div class="w3-container w3-white">
+            <p><b>Các hoạt động tham gia tình nguyện</b></p>
+            <p>Tích cực, năng nổ tham gia các hoạt động tình nguyện.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div id="skill">
+        <h4><strong>KỸ NĂNG</strong></h4>
+        <!-- Progress bars / Skills -->
+        <div class='w3-padding'>
+          <p><i class='fa fa-star w3-margin-right w3-large'></i><i>Java</i></p>
+          <div style='background-color:#DFDFDF;'>
+            <div class='w3-container w3-teal w3-padding w3-center' style="width: 80%;"><i></i></div>
+          </div>
+        </div>
+        <hr>
+        <div class='w3-padding'>
+          <p><i class='fa fa-star w3-margin-right w3-large'></i><i>English</i></p>
+          <div style='background-color:#DFDFDF;'>
+            <div class='w3-container w3-teal w3-padding w3-center' style="width: 70%;"><i></i></div>
+          </div>
+        </div>
+        <hr>
+        <div class='w3-padding'>
+          <p><i class='fa fa-star w3-margin-right w3-large'></i><i>VueJS</i></p>
+          <div style='background-color:#DFDFDF;'>
+            <div class='w3-container w3-teal w3-padding w3-center' style="width: 80%;"><i></i></div>
+          </div>
+        </div>
+        <hr>
+      </div>
+    </div>
   </div>
 </div>

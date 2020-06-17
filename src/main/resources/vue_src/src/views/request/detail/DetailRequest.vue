@@ -23,6 +23,7 @@ import Register from '@/views/register/Register.vue';
 export default class DetailRequest extends Vue{
   @Prop() id!: any;
   private isLoading: boolean = false;
+  private disableRegister: boolean = false;
   private requestModel: RequestModel = new RequestModel();
   private isRegisterRequestVisible: boolean = false;
   private isViewInternRegisterVisible: boolean = false;
@@ -47,6 +48,11 @@ export default class DetailRequest extends Vue{
           this.requestModel = new RequestModel(res.data);
           if (this.requestModel.registerRequests) {
             this.listRegister = res.data.registerRequests;
+            this.listRegister.forEach((item: any) => {
+              if (item.internRegister.id === Number(localStorage.getItem('idCurrentUser'))) {
+                this.disableRegister = true;
+              }
+            });
             this.requestModel.registerRequests.forEach(element => {
             if (element.registerRequestStatus.id === 1) {
               this.countAssigned++;
@@ -87,7 +93,6 @@ export default class DetailRequest extends Vue{
   }
 
   private registerSubmit() {
-    console.log(this.formRegister);
     registerRequestService
       .createRegister(this.formRegister)
       .then((res: any) => {
