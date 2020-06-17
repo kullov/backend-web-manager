@@ -2,6 +2,11 @@ plugins {
 	id 'org.springframework.boot' version '2.2.6.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
+	id "com.heroku.sdk.heroku-gradle" version "1.0.4"
+}
+
+jar {
+	baseName = 'internproject'
 }
 task wrapper(type: Wrapper) { gradleVersion = '2.10' }
 task stage {
@@ -25,6 +30,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	classpath "gradle.plugin.com.heroku.sdk:heroku-gradle:1.0.4"
 
 	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools
 	compile "org.springframework.boot:spring-boot-devtools"
@@ -62,7 +69,7 @@ dependencies {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 }
-
+apply plugin: "com.heroku.sdk.heroku-gradle"
 test {
 	useJUnitPlatform()
 }
