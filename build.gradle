@@ -8,7 +8,6 @@ plugins {
 jar {
 	baseName = 'internproject'
 }
-task wrapper(type: Wrapper) { gradleVersion = '2.10' }
 task stage {
 	dependsOn build
 }
@@ -30,8 +29,6 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
-
-	classpath "gradle.plugin.com.heroku.sdk:heroku-gradle:1.0.4"
 
 	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools
 	compile "org.springframework.boot:spring-boot-devtools"
