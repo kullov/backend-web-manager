@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * REST controller for managing {@link com.example.internproject.domain.Ability}.
  */
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api")
 public class AbilityResource {

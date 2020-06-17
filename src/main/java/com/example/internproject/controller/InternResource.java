@@ -1,12 +1,5 @@
 package com.example.internproject.controller;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Optional;
-
-import com.example.internproject.domain.RegisterRequest;
-import com.example.internproject.domain.Request;
 import com.example.internproject.domain.Intern;
 import com.example.internproject.service.InternService;
 import io.github.jhipster.web.util.HeaderUtil;
@@ -17,9 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
+
 /**
  * REST controller for managing {@link com.example.internproject.domain.Intern}.
  */
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api")
 public class InternResource {

@@ -23,7 +23,9 @@ public class CorsConfiguration implements WebMvcConfigurer
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("https://intern-web-manager.herokuapp.com/");
+                registry.addMapping("/**")
+                  .allowedOrigins("https://internprojectweb.herokuapp.com")
+                  .allowedMethods("GET", "POST");;
             }
         };
     }

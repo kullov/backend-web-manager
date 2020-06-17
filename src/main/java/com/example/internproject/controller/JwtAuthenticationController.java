@@ -30,6 +30,7 @@ public class JwtAuthenticationController {
   @Autowired
   private JwtUserDetailsService userDetailsService;
 
+  @CrossOrigin(origins = "https://internprojectweb.herokuapp.com/")
   @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
   public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
     // Xác thực từ username và password.
