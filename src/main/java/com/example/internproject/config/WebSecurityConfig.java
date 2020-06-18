@@ -18,11 +18,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
-
-import java.util.Arrays;
 
 
 @Configuration
@@ -91,7 +88,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     	httpSecurity.cors();
         httpSecurity.csrf().disable()
                 // dont authenticate this particular request
-                .authorizeRequests().antMatchers("/authenticate", "/h2/**", "/login", "/", "/api/user/create").permitAll()
+                .authorizeRequests().antMatchers("/authenticate", "/h2/**", "/login", "/", "/api/user/create", "api/requests").permitAll()
                 // all other requests need to be authenticated
                         .anyRequest().authenticated().and().
                 // make sure we use stateless session; session won't be used to
