@@ -1,6 +1,7 @@
 export class TeacherModel {
   id?: number;
   name?: string;
+  code?: string;
   className?: string;
   contact?: number;
   password?: string;

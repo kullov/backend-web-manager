@@ -8,6 +8,14 @@ class RequestService extends Vue {
     return Vue.axios.get<any>(ROOT_API);
   }
 
+  public getAllRequestsByPosition(position: any): AxiosPromise<any[]> {
+    return Vue.axios.get<any>(ROOT_API + 'position/' + position);
+  }
+
+  public getAllRequestsByOrganization(id: any) {
+    return Vue.axios.get(ROOT_API + "organization/" + id);
+  }
+
   public createRequest(entity: RequestModel): AxiosPromise<RequestModel> {
     return Vue.axios.post<RequestModel>(ROOT_API, entity);
   }
@@ -16,7 +24,7 @@ class RequestService extends Vue {
     return Vue.axios.put(ROOT_API, entity);
   }
 
-  public getRequest(id: any): AxiosPromise<any[]> {
+  public getRequest(id: any): AxiosPromise<any> {
     return Vue.axios.get<any>(ROOT_API + id);
   }
 

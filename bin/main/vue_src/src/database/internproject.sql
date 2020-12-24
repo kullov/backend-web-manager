@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 04, 2020 at 09:02 AM
+-- Generation Time: Jun 15, 2020 at 03:06 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -36,23 +36,22 @@ CREATE TABLE IF NOT EXISTS `ability` (
   `type_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKg8d596496wa4jxiv2nr4ror1n` (`type_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `ability`
 --
 
 INSERT INTO `ability` (`id`, `name`, `description`, `type_id`) VALUES
-(1, 'Course', 'Jewelery', 5),
-(2, 'De-engineered didactic Cotton', 'deposit', NULL),
-(3, 'Auto Loan Account', 'programming HTTP Borders', NULL),
-(4, 'challenge', 'CSS unleash haptic', NULL),
-(5, 'Cambridgeshire', 'Chicken', NULL),
-(6, 'Zimbabwe', 'solution-oriented District Central', NULL),
-(7, 'deposit', 'application', NULL),
-(8, 'violet driver', 'Union', NULL),
+(3, 'Java', 'programming HTTP Borders', NULL),
+(4, 'PHP', 'CSS unleash haptic', NULL),
+(5, 'HTML', 'Chicken', NULL),
+(6, 'CSS', 'solution-oriented District Central', NULL),
+(7, 'English', 'application', NULL),
+(8, 'Node JS', 'Union', NULL),
 (9, 'interactive calculate', 'Dominican Republic Computers', NULL),
-(10, 'alliance maximize tan', 'Dam', NULL);
+(10, 'alliance maximize tan', 'Dam', NULL),
+(11, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -171,6 +170,24 @@ INSERT INTO `databasechangeloglock` (`ID`, `LOCKED`, `LOCKGRANTED`, `LOCKEDBY`) 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `hibernate_sequence`
+--
+
+DROP TABLE IF EXISTS `hibernate_sequence`;
+CREATE TABLE IF NOT EXISTS `hibernate_sequence` (
+  `next_val` bigint(20) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `hibernate_sequence`
+--
+
+INSERT INTO `hibernate_sequence` (`next_val`) VALUES
+(6);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `intern`
 --
 
@@ -180,8 +197,8 @@ CREATE TABLE IF NOT EXISTS `intern` (
   `code` int(11) DEFAULT NULL,
   `first_name` varchar(255) DEFAULT NULL,
   `last_name` varchar(255) DEFAULT NULL,
-  `date_of_birth` datetime,
-  `join_date` datetime,
+  `date_of_birth` datetime DEFAULT NULL,
+  `join_date` datetime DEFAULT NULL,
   `class_name` varchar(255) DEFAULT NULL,
   `avatar` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
@@ -192,14 +209,14 @@ CREATE TABLE IF NOT EXISTS `intern` (
   `organization_intern_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKq3lfjmnd7ng99wd1wo25d64o0` (`organization_intern_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `intern`
 --
 
 INSERT INTO `intern` (`id`, `code`, `first_name`, `last_name`, `date_of_birth`, `join_date`, `class_name`, `avatar`, `password`, `email`, `phone`, `description`, `address`, `organization_intern_id`) VALUES
-(1, 9022, 'Albina', 'Hessel', '2020-05-03 11:33:52', '2020-05-03 09:35:51', 'process improvement overriding Outdoors', 'XSS copying', 'back-end', 'Talia5@hotmail.com', 6440, 'bandwidth De-engineered', 'Cross-platform', NULL),
+(1, 9022, 'Albina', 'Hessel', '2020-05-03 11:33:52', '2020-05-03 09:35:51', 'process improvement overriding Outdoors', 'Nga', 'back-end', 'Talia5@hotmail.com', 6440, 'bandwidth De-engineered', 'Cross-platform', NULL),
 (2, 57808, 'Lucius', 'Williamson', '2020-05-03 07:14:34', '2020-05-03 02:19:31', 'Keyboard Saint Helena invoice', 'withdrawal Fresh', 'withdrawal markets array', 'Earline_Johns42@hotmail.com', 20278, 'RSS Direct', 'XSS Toys', NULL),
 (3, 20189, 'Viva', 'Sporer', '2020-05-03 23:53:20', '2020-05-03 02:03:11', 'Future-proofed Savings Account white', 'hacking', 'Balboa US Dollar', 'Jewel84@hotmail.com', 71202, 'Cayman Islands Dollar Bike', 'Sleek pixel payment', NULL),
 (4, 69835, 'Brennon', 'White', '2020-05-03 23:56:59', '2020-05-03 17:16:29', 'data-warehouse Ergonomic Wooden Bike communities', 'Kids Sausages', 'Grocery Small', 'Dax93@gmail.com', 92425, 'override', 'harness sensor', NULL),
@@ -208,7 +225,8 @@ INSERT INTO `intern` (`id`, `code`, `first_name`, `last_name`, `date_of_birth`, 
 (7, 91680, 'Maya', 'Jerde', '2020-05-03 03:00:48', '2020-05-03 01:06:24', 'HDD', 'Handmade Soft', 'Parkways Health Tugrik', 'Marlin_Kris@hotmail.com', 25653, 'Home matrix', 'portal Indian Rupee web-readiness', NULL),
 (8, 16048, 'Raleigh', 'Kuvalis', '2020-05-03 16:05:03', '2020-05-03 09:53:08', 'Silver Hat Designer', 'back-end', 'IB upward-trending calculate', 'Reanna.Rogahn93@yahoo.com', 98060, 'Profit-focused', 'Kids Granite transparent', NULL),
 (9, 12787, 'Ryann', 'Yost', '2020-05-03 08:53:16', '2020-05-03 11:37:48', 'composite New York Spur', 'USB', 'Organic quantify transform', 'Edwin_Gerhold25@yahoo.com', 5156, 'bluetooth', 'plum Rustic Granite Pizza Illinois', NULL),
-(10, 39146, 'Lyla', 'Robel', '2020-05-03 08:40:17', '2020-05-03 08:01:08', 'Future-proofed', 'cohesive', 'cutting-edge Gorgeous Rubber Shirt', 'Damien.Kuphal83@yahoo.com', 95134, 'Table Savings Account invoice', 'Turnpike green', NULL);
+(10, 39146, 'Lyla', 'Robel', '2020-05-03 08:40:17', '2020-05-03 08:01:08', 'Future-proofed', 'cohesive', 'cutting-edge Gorgeous Rubber Shirt', 'Damien.Kuphal83@yahoo.com', 95134, 'Table Savings Account invoice', 'Turnpike green', NULL),
+(11, 554161, 'Nga', 'Tran', NULL, NULL, NULL, NULL, '$2a$10$qbzVJ7AYUnFouI.9Iukj1ub4qFaqtcazOEl.6Gqm1LIME9rYCeF6K', 'intern', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -227,153 +245,6 @@ CREATE TABLE IF NOT EXISTS `intern_intern_ability` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jhi_authority`
---
-
-DROP TABLE IF EXISTS `jhi_authority`;
-CREATE TABLE IF NOT EXISTS `jhi_authority` (
-  `name` varchar(50) NOT NULL,
-  PRIMARY KEY (`name`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `jhi_authority`
---
-
-INSERT INTO `jhi_authority` (`name`) VALUES
-('ROLE_ADMIN'),
-('ROLE_USER');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `jhi_persistent_audit_event`
---
-
-DROP TABLE IF EXISTS `jhi_persistent_audit_event`;
-CREATE TABLE IF NOT EXISTS `jhi_persistent_audit_event` (
-  `event_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `principal` varchar(50) NOT NULL,
-  `event_date` timestamp NULL DEFAULT NULL,
-  `event_type` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`event_id`),
-  KEY `idx_persistent_audit_event` (`principal`,`event_date`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `jhi_persistent_audit_event`
---
-
-INSERT INTO `jhi_persistent_audit_event` (`event_id`, `principal`, `event_date`, `event_type`) VALUES
-(1, 'admin', '2020-05-04 01:06:46', 'AUTHENTICATION_SUCCESS');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `jhi_persistent_audit_evt_data`
---
-
-DROP TABLE IF EXISTS `jhi_persistent_audit_evt_data`;
-CREATE TABLE IF NOT EXISTS `jhi_persistent_audit_evt_data` (
-  `event_id` bigint(20) NOT NULL,
-  `name` varchar(150) NOT NULL,
-  `value` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`event_id`,`name`),
-  KEY `idx_persistent_audit_evt_data` (`event_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `jhi_persistent_audit_evt_data`
---
-
-INSERT INTO `jhi_persistent_audit_evt_data` (`event_id`, `name`, `value`) VALUES
-(1, 'remoteAddress', '127.0.0.1');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `jhi_persistent_token`
---
-
-DROP TABLE IF EXISTS `jhi_persistent_token`;
-CREATE TABLE IF NOT EXISTS `jhi_persistent_token` (
-  `series` varchar(20) NOT NULL,
-  `user_id` bigint(20) DEFAULT NULL,
-  `token_value` varchar(20) NOT NULL,
-  `token_date` date DEFAULT NULL,
-  `ip_address` varchar(39) DEFAULT NULL,
-  `user_agent` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`series`),
-  KEY `fk_user_persistent_token` (`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `jhi_user`
---
-
-DROP TABLE IF EXISTS `jhi_user`;
-CREATE TABLE IF NOT EXISTS `jhi_user` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `login` varchar(50) NOT NULL,
-  `password_hash` varchar(60) NOT NULL,
-  `first_name` varchar(50) DEFAULT NULL,
-  `last_name` varchar(50) DEFAULT NULL,
-  `email` varchar(191) DEFAULT NULL,
-  `image_url` varchar(256) DEFAULT NULL,
-  `activated` bit(1) NOT NULL,
-  `lang_key` varchar(10) DEFAULT NULL,
-  `activation_key` varchar(20) DEFAULT NULL,
-  `reset_key` varchar(20) DEFAULT NULL,
-  `created_by` varchar(50) NOT NULL,
-  `created_date` timestamp NULL,
-  `reset_date` timestamp NULL DEFAULT NULL,
-  `last_modified_by` varchar(50) DEFAULT NULL,
-  `last_modified_date` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `ux_user_login` (`login`),
-  UNIQUE KEY `ux_user_email` (`email`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `jhi_user`
---
-
-INSERT INTO `jhi_user` (`id`, `login`, `password_hash`, `first_name`, `last_name`, `email`, `image_url`, `activated`, `lang_key`, `activation_key`, `reset_key`, `created_by`, `created_date`, `reset_date`, `last_modified_by`, `last_modified_date`) VALUES
-(1, 'system', '$2a$10$mE.qmcV0mFU5NcKh73TZx.z4ueI/.bDWbj0T1BYyqP481kGGarKLG', 'System', 'System', 'system@localhost', '', b'1', 'en', NULL, NULL, 'system', NULL, NULL, 'system', NULL),
-(2, 'anonymoususer', '$2a$10$j8S5d7Sr7.8VTOYNviDPOeWX8KcYILUVJBsYV83Y5NtECayypx9lO', 'Anonymous', 'User', 'anonymous@localhost', '', b'1', 'en', NULL, NULL, 'system', NULL, NULL, 'system', NULL),
-(3, 'admin', '$2a$10$gSAhZrxMllrbgj/kkK9UceBPpChGWJA7SYIb1Mqo.n5aNLq1/oRrC', 'Administrator', 'Administrator', 'admin@localhost', '', b'1', 'en', NULL, NULL, 'system', NULL, NULL, 'system', NULL),
-(4, 'user', '$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K', 'User', 'User', 'user@localhost', '', b'1', 'en', NULL, NULL, 'system', NULL, NULL, 'system', NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `jhi_user_authority`
---
-
-DROP TABLE IF EXISTS `jhi_user_authority`;
-CREATE TABLE IF NOT EXISTS `jhi_user_authority` (
-  `user_id` bigint(20) NOT NULL,
-  `authority_name` varchar(50) NOT NULL,
-  PRIMARY KEY (`user_id`,`authority_name`),
-  KEY `fk_authority_name` (`authority_name`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `jhi_user_authority`
---
-
-INSERT INTO `jhi_user_authority` (`user_id`, `authority_name`) VALUES
-(1, 'ROLE_ADMIN'),
-(1, 'ROLE_USER'),
-(3, 'ROLE_ADMIN'),
-(3, 'ROLE_USER'),
-(4, 'ROLE_USER');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `organization`
 --
 
@@ -388,25 +259,27 @@ CREATE TABLE IF NOT EXISTS `organization` (
   `email` varchar(255) DEFAULT NULL,
   `contact` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL,
+  `address` text CHARACTER SET utf8mb4 DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `organization`
 --
 
 INSERT INTO `organization` (`id`, `employee_count`, `gross_revenue`, `name`, `tax_number`, `password`, `email`, `contact`, `description`, `address`) VALUES
-(1, 68833, 'maroon', 'frame', 'Towels infrastructure', 'orchid payment Ergonomic', 'Clifton_Bailey@hotmail.com', 'Small', 'wireless Belarussian Ruble', 'Global French Polynesia e-business'),
-(2, 55496, 'overriding Sri Lanka Rupee', 'SSL United States of America violet', 'withdrawal', 'global', 'Lowell_Von@gmail.com', 'Sleek Wooden Car Sharable', 'Creative', 'overriding cross-platform'),
-(3, 84247, 'Nauru open architecture Optimization', 'Sierra Leone intermediate', 'white 1080p', 'Multi-lateral', 'Katheryn24@yahoo.com', 'programming', 'capacitor Jamaican Dollar', 'optimize'),
-(4, 38219, 'deposit cross-platform', 'Canada Yemeni Rial Rustic', 'calculating Generic', 'redundant blue robust', 'Scot_Adams@gmail.com', 'parse quantifying bypass', '1080p', 'deposit plum'),
-(5, 52219, 'Grocery Fantastic Wooden Fish', 'North Carolina Vision-oriented Multi-channelled', 'Sri Lanka bypass', 'Manager', 'Zion_Sporer48@yahoo.com', 'Handcrafted Wooden Car Villages Program', 'Rustic Swedish Krona', 'Generic Frozen Pizza'),
-(6, 16448, 'hack Wells Florida', 'National parsing', 'Beauty', 'Metrics', 'Forrest_Herman@hotmail.com', 'ivory interface olive', 'Supervisor', 'Idaho Concrete'),
-(7, 75607, 'Guarani high-level', 'impactful', 'hierarchy deposit Auto Loan Account', 'frame Representative leading edge', 'Bria.Marks@hotmail.com', 'Yemen Oklahoma', 'Distributed quantifying User-friendly', 'Fresh pink green'),
-(8, 84270, 'Tools contextually-based JBOD', 'portals online', 'Incredible Steel Shirt', 'Moldovan Leu optical', 'Allene33@hotmail.com', 'array Rubber', 'Response', 'Buckinghamshire'),
-(9, 87625, 'Brand Regional Future', 'compressing Phased mindshare', 'deposit cross-media Metal', 'payment Credit Card Account Awesome', 'Marcelino.Torphy20@gmail.com', 'bus', 'payment model', 'CSS sensor SCSI'),
-(10, 59642, 'interface maximized', 'Rue payment quantifying', 'Incredible', 'sky blue Integration', 'Kevon86@yahoo.com', 'alarm hacking methodical', 'SAS Senior', 'archive');
+(1, 688, 'Newwave Solutions', 'Newwave Solutions', 'Towels infrastructure', 'orchid payment Ergonomic', 'Clifton_Bailey@hotmail.com', 'Small', 'wireless Belarussian Ruble', 'Tầng 4, tòa nhà Mitec, Dương Đình Nghệ, Hà Nội'),
+(2, 55, 'FPT Sofware', 'FPT Sofware', 'withdrawal', 'global', 'Lowell_Von@gmail.com', 'Sleek Wooden Car Sharable', 'Creative', '17 Phố Duy Tân, Dịch Vọng Hậu, Cầu giấy, Hà Nội'),
+(3, 110, 'VNPT', 'VNPT', 'white 1080p', 'Multi-lateral', 'Katheryn24@yahoo.com', 'programming', 'capacitor Jamaican Dollar', '641 (36 cũ, Phạm Văn Đồng, Cổ Nhuế, Từ Liêm, Hà Nội'),
+(4, 382, 'deposit cross-platform', 'Canada Yemeni Rial Rustic', 'calculating Generic', 'redundant blue robust', 'Scot_Adams@gmail.com', 'parse quantifying bypass', '1080p', 'deposit plum'),
+(5, 522, 'Grocery Fantastic Wooden Fish', 'North Carolina Vision-oriented Multi-channelled', 'Sri Lanka bypass', 'Manager', 'Zion_Sporer48@yahoo.com', 'Handcrafted Wooden Car Villages Program', 'Rustic Swedish Krona', 'Generic Frozen Pizza'),
+(6, 164, 'hack Wells Florida', 'National parsing', 'Beauty', 'Metrics', 'Forrest_Herman@hotmail.com', 'ivory interface olive', 'Supervisor', 'Idaho Concrete'),
+(7, 756, 'Guarani high-level', 'impactful', 'hierarchy deposit Auto Loan Account', 'frame Representative leading edge', 'Bria.Marks@hotmail.com', 'Yemen Oklahoma', 'Distributed quantifying User-friendly', 'Fresh pink green'),
+(8, 842, 'Tools contextually-based JBOD', 'portals online', 'Incredible Steel Shirt', 'Moldovan Leu optical', 'Allene33@hotmail.com', 'array Rubber', 'Response', 'Buckinghamshire'),
+(9, 8762, 'Brand Regional Future', 'compressing Phased mindshare', 'deposit cross-media Metal', 'payment Credit Card Account Awesome', 'Marcelino.Torphy20@gmail.com', 'bus', 'payment model', 'CSS sensor SCSI'),
+(10, 596, 'interface maximized', 'Rue payment quantifying', 'Incredible', 'sky blue Integration', 'Kevon86@yahoo.com', 'alarm hacking methodical', 'SAS Senior', 'archive'),
+(11, NULL, NULL, NULL, 'eLiHYI', '$2a$10$P4NLSija1kxK7WqMSTEUPuWPZP3JJJzIZHRbScqmyoyz/29gZvufy', 'comany@gmail.com', NULL, NULL, NULL),
+(12, NULL, NULL, NULL, 'RTweJ7', '$2a$10$2b7c56cl4vXWnZK7zlWzrO1nQn8SmmjHrhtPIekov44yp4cWe5Tni', 'comany@gmail.com', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -417,31 +290,28 @@ INSERT INTO `organization` (`id`, `employee_count`, `gross_revenue`, `name`, `ta
 DROP TABLE IF EXISTS `register_request`;
 CREATE TABLE IF NOT EXISTS `register_request` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `date_created` datetime,
-  `start_date` datetime,
-  `end_date` datetime,
+  `date_created` datetime DEFAULT NULL,
+  `start_date` datetime DEFAULT NULL,
+  `end_date` datetime DEFAULT NULL,
   `intern_register_id` bigint(20) DEFAULT NULL,
   `request_register_id` bigint(20) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `request_status_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK2agnitn0e83xvyxwhy93sxlgi` (`intern_register_id`),
-  KEY `FKqmiygfc08vfl7mnbxpl1vqmds` (`request_register_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+  KEY `FKqmiygfc08vfl7mnbxpl1vqmds` (`request_register_id`),
+  KEY `FKp42ukdey0ko912dlkxju3wy70` (`request_status_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `register_request`
 --
 
-INSERT INTO `register_request` (`id`, `date_created`, `start_date`, `end_date`, `intern_register_id`, `request_register_id`) VALUES
-(1, '2020-05-03 10:51:00', '2020-05-03 20:33:00', '2020-05-03 08:32:00', 2, 4),
-(2, '2020-05-03 18:47:19', '2020-05-04 00:35:22', '2020-05-03 15:45:29', NULL, NULL),
-(3, '2020-05-03 13:08:27', '2020-05-03 23:48:44', '2020-05-04 00:24:06', NULL, NULL),
-(4, '2020-05-03 19:42:20', '2020-05-03 12:21:46', '2020-05-03 23:10:10', NULL, NULL),
-(5, '2020-05-03 06:38:06', '2020-05-03 14:25:43', '2020-05-03 21:51:08', NULL, NULL),
-(6, '2020-05-03 06:13:07', '2020-05-03 18:43:26', '2020-05-03 13:38:41', NULL, NULL),
-(7, '2020-05-03 01:11:44', '2020-05-03 22:14:19', '2020-05-03 17:22:41', NULL, NULL),
-(8, '2020-05-03 23:20:29', '2020-05-03 10:16:42', '2020-05-03 09:18:35', NULL, NULL),
-(9, '2020-05-03 01:08:41', '2020-05-03 12:37:45', '2020-05-03 16:21:51', NULL, NULL),
-(10, '2020-05-03 04:07:16', '2020-05-03 10:20:15', '2020-05-03 20:46:23', NULL, NULL);
+INSERT INTO `register_request` (`id`, `date_created`, `start_date`, `end_date`, `intern_register_id`, `request_register_id`, `status`, `request_status_id`) VALUES
+(1, '2020-06-14 17:00:09', '2020-06-09 17:00:00', '2020-09-29 17:00:00', 1, 4, NULL, 1),
+(11, '2020-06-14 17:00:49', '2020-05-31 17:00:00', '2020-07-30 17:00:00', 1, 2, NULL, 1),
+(12, '2020-06-14 17:01:07', '2020-05-31 17:00:00', '2020-08-30 17:00:00', 1, 1, NULL, 3),
+(13, '2020-06-14 17:01:49', '2020-05-31 17:00:00', '2020-07-30 17:00:00', 1, 12, NULL, 3);
 
 -- --------------------------------------------------------
 
@@ -454,7 +324,7 @@ CREATE TABLE IF NOT EXISTS `request` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `position` varchar(255) DEFAULT NULL,
   `amount` int(11) DEFAULT NULL,
-  `date_created` datetime,
+  `date_created` datetime DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `type` varchar(255) DEFAULT NULL,
@@ -463,60 +333,23 @@ CREATE TABLE IF NOT EXISTS `request` (
   PRIMARY KEY (`id`),
   KEY `FKe1bb9i0t07irwwerrmxftv4na` (`organization_request_id`),
   KEY `FKaogp8mhbxmbjse7m6ud6yrec2` (`request_status_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `request`
 --
 
 INSERT INTO `request` (`id`, `position`, `amount`, `date_created`, `status`, `description`, `type`, `request_status_id`, `organization_request_id`) VALUES
-(1, 'Rustic Frozen Shirt', 88688, '2020-05-03 23:22:15', 1610, '24/365', 'Tasty Steel Soap quantifying District', NULL, NULL),
-(2, 'orange', 18483, '2020-05-03 17:56:31', 61033, 'solid state Lakes', 'vortals', NULL, NULL),
-(3, 'system engine', 33721, '2020-05-03 06:37:29', 22694, 'interactive', 'Garden Arkansas Architect', NULL, NULL),
-(4, 'uniform Investor Pine', 73054, '2020-05-03 04:42:40', 45765, 'Kids', 'Group', NULL, NULL),
-(5, 'Wyoming International Internal', 60383, '2020-05-03 21:56:43', 15718, 'Mississippi efficient', 'morph', NULL, NULL),
-(6, 'transparent Cambridgeshire Incredible', 15106, '2020-05-03 22:03:12', 77659, 'bypass', 'digital engage', NULL, NULL),
-(7, 'ADP Unbranded Steel Bike', 60894, '2020-05-03 13:32:50', 82206, 'Agent', 'Underpass Ohio', NULL, NULL),
-(8, 'Assurance Producer cross-platform', 67235, '2020-05-04 00:02:43', 80482, 'capacitor compress', 'system', NULL, NULL),
-(9, 'Tunnel Azerbaijanian Manat Washington', 13753, '2020-05-03 16:57:42', 48811, 'RSS', 'Directives TCP', NULL, NULL),
-(10, 'redundant Licensed Plastic Table Crossroad', 94644, '2020-05-03 05:03:32', 77652, 'Principal red', 'Car Computer neural', NULL, NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `request_assignment`
---
-
-DROP TABLE IF EXISTS `request_assignment`;
-CREATE TABLE IF NOT EXISTS `request_assignment` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `start_date` datetime,
-  `end_date` datetime,
-  `date_created` datetime,
-  `status_id` bigint(20) DEFAULT NULL,
-  `intern_request_assignment_id` bigint(20) DEFAULT NULL,
-  `organization_request_assignment_id` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FKhwmoknlkn26mi5vfytaiv13gj` (`intern_request_assignment_id`),
-  KEY `FKkdqexm1o5uvc514gtig3shlik` (`organization_request_assignment_id`),
-  KEY `FK6lqs0csrno2j8qj0pboumij6s` (`status_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `request_assignment`
---
-
-INSERT INTO `request_assignment` (`id`, `start_date`, `end_date`, `date_created`, `status_id`, `intern_request_assignment_id`, `organization_request_assignment_id`) VALUES
-(1, '2020-05-03 01:03:20', '2020-05-03 12:14:53', '2020-05-03 08:43:36', NULL, NULL, NULL),
-(2, '2020-05-03 19:32:18', '2020-05-03 15:36:51', '2020-05-03 18:14:06', NULL, NULL, NULL),
-(3, '2020-05-03 12:55:37', '2020-05-03 11:35:33', '2020-05-03 12:33:42', NULL, NULL, NULL),
-(4, '2020-05-03 03:15:55', '2020-05-03 01:22:39', '2020-05-03 07:31:45', NULL, NULL, NULL),
-(5, '2020-05-03 06:25:53', '2020-05-04 00:48:24', '2020-05-03 03:23:45', NULL, NULL, NULL),
-(6, '2020-05-03 20:57:21', '2020-05-03 18:31:03', '2020-05-03 01:59:43', NULL, NULL, NULL),
-(7, '2020-05-03 09:47:00', '2020-05-03 17:31:54', '2020-05-03 13:20:57', NULL, NULL, NULL),
-(8, '2020-05-03 16:06:18', '2020-05-03 12:12:30', '2020-05-03 08:17:09', NULL, NULL, NULL),
-(9, '2020-05-04 00:16:13', '2020-05-03 04:11:50', '2020-05-04 00:20:29', NULL, NULL, NULL),
-(10, '2020-05-03 03:04:09', '2020-05-03 13:10:43', '2020-05-03 19:02:24', NULL, NULL, NULL);
+(1, 'Java Spring Boot', 8, '2020-05-03 23:22:15', 1, '24/365', 'Tasty Steel Soap quantifying District', NULL, 1),
+(2, 'PHP', 10, '2020-05-03 17:56:31', 6, 'solid state Lakes', 'vortals', NULL, 1),
+(3, 'Node JS', 3, '2020-05-03 06:37:29', 2, 'interactive', 'Garden Arkansas Architect', NULL, 2),
+(4, 'Frontend VueJS', 5, '2020-05-03 04:42:40', 4, 'Kids', 'Group', NULL, 2),
+(9, 'Tunnel Azerbaijanian Manat Washington', 13753, '2020-05-03 16:57:42', 4, 'RSS', 'Directives TCP', NULL, 9),
+(11, 'php', 4, '2020-05-03 16:57:42', 1, 'ddd', 'fulltime', NULL, NULL),
+(12, 'nodeJS', 1, '2020-05-03 16:57:42', 1, '232323232323', 'fulltime', NULL, NULL),
+(13, 'Front end', 5, '2020-05-03 16:57:42', 1, 'ddd', 'fulltime', NULL, NULL),
+(14, 'fff', 5, '2020-05-03 16:57:42', 1, 'f', 'fulltime', NULL, NULL),
+(15, 'Backend', 6, '2020-05-03 16:57:42', 5, '123456', 'partime', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -550,16 +383,64 @@ CREATE TABLE IF NOT EXISTS `status` (
 --
 
 INSERT INTO `status` (`id`, `name`) VALUES
-(1, 'Tennessee TCP indigo'),
-(2, 'Rustic Rubber Car Steel'),
-(3, 'Generic SMS withdrawal'),
-(4, 'pixel'),
-(5, 'Soap'),
-(6, 'Gorgeous Granite Hat system-worthy Synchronised'),
-(7, 'Sri Lanka Agent'),
-(8, 'firmware Intranet AI'),
-(9, 'bus'),
-(10, 'Handmade Checking Account');
+(1, 'ACTIVE'),
+(2, 'EXPIRED'),
+(3, 'PENDING'),
+(4, 'DOING');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_role`
+--
+
+DROP TABLE IF EXISTS `tbl_role`;
+CREATE TABLE IF NOT EXISTS `tbl_role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `role_name` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_role`
+--
+
+INSERT INTO `tbl_role` (`id`, `role_name`) VALUES
+(1, 'INTERN'),
+(2, 'ORGANIZATION'),
+(3, 'TEACHER'),
+(4, 'USER'),
+(5, 'ADMIN');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_user`
+--
+
+DROP TABLE IF EXISTS `tbl_user`;
+CREATE TABLE IF NOT EXISTS `tbl_user` (
+  `id` bigint(20) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `type_user` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `type_user_id` bigint(20) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_nd3esfcj63fbhresv6jy8x6il` (`password`),
+  UNIQUE KEY `UK_k0bty7tbcye41jpxam88q5kj2` (`username`),
+  UNIQUE KEY `UK_85c4qrnqobh9j8g1ervs6sq7b` (`type_user_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_user`
+--
+
+INSERT INTO `tbl_user` (`id`, `password`, `username`, `type_user`, `email`, `type_user_id`) VALUES
+(2, '3', 'organization', NULL, NULL, 3),
+(3, '$2a$10$oZlR5RWqrcrE3dcO1sSmcO/JFXMsL56tHlOqDvZVp8NHSwCD0H2ja', 'company', '2', NULL, 2),
+(4, '$2a$10$KTUGfKnWD7WgrdxjYlYMHu0X9SQJFDofzigWewNBiCfU5iFpt/ija', 'teacher', '3', NULL, 1),
+(5, '$2a$10$qbzVJ7AYUnFouI.9Iukj1ub4qFaqtcazOEl.6Gqm1LIME9rYCeF6K', 'intern', '1', NULL, 11);
 
 -- --------------------------------------------------------
 
@@ -570,30 +451,59 @@ INSERT INTO `status` (`id`, `name`) VALUES
 DROP TABLE IF EXISTS `teacher`;
 CREATE TABLE IF NOT EXISTS `teacher` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 DEFAULT NULL,
   `class_name` varchar(255) DEFAULT NULL,
   `contact` int(11) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
+  `code` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `teacher`
 --
 
-INSERT INTO `teacher` (`id`, `name`, `class_name`, `contact`, `password`, `email`, `address`) VALUES
-(1, 'Sleek Buckinghamshire', 'Buckinghamshire Legacy', 9436, 'Incredible', 'Coby71@gmail.com', 'neural'),
-(2, 'Refined Fresh Chicken', 'Security gold', 44160, 'invoice Computers', 'Clara.Waters2@gmail.com', 'invoice Pizza'),
-(3, 'e-business', 'Cotton Bhutan convergence', 28686, 'Auto Loan Account', 'Brennan43@gmail.com', 'Research'),
-(4, 'Branding Garden Multi-channelled', 'Soap Granite', 33018, 'models Indian Rupee Ngultrum', 'Stuart_Jones30@gmail.com', 'Plaza invoice'),
-(5, 'firmware Sleek', 'Run Cheese AGP', 67441, 'Executive', 'Hector_Keebler55@yahoo.com', 'multi-byte'),
-(6, 'Fresh', 'Radial Automotive', 46610, 'Isle Digitized Union', 'Carroll_Rath96@gmail.com', 'Monaco Saint Martin'),
-(7, 'Tasty', 'Bedfordshire primary architectures', 25123, 'withdrawal', 'Delbert_Kohler22@hotmail.com', 'recontextualize'),
-(8, 'array', 'Oregon', 47498, 'Personal Loan Account Future', 'Janelle_Hermiston4@hotmail.com', 'auxiliary'),
-(9, 'Soap radical', 'Martinique', 13274, 'Infrastructure', 'Joanie_Doyle66@yahoo.com', 'Missouri Nebraska'),
-(10, 'deposit', 'payment Savings Account compress', 50522, 'Macao Equatorial Guinea Baby', 'Lottie70@gmail.com', 'web-readiness support Rustic Metal Salad');
+INSERT INTO `teacher` (`id`, `name`, `class_name`, `contact`, `password`, `email`, `address`, `code`) VALUES
+(1, 'Lan Nguyễn', 'Buckinghamshire Legacy', 9436, 'Incredible', 'Coby71@gmail.com', 'neural', NULL),
+(2, 'Refined Fresh Chicken', 'Security gold', 44160, 'invoice Computers', 'Clara.Waters2@gmail.com', 'invoice Pizza', NULL),
+(3, 'e-business', 'Cotton Bhutan convergence', 28686, 'Auto Loan Account', 'Brennan43@gmail.com', 'Research', NULL),
+(4, 'nga', 'nga', NULL, NULL, 'nga', NULL, NULL),
+(5, 'firmware Sleek', 'Run Cheese AGP', 67441, 'Executive', 'Hector_Keebler55@yahoo.com', 'multi-byte', NULL),
+(6, 'Fresh', 'Radial Automotive', 46610, 'Isle Digitized Union', 'Carroll_Rath96@gmail.com', 'Monaco Saint Martin', NULL),
+(7, 'Tasty', 'Bedfordshire primary architectures', 25123, 'withdrawal', 'Delbert_Kohler22@hotmail.com', 'recontextualize', NULL),
+(8, 'array', 'Oregon', 47498, 'Personal Loan Account Future', 'Janelle_Hermiston4@hotmail.com', 'auxiliary', NULL),
+(9, 'Soap radical', 'Martinique', 13274, 'Infrastructure', 'Joanie_Doyle66@yahoo.com', 'Missouri Nebraska', NULL),
+(10, 'deposit', 'payment Savings Account compress', 50522, 'Macao Equatorial Guinea Baby', 'Lottie70@gmail.com', 'web-readiness support Rustic Metal Salad', NULL),
+(11, NULL, NULL, NULL, '$2a$10$xqrNG2lXzW8MrSIx.YJqpO8nCMf1Y34f6PUq4tQvLmgEGOsNVg2QS', 'teacher@gmail.com', NULL, 'YVO4w5'),
+(12, NULL, NULL, NULL, '$2a$10$KTUGfKnWD7WgrdxjYlYMHu0X9SQJFDofzigWewNBiCfU5iFpt/ija', 'teacher@gmail.com', NULL, 'w8qXnx');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_roles`
+--
+
+DROP TABLE IF EXISTS `user_roles`;
+CREATE TABLE IF NOT EXISTS `user_roles` (
+  `user_id` bigint(20) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`role_id`),
+  KEY `FKlk065bxeqkbi8kq8acaarsmp2` (`role_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user_roles`
+--
+
+INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES
+(1, 1),
+(2, 2),
+(4, 1),
+(4, 2),
+(4, 3),
+(5, 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

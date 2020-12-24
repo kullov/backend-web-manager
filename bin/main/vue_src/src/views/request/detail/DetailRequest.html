@@ -1,17 +1,19 @@
 <div v-loading="isLoading">
   <perfect-scrollbar>
     <div id="about" class="w3-container">
+      <h2 class="text-center"><strong>VỊ TRÍ: {{ requestModel.position }}</strong></h2>
+      <h5 class="text-center"><strong>Công ty: {{ requestModel.organizationRequest ? requestModel.organizationRequest.name : '' }}</strong></h5>
       <h4><strong>THÔNG TIN</strong></h4>
       <div class="w3-row w3-large">
         <div class="w3-col s6" style="padding-left: 50px;">
           <p><i class="fa fa-fw fa-male"></i> Chúng tôi cần: <b>{{ requestModel.amount }}</b> người</p>
-          <p><i class="fa fa-fw fa-check-square"></i> Số lượng đã đăng ký: {{ requestModel.register }}</p>
+          <p><i class="fa fa-fw fa-check-square"></i> Số lượng đã đăng ký: {{ requestModel.registerRequests.length }} <el-button @click="isViewInternRegisterVisible = true"><i>Xem</i></el-button></p>
           <p><i class="fa fa-fw fa-clock-o"></i> Check In: 8:30 AM</p>
           <p><i class="fas fa-map-marker-alt"></i> Địa điểm làm việc: 334 Nguyễn Trãi, Thanh Xuân, Hà Nội</p>
         </div>
         <div class="w3-col s6" style="padding-left: 100px;">
           <p><i class="fa fa-fw fa-check"></i> Trạng thái: Còn hiệu lực</p>
-          <p><i class="fas fa-check-double"></i> Đã được phân công: {{ requestModel.assignment }}</p>
+          <p><i class="fas fa-check-double"></i> Đã được phân công: {{ countAssigned }}</p>
           <p><i class="fa fa-fw fa-clock-o"></i> Check Out: 5:30 PM</p>
           <p><i class="fas fa-calendar-alt"></i> Hình thức làm việc: {{ requestModel.type }}</p>
         </div>
@@ -56,11 +58,46 @@
   <el-row>
     <el-col :span="12" class="text-left">
       Powered by 
-      <a href="./" title="Origen" target="_blank" class="w3-hover-text-green">Origen</a>
+      <a href="./" title="NgaTT" target="_blank" class="w3-hover-text-green">NgaTT</a>
     </footer>
     </el-col>
     <el-col :span="12" class="text-right">
+      <el-button v-if="(typeUser === '1' && countAssigned < requestModel.amount) && !disableRegister" type="primary" @click="openRegisterRequest">Đăng ký</el-button>
       <el-button @click="closeWindow">Trở về</el-button>
     </el-col>
   </el-row>
+  <!-- Dialog -->
+  <b-modal
+    title="Đăng ký thực tập"
+    no-fade v-model="isRegisterRequestVisible"
+    :no-close-on-backdrop="true"
+    :hide-footer="true"
+    modal-class="detail-modal"
+    center
+    size="lg"
+    >
+    <InputRegister v-if="isRegisterRequestVisible" :requestModel="requestModel" :internId="internId" @close="finishScreen"></InputRegister>
+  </b-modal>
+  <b-modal
+    title="Danh sách các phiếu đã đăng ký"
+    no-fade v-model="isViewInternRegisterVisible"
+    :no-close-on-backdrop="true"
+    :hide-footer="true"
+    modal-class="detail-modal"
+    center
+    size="lg"
+    >
+    <Register v-if="isViewInternRegisterVisible" :listRegister="listRegister" @close="finishScreenInternRegister"></Register>
+  </b-modal>
+  <b-modal
+    title="Đăng ký thực tập"
+    no-fade v-model="isRegisterRequestVisible"
+    :no-close-on-backdrop="true"
+    :hide-footer="true"
+    modal-class="detail-modal"
+    center
+    size="lg"
+    >
+    <InputRegister v-if="isRegisterRequestVisible" :requestModel="requestModel" :internId="internId" @close="finishScreen"></InputRegister>
+  </b-modal>
 </div>

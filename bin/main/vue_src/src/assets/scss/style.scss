@@ -7,7 +7,7 @@
   
   .el-tabs__content {
     flex: 1;
-    background-color: #f1f1f1;
+    background-color: white;
     .el-tab-pane {
       height: 100%;
       display: flex;
@@ -58,28 +58,19 @@
   text-align: center !important;
 }
 .right-content {
-  background-color: #f1f1f1;
   height: 100%;
-  margin-left: 317px;
-  width: fit-content;
-}
-
-.left-content {
-  background-color: white;
-  height: 100%;
-  position: fixed;
-  top: 60px;
-  left: 0px;
-  z-index: 5555;
-  min-width: 16.5rem;
+  width: 80%;
+  margin-left: 21%;
 }
 
 @import "dialog";
 // .page-container {
 //   max-height: 907px;
 // }
+// Import atomic style
+@import "atomic";
 .page-container {
-  background-color: #f1f1f1;
+  background-color: white;
 }
 .el-menu-demo .el-menu-item {
   float: left;
