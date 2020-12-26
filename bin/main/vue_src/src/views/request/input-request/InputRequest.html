@@ -1,0 +1,106 @@
+<!-- !PAGE CONTENT! -->
+<div class="w3-main">
+
+  <el-form :rules="rules" 
+    ref="ruleForm" 
+    :model="createForm" 
+    label-width="150px" 
+    class="demo-ruleForm"
+    :hide-required-asterisk="false">
+    <div id="about" class="w3-container">
+      <h4 class="mt-3"><strong>THÔNG TIN</strong></h4>
+      <div class="w3-row-padding">
+      </div>
+      <div class="w3-row-padding">
+        <div class="w3-half w3-padding">
+          <label><i class="fa fa-fw fa-male"></i> Số lượng cần tuyển:</label>
+          <p><el-input type="number" name="amount" v-model="createForm.amount" :min="0" :max="100" placeholder="" required></el-input></p>
+        </div>
+        <div class="w3-half w3-padding">
+          <label><i class="far fa-dot-circle"></i> Vị trí tuyển dụng:</label>
+          <p><el-input type="text" placeholder="" name="position" v-model="createForm.position" required></el-input></p>
+        </div>
+      </div>
+      <div class="w3-row-padding">
+        <div class="w3-half w3-padding">
+          <label><i class="fas fa-check-square"></i> Trạng thái:</label>
+          <el-select name="status" v-model="createForm.status" placeholder="" required>
+            <el-option value="" disabled selected>Chọn trạng thái</el-option>
+            <el-option v-for="item in statuses" :key="item.id" :label="item.name" :value="item.id">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="w3-half w3-padding">
+          <label><i class="fa fa-star-half-full"></i> Hình thức làm việc:</label>
+          <p>
+            <el-radio-group v-model="createForm.type" @change="isDisabledTimeWorkFunc()" class="form-radio-item">
+              <el-radio label="fulltime" border>Fulltime</el-radio>
+              <el-radio label="partime" border>Partime</el-radio>
+            </el-radio-group>
+          </p>
+        </div>
+      </div>
+      <div class="w3-row-padding">
+        <div class="w3-half w3-padding">
+          <label><i class="fas fa-map-marker-alt"></i> Địa chỉ làm việc:</label>
+          <p><el-input v-model="address" type="text" disabled placeholder=""></el-input></p>
+        </div>
+        <div class="w3-half w3-padding">
+          <label><i class="fa fa-fw fa-clock-o"></i> Thời gian làm việc:</label>
+          <el-select :disabled="isDisabledTimeWork" v-model="createForm.time" placeholder="">
+            <el-option value></el-option>
+            <el-option value="morning" label="Ca sáng [8:30~12:00]"></el-option>
+            <el-option value="noon" label="Ca Chiều [13:00~17:30]"></el-option>
+          </el-select>
+        </div>
+      </div>
+      <div class="w3-row-padding">
+        <div class="w3-half w3-padding">
+          <label><i class="far fa-dot-circle"></i> Ảnh đại diện:</label>
+          <p><el-input type="text" placeholder="" name="avatar" v-model="createForm.avatar" required></el-input></p>
+        </div>
+      </div>
+      <hr>
+      
+      <h4><strong>Các kỹ năng yêu cầu</strong></h4>
+      <div class="w3-row-padding">
+        <div class="w3-padding">
+          <el-select v-model="createForm.required" multiple placeholder="">
+            <el-option v-for="item in listAbilities" :key="item.id" :label="item.name" :value="item.id">
+            </el-option>
+          </el-select>  
+        </div>
+      </div>
+    </div>
+    <hr>
+    
+    <p class="w3-center">
+      <el-button type="submit" class="w3-button w3-teal" @click="submit()">Tạo mới</el-button>
+      <el-button type="reset" class="w3-button w3-dark-grey">Làm lại</el-button>
+    </p>
+  </el-form>
+  <!-- Contact Section -->
+  <div id="contact" class="w3-container w3-padding-large w3-grey">
+    <br>
+    <br>
+    <h3><b>LIÊN HỆ</b></h3>
+    <div class="w3-row-padding w3-center w3-padding-24" style="margin:0 -16px">
+      <div class="w3-third w3-dark-grey">
+        <p><i class="fa fa-envelope w3-xxlarge w3-text-light-grey"></i></p>
+        <p>ttnga912@gmail.com</p>
+      </div>
+      <div class="w3-third w3-teal">
+        <p><i class="fa fa-map-marker w3-xxlarge w3-text-light-grey"></i></p>
+        <p>334 Nguyễn Trãi, Thanh Xuân, Hà Nội</p>
+      </div>
+      <div class="w3-third w3-dark-grey">
+        <p><i class="fa fa-phone w3-xxlarge w3-text-light-grey"></i></p>
+        <p>0964951802</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="w3-black w3-center w3-padding-24">Powered by <a href="./" title="NgaTT" target="_blank" class="w3-hover-opacity">NgaTT</a></div>
+
+<!-- End page content -->
+</div>

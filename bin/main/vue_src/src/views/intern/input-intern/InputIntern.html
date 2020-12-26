@@ -1,0 +1,85 @@
+<div v-loading="isLoading" class="animated fadeIn page-container w3-container">
+  <div v-if="intern">
+    <h2 class="p-4">Sửa thông tin</h2>
+    <el-row :gutter="20">
+      <el-form :model="intern" label-width="7rem">
+        <el-col :span="12">
+          <el-form-item label="Mã sinh viên">
+            <el-input readonly v-model="intern.code"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="Họ">
+            <el-input v-model="intern.firstName"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="Tên">
+            <el-input v-model="intern.lastName"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="Ngày sinh">
+            <el-date-picker v-model="intern.dateOfBirth"></el-date-picker>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="Ngày tạo" v-if="false">
+            <el-date-picker :disabled="true" v-model="intern.joinDate">
+            </el-date-picker>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="Lớp">
+            <el-input v-model="intern.className"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="Avatar">
+            <el-input v-model="intern.avatar"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="Email">
+            <el-input v-model="intern.email"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="Số điện thoại">
+            <el-input v-model="intern.phone"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="Mô tả thêm">
+            <el-input v-model="intern.description"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="Địa chỉ">
+            <el-input v-model="intern.address"></el-input>
+          </el-form-item>
+        </el-col>
+        <!-- <el-col :span="24">
+          <el-form-item prop="required" label="Yêu cầu thêm" class="form-group">
+              <select class="form-control" id="intern-internAbility" multiple name="internAbility" v-model="intern.internAbilities">
+                <option v-bind:value="getSelected(intern.internAbilities, abilityOption)" v-for="abilityOption in listAbilities" :key="abilityOption.id">{{abilityOption.name}}</option>
+            </select>
+          </el-form-item>
+        </el-col> -->
+        <!-- <el-col :span="12">
+          <el-form-item label="Organization Intern">
+            <div v-if="intern.organizationInternId">
+              <router-link :to="{name: 'OrganizationView', params: {organizationId: intern.organizationInternId}}">
+                {{intern.organizationInternId}}</router-link>
+            </div>
+          </el-form-item>
+        </el-col> -->
+      </el-form>
+    </el-row>
+    <el-button @click.prevent="previousState()"> Trở về</el-button>
+    <el-button @click="updateIntern"> Sửa</el-button>
+    <!-- <router-link v-if="intern.id" :to="{name: 'InternEdit', params: {internId: intern.id}}" tag="button"
+      class="btn btn-primary">
+    </router-link> -->
+  </div>
+</div>

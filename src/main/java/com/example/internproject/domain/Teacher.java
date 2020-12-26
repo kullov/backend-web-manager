@@ -125,7 +125,15 @@ public class Teacher implements Serializable {
         return this;
     }
 
-    public void setAddress(String address) {
+    public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public void setAddress(String address) {
         this.address = address;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove

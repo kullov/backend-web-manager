@@ -1,0 +1,40 @@
+
+<div v-loading="isLoading" class="animated fadeIn page-container w3-container">
+  <div>
+    <h2>Cập nhật thông tin</h2>
+    <el-row :gutter="20">
+      <el-form :model="model">
+        <el-col :span="12">
+          <el-form-item label="Tên">
+            <el-input v-model="model.name"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col v-if="typeUser === '3'" :span="12">
+          <el-form-item label="Class Name">
+            <el-input v-model="model.className"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="Email">
+            <el-input v-model="model.email"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="Phone">
+            <el-input v-model="model.phone"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item v-if="typeUser === '2'" label="Address">
+            <el-input v-model="model.address"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-form>
+    </el-row>
+    <!-- <el-button @click.prevent="previousState()"> Trở về</el-button> -->
+    <el-button @click="update"> Sửa</el-button>
+    <!-- <router-link v-if="model.id" :to="{name: 'InternEdit', params: {internId: model.id}}" tag="button"
+      class="btn btn-primary">
+    </router-link> -->
+  </div>
+</div>
